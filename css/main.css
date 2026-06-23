@@ -1,0 +1,96 @@
+@import "theme.css";
+@import "./sections/header.css";
+@import "./sections/about-me.css";
+@import "./sections/skills.css";
+@import "./sections/projects.css";
+@import "./sections/footer.css";
+@import "./animations.css";
+
+* {
+  box-sizing: border-box; /* padding và border ko làm thay đổi kích thước phần tử */
+}
+
+:root {
+  font-size: var(--p-font-size);
+  line-height: var(--p-line-height);
+  letter-spacing: var(--p-letter-spacing);
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 400; /* độ đậm chữ bình thường */
+  font-style: normal; /* kiểu chữ bình thường */
+  scroll-behavior: smooth;
+}
+
+/* ===== Engineering Background Pattern ===== */
+
+body {
+  background-color: #ffffff;
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  /* Kích thước pattern */
+  --s: 70px;
+
+  /* Màu xanh rất nhạt */
+  --c1: #bfdbfe;
+  --c2: #dbeafe;
+  --c3: #ffffff;
+
+  background:
+    repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--c3) 0 180deg)
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--c1) 0 60deg,
+      var(--c2) 0 120deg,
+      var(--c3) 0 180deg
+    );
+
+  background-size: var(--s) calc(var(--s) * 0.577);
+
+  opacity: 0.06;
+}
+
+a {
+  text-decoration: none; /* xóa các gạch chân mặc định của link */
+}
+
+section {
+  margin-top: 120px;
+  margin-bottom: 120px;
+}
+
+.container {
+  margin: 0 auto; /* 0px trên dưới và auto trái phải */
+  max-width: 1536px; /* giá trị mặc định của container */
+  padding: 0 2rem; /* 0px trên dưới và 2rem trái phải */
+}
+
+.section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* đc tái sử dụng trong các phần sau nên để ở đây */
+.section__title {
+  font-size: var(--h1-font-size);
+  line-height: var(--h1-line-height);
+  font-weight: bold; /* in đậm chữ */
+  color: var(--p-950);
+  text-transform: capitalize; /* viết hoa những chữ đầu dòng */
+}
+
+.section__description {
+  text-align: center;
+  max-width: 65ch; /* chiều rộng tối đa 65 kí tự */
+  color: var(--n-500);
+}

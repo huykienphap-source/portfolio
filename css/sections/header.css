@@ -1,0 +1,82 @@
+header {
+  margin-top: 40px; /* nội dung ko bị sát vào mép trên */
+}
+
+.header__container {
+  display: flex; /* 2 cột trên cùng 1 hàng */
+  gap: 40px; /* tạo khoảng cách giữa 2 cột trái phải */
+
+  & p {
+    color: var(--n-600);
+  }
+
+  & span {
+    color: var(--p-950);
+    font-weight: 600;
+  }
+}
+
+.header__title {
+  font-size: var(--h2-font-size);
+  line-height: var(--h2-line-height);
+  font-weight: 600;
+}
+
+.header__column--left {
+  /* chứa avatar */
+  display: flex;
+  flex: 1; /* mở rộng chiếm hết không gian */
+  gap: 24px;
+  align-items: center;
+
+  & .header__content--left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  & .header__badge_container {
+    display: flex;
+    gap: 6px;
+    text-align: center;
+  }
+
+  & .badge {
+    font-size: var(--caption-font-size);
+    line-height: var(--caption-line-height);
+    color: var(--p-950);
+    padding: 4px 12px; /* 4 trên dưới 12 trái phải */
+    background-color: var(--p-50);
+    border-radius: 4px; /* để bo góc của cái khung hay cái badge */
+    /* line clamp - giới hạn số dòng cho phép hiển thị */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+}
+
+.header__column--right {
+  display: flex;
+  flex: 1;
+  flex-direction: column; /* xếp đều theo chiều dọc */
+  align-items: end; /* canh phải tất cả phần tử */
+  gap: 8px; /* cách nhau 8px */
+}
+
+.header__img {
+  width: 160px;
+  height: 160px;
+  background-image: url("../../assets/avatar.jpg");
+  background-position: center; /* canh giữa nền theo cả ngang và dọc */
+  background-size: cover; /* phóng to vừa đủ để phủ kín khung */
+  flex-shrink: 0; /* làm cho phần tử ko bị thu hẹp khi trong flex container */
+  border-radius: 100px; /* làm vuông thành tròn */
+  box-shadow: /* làm tạo bóng cho đẹp */
+    inset 0px -1px 1px hsla(0, 0%, 100%, 0.5),
+    /* bóng bên trong */ 0 4px 6px -1px hsla(0, 0%, 0%, 0.2),
+    /* bóng bên ngoài */ 0 2px 4px -2px hsla(0, 0%, 0%, 0.2),
+    /* bóng bên ngoài mờ hơn */ inset 0px 1px 3px hsla(0, 0%, 0%, 0.1)
+      /* bóng đen nhạt làm rõ độ sâu bên trong */;
+}

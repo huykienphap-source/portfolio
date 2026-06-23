@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projet_Portfolio</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <link rel="icon" href="./assets/logo_web_final.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!---------------
+      Header
+    ---------------->
+    <header>
+      <div class="container header__container">
+        <!-- left column -->
+        <div class="header__column--left">
+          <!-- avatar -->
+          <div class="header__img"></div>
+
+          <div class="header__content--left">
+            <h2 class="header__title">HUY KIEN</h2>
+            <div class="header__badge_container">
+              <div class="badge">🎓Étudiant EEA</div>
+              <div class="badge">💼Stage pour L3</div>
+            </div>
+            <p>
+              Je recherche un
+              <span>stage en Électronique et Automatique</span> afin de
+              développer mes compétences techniques et contribuer à des projets
+              concrets.
+            </p>
+          </div>
+        </div>
+
+        <!-- right column -->
+        <div class="header__column--right">
+          <h2 class="header__title">Coordonnées</h2>
+          <p>
+            Écrivez-moi à :
+            <span>huykienphap@gmail.com</span>
+          </p>
+          <p>
+            Appelez-moi au :
+            <span>(+33)614427892</span>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!----------------------------------
+      About Me - Giới thiệu bản thân
+    ----------------------------------->
+    <section class="aboutMe__section">
+      <!-- Hình động 2 bên -->
+      <img src="./assets/circuit-icon.svg" alt="circuit icon" />
+
+      <img src="./assets/tech-icon.svg" alt="tech icon" />
+
+      <!-- Nội dung chính -->
+      <div class="aboutMe__container">
+        <div class="aboutMe__content_container">
+          <h1 class="section__title">À propos de moi</h1>
+
+          <p class="section__description">
+            Bonjour! Je suis un étudiant en licence EEA de Sorbonne Université.
+            Je m'intéresse particulièrement à l'électronique, aux systèmes
+            embarqués et à l'automatisation. Curieux et motivé, je cherche à
+            développer mes compétences techniques à travers des projets concrets
+            et des expériences professionnelles en stage.
+          </p>
+
+          <div class="CTA">
+            <a
+              href="./assets/CV_FR_KIEN Le Dang Huy.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="primaryButton"
+              download
+              >Télécharger mon CV</a
+            >
+
+            <a href="#ProjectContainer" class="outlineButton"
+              >Voir mes projets</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!----------------------------------
+      Skills - Kỹ năng
+    ----------------------------------->
+    <section class="skills__section">
+      <div class="container skills__container">
+        <!--2 class đc tạo là container và skills__container-->
+        <!-- header -->
+        <div class="section__header">
+          <h1 class="section__title">Qualités & Compétences techniques</h1>
+
+          <p class="section__description">
+            Étant un étudiant en troisième année de licence EEA à Sorbonne
+            Université, je développe des compétences en électronique analogique
+            et numérique, systèmes embarqués et automatisation. Mes formations
+            et projets m'ont permis d'acquérir une expérience pratique en
+            conception de circuits, programmation en C et Python, ainsi qu'en
+            modélisation et simulation avec MATLAB/Simulink.
+          </p>
+        </div>
+
+        <!-- grid -->
+        <div class="skills__grid_container">
+          <!-- grid item 1 -->
+          <div class="skills__grid_item"></div>
+          <!-- grid item 2 -->
+          <div class="skills__grid_item">
+            <div class="skills__grid_item_header">
+              <div>
+                <img src="./assets/check-icon.svg" alt="check-icon" />
+                <h2>Logiciels & Outils</h2>
+              </div>
+
+              <p>
+                Maîtrise des outils de programmation, de simulation et de
+                conception utilisés en électronique et automatisation. Leur
+                utilisation régulière a renforcé mes compétences en
+                développement, modélisation et résolution de problèmes
+                techniques.
+              </p>
+            </div>
+
+            <!-- skill logos -->
+            <div>
+              <!-- list 1 -->
+              <div class="icons-list-wrapper">
+                <div class="icons-list">
+                  <div class="icon-badges">
+                    <img src="./assets/icons/C.svg" alt="C icon" />
+                    <span>C</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/java.svg" alt="java icon" />
+                    <span>Java</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/python.svg" alt="python icon" />
+                    <span>Python</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/matlab.svg" alt="matlab icon" />
+                    <span>MATLAB</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/visual-studio-code.svg"
+                      alt="VS code icon"
+                    />
+                    <span>VS Code</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/pycharm.svg" alt="pycharm icon" />
+                    <span>Pycharm</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/digital_elec.svg"
+                      alt="digital_elec icon"
+                    />
+                    <span>Numérique</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/sensor.svg" alt="sensor icon" />
+                    <span>Capteurs</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/automation.svg"
+                      alt="automation icon"
+                    />
+                    <span>Automatique</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/tinkercad.svg"
+                      alt="tinkercad icon"
+                    />
+                    <span>Tinkercad</span>
+                  </div>
+                </div>
+
+                <div class="icons-list">
+                  <div class="icon-badges">
+                    <img src="./assets/icons/C.svg" alt="C icon" />
+                    <span>C</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/java.svg" alt="java icon" />
+                    <span>Java</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/python.svg" alt="python icon" />
+                    <span>Python</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/matlab.svg" alt="matlab icon" />
+                    <span>MATLAB</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/visual-studio-code.svg"
+                      alt="VS code icon"
+                    />
+                    <span>VS Code</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/pycharm.svg" alt="pycharm icon" />
+                    <span>Pycharm</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/digital_elec.svg"
+                      alt="digital_elec icon"
+                    />
+                    <span>Numérique</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/sensor.svg" alt="sensor icon" />
+                    <span>Capteurs</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/automation.svg"
+                      alt="automation icon"
+                    />
+                    <span>Automatique</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/tinkercad.svg"
+                      alt="tinkercad icon"
+                    />
+                    <span>Tinkercad</span>
+                  </div>
+                </div>
+              </div>
+              <!-- list 2 -->
+              <div class="icons-list-wrapper">
+                <div class="icons-list">
+                  <div class="icon-badges">
+                    <img src="./assets/icons/C.svg" alt="C icon" />
+                    <span>C</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/java.svg" alt="java icon" />
+                    <span>Java</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/python.svg" alt="python icon" />
+                    <span>Python</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/matlab.svg" alt="matlab icon" />
+                    <span>MATLAB</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/visual-studio-code.svg"
+                      alt="VS code icon"
+                    />
+                    <span>VS Code</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/pycharm.svg" alt="pycharm icon" />
+                    <span>Pycharm</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/digital_elec.svg"
+                      alt="digital_elec icon"
+                    />
+                    <span>Numérique</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/sensor.svg" alt="sensor icon" />
+                    <span>Capteurs</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/automation.svg"
+                      alt="automation icon"
+                    />
+                    <span>Automatique</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/tinkercad.svg"
+                      alt="tinkercad icon"
+                    />
+                    <span>Tinkercad</span>
+                  </div>
+                </div>
+
+                <div class="icons-list">
+                  <div class="icon-badges">
+                    <img src="./assets/icons/C.svg" alt="C icon" />
+                    <span>C</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/java.svg" alt="java icon" />
+                    <span>Java</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/python.svg" alt="python icon" />
+                    <span>Python</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/matlab.svg" alt="matlab icon" />
+                    <span>MATLAB</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/visual-studio-code.svg"
+                      alt="VS code icon"
+                    />
+                    <span>VS Code</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/pycharm.svg" alt="pycharm icon" />
+                    <span>Pycharm</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/digital_elec.svg"
+                      alt="digital_elec icon"
+                    />
+                    <span>Numérique</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img src="./assets/icons/sensor.svg" alt="sensor icon" />
+                    <span>Capteurs</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/automation.svg"
+                      alt="automation icon"
+                    />
+                    <span>Automatique</span>
+                  </div>
+
+                  <div class="icon-badges">
+                    <img
+                      src="./assets/icons/tinkercad.svg"
+                      alt="tinkercad icon"
+                    />
+                    <span>Tinkercad</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- grid item 3 -->
+          <div class="skills__grid_item">
+            <div class="skills__grid_item_header">
+              <div>
+                <img src="./assets/check-icon.svg" alt="check icon" />
+                <h2>Qualités</h2>
+              </div>
+              <p>
+                Mon approche repose sur la rigueur, l'analyse et l'amélioration
+                continue. Face à un problème technique, je cherche à comprendre
+                son origine, à proposer des solutions adaptées et à collaborer
+                avec les autres pour atteindre un objectif commun.
+              </p>
+            </div>
+
+            <div class="softSkills__container">
+              <div class="softSkills_badge">
+                <p>Autonomie et adaptabilité</p>
+              </div>
+
+              <div class="softSkills_badge">
+                <p>Travail en équipe</p>
+              </div>
+
+              <div class="softSkills_badge">
+                <p>Communication technique</p>
+              </div>
+
+              <div class="softSkills_badge">
+                <p>Rigueur</p>
+              </div>
+
+              <div class="softSkills_badge">
+                <p>Esprit analytique</p>
+              </div>
+
+              <div class="softSkills_badge">
+                <p>Résolution de problèmes</p>
+              </div>
+
+              <div class="softSkills__book_icons">
+                <img src="./assets/closed-book.svg" alt="closed book icon" />
+                <img src="./assets/closed-book.svg" alt="closed book icon" />
+                <img src="./assets/closed-book.svg" alt="closed book icon" />
+                <img src="./assets/closed-book.svg" alt="closed book icon" />
+                <img src="./assets/closed-book.svg" alt="closed book icon" />
+                <img src="./assets/closed-book.svg" alt="closed book icon" />
+              </div>
+            </div>
+          </div>
+
+          <!-- grid item 4 -->
+          <div class="skills__grid_item"></div>
+        </div>
+      </div>
+    </section>
+
+    <!----------------------------------
+      Projects - Dự án
+    ----------------------------------->
+    <section class="projects__section" id="ProjectContainer">
+      <div class="container projects_container">
+        <!-- header -->
+        <div class="section__header">
+          <h1 class="section__title">Mes projets</h1>
+          <p class="section__description">
+            Ces projets illustrent mes compétences en électronique numérique,
+            programmation et conception de systèmes. Ils m'ont permis de
+            développer une approche méthodique de l'analyse, de la conception et
+            de la résolution de problèmes techniques.
+          </p>
+        </div>
+        <!-- cards -->
+        <div class="projects__cards_container">
+          <a
+            href="https://github.com/huykienphap-source/portfolio.git"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="projects_cards">
+              <div class="projects__cards_wrapper">
+                <img
+                  src="./assets/project1.jpg"
+                  alt="project1"
+                  class="projects__cards_img"
+                />
+              </div>
+
+              <div class="projects__cards_titles">
+                <h4>Projet 1</h4>
+                <h3>(Tên dự án)</h3>
+              </div>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/huykienphap-source/portfolio.git"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="projects_cards">
+              <div class="projects__cards_wrapper">
+                <img
+                  src="./assets/project2.jpg"
+                  alt="project2"
+                  class="projects__cards_img"
+                />
+              </div>
+
+              <div class="projects__cards_titles">
+                <h4>Projet 2</h4>
+                <h3>(Tên dự án)</h3>
+              </div>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/huykienphap-source/portfolio.git"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="projects_cards">
+              <div class="projects__cards_wrapper">
+                <img
+                  src="./assets/project3.jpg"
+                  alt="project3"
+                  class="projects__cards_img"
+                />
+              </div>
+
+              <div class="projects__cards_titles">
+                <h4>Projet 3</h4>
+                <h3>(Tên dự án)</h3>
+              </div>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/huykienphap-source/portfolio.git"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="projects_cards">
+              <div class="projects__cards_wrapper">
+                <img
+                  src="./assets/project4.jpg"
+                  alt="project4"
+                  class="projects__cards_img"
+                />
+              </div>
+
+              <div class="projects__cards_titles">
+                <h4>Projet 4</h4>
+                <h3>(Tên dự án)</h3>
+              </div>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/huykienphap-source/portfolio.git"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="projects_cards">
+              <div class="projects__cards_wrapper">
+                <img
+                  src="./assets/project5.jpg"
+                  alt="project5"
+                  class="projects__cards_img"
+                />
+              </div>
+
+              <div class="projects__cards_titles">
+                <h4>Projet 5</h4>
+                <h3>(Tên dự án)</h3>
+              </div>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/huykienphap-source/portfolio.git"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="projects_cards">
+              <div class="projects__cards_wrapper">
+                <img
+                  src="./assets/project6.jpg"
+                  alt="project6"
+                  class="projects__cards_img"
+                />
+              </div>
+
+              <div class="projects__cards_titles">
+                <h4>Projet 6</h4>
+                <h3>(Tên dự án)</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!----------------------------------
+      Footer
+    ----------------------------------->
+    <footer>
+      <div class="container">
+        <p>© Portfolio de KIEN Le Dang Huy</p>
+      </div>
+    </footer>
+  </body>
+</html>
