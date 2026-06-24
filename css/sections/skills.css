@@ -202,7 +202,7 @@
 
         &:nth-child(2) {
           top: 36%;
-          left: 43%;
+          left: 31%;
           transform: rotate(120deg);
         }
 
@@ -226,7 +226,7 @@
 
         &:nth-child(6) {
           top: 75%;
-          right: 43%;
+          right: 30%;
           transform: scaleX(-1) rotate(20deg);
         }
       }
