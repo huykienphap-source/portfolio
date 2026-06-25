@@ -5,6 +5,7 @@
 @import "./sections/projects.css";
 @import "./sections/footer.css";
 @import "./animations.css";
+@import "./sections/contact.css";
 
 * {
   box-sizing: border-box; /* padding và border ko làm thay đổi kích thước phần tử */
@@ -18,6 +19,18 @@
   font-weight: 400; /* độ đậm chữ bình thường */
   font-style: normal; /* kiểu chữ bình thường */
   scroll-behavior: smooth;
+}
+
+input,
+textarea {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: var(--p-font-size);
+  color: var(--p-950);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--p-950);
 }
 
 /* ===== Engineering Background Pattern ===== */
@@ -93,4 +106,15 @@ section {
   text-align: center;
   max-width: 65ch; /* chiều rộng tối đa 65 kí tự */
   color: var(--n-500);
+}
+
+#ContactContainer {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.12),
+    rgba(59, 130, 246, 0.08)
+  );
+
+  border-radius: 16px;
+  padding: 48px 32px;
 }

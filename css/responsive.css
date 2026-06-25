@@ -68,6 +68,13 @@
     text-align: center;
     align-items: center;
   }
+
+  /** CONTACT **/
+  .contact__section {
+    & img {
+      display: none;
+    }
+  }
 }
 
 /* **********************
@@ -98,6 +105,40 @@
       grid-column: span 1 !important;
       grid-row: span 1 !important;
     }
+  }
+
+  /** CONTACT **/
+  .contact-content {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .contact-info,
+  .contact-form {
+    width: 100%;
+  }
+
+  .form-control {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  textarea.form-control {
+    min-height: 120px;
+  }
+
+  .contact__section {
+    & img {
+      display: none;
+    }
+  }
+
+  .form-wrapper {
+    display: block;
+  }
+
+  .contact-svg {
+    display: none;
   }
 }
 

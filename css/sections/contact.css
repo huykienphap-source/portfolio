@@ -1,0 +1,104 @@
+.mt-8 {
+  margin-top: 8px !important;
+}
+
+.mt-16 {
+  margin-top: 16px !important;
+}
+
+.row {
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.row::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.col {
+  float: left;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.col-half {
+  width: 50%;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.contact-content {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 48px;
+}
+
+.contact-info {
+  font-size: 18px;
+  line-height: 1.5;
+  padding-left: 40px;
+
+  & p {
+    color: var(--p-950);
+    font-weight: 600;
+  }
+
+  & a {
+    color: var(--p-500);
+    font-weight: 600;
+  }
+}
+
+.contact-form {
+  font-size: 15px;
+}
+
+.form-control {
+  padding: 10px;
+  background-color: var(--p-50);
+  border: 1px solid var(--p-950);
+  border-radius: 4px;
+  width: 100%;
+}
+
+.form-submit-btn {
+  background-color: var(--p-600);
+  color: white;
+  border: 1px solid var(--p-600);
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  float: right;
+
+  &:hover {
+    /* rê chuột vào thì đổi background color */
+    background-color: var(--p-700);
+    box-shadow:
+      0 4px 8px hsla(var(--p-900-code), 0.2),
+      0 2px 4px hsla(var(--p-900-code), 0.3),
+      0 1px 2px hsla(var(--p-900-code), 0.5);
+  }
+}
+
+.contact-content {
+  position: relative;
+}
+
+.form-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.contact-svg {
+  width: 170px;
+  height: auto;
+  flex-shrink: 0;
+}

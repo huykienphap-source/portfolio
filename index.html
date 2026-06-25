@@ -76,11 +76,12 @@
           <h1 class="section__title">À propos de moi</h1>
 
           <p class="section__description">
-            Bonjour! Je suis un étudiant en licence EEA de Sorbonne Université.
-            Je m'intéresse particulièrement à l'électronique, aux systèmes
-            embarqués et à l'automatisation. Curieux et motivé, je cherche à
-            développer mes compétences techniques à travers des projets concrets
-            et des expériences professionnelles en stage.
+            Bonjour! Je m'appelle KIEN Le Dang Huy et je suis un étudiant en
+            licence EEA de Sorbonne Université. Je m'intéresse particulièrement
+            à l'électronique, aux systèmes embarqués et à l'automatisation.
+            Curieux et motivé, je cherche à développer mes compétences
+            techniques à travers des projets concrets et des expériences
+            professionnelles en stage.
           </p>
 
           <div class="CTA">
@@ -96,6 +97,14 @@
             <a href="#ProjectContainer" class="outlineButton"
               >Voir mes projets</a
             >
+
+            <a href="#WorkContainer" class="outlineButton">Voir mon parcours</a>
+
+            <a href="#SkillsContainer" class="outlineButton"
+              >Voir mes compétences</a
+            >
+
+            <a href="#ContactContainer" class="primaryButton">Me contacter</a>
           </div>
         </div>
       </div>
@@ -104,7 +113,7 @@
     <!----------------------------------
       Skills - Kỹ năng
     ----------------------------------->
-    <section class="skills__section">
+    <section class="skills__section" id="SkillsContainer">
       <div class="container skills__container">
         <!--2 class đc tạo là container và skills__container-->
         <!-- header -->
@@ -605,6 +614,78 @@
               </div>
             </div>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <!----------------------------------
+      Contact - Liên hệ
+    ----------------------------------->
+    <section class="contact__section" id="ContactContainer">
+      <div class="section__header">
+        <h2 class="section__title">Coordonnées</h2>
+        <p class="section__description">Envoyez-moi quelques messages ici!</p>
+      </div>
+
+      <div class="row contact-content">
+        <div class="col col-half contact-info">
+          <p>📍 Choisy Le Roi, Paris, France</p>
+          <p>📞 (+33)614427892</p>
+          <p>📧 huykienphap@gmail.com</p>
+          <a
+            href="https://www.linkedin.com/in/le-dang-huy-kien-136833334/"
+            target="_blank"
+            >👔 LinkedIn</a
+          >
+        </div>
+
+        <div class="col col-half contact-form">
+          <div class="form-wrapper">
+            <form action="https://formspree.io/f/xnjkpodb" method="post">
+              <div class="row">
+                <div class="col col-half">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Nom Prénom"
+                    required
+                    id=""
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col col-half">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                    id=""
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="row mt-8">
+                <div class="col col-full">
+                  <textarea
+                    name="message"
+                    placeholder="Message"
+                    required
+                    id=""
+                    class="form-control"
+                  ></textarea>
+                </div>
+              </div>
+
+              <input
+                class="form-submit-btn mt-16"
+                type="submit"
+                value="ENVOYER"
+              />
+            </form>
+
+            <img src="./assets/idea.svg" alt="idea icon" class="contact-svg" />
+          </div>
         </div>
       </div>
     </section>
