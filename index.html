@@ -100,6 +100,10 @@
 
             <a href="#WorkContainer" class="outlineButton">Voir mon parcours</a>
 
+            <a href="#CertificationContainer" class="outlineButton"
+              >Voir mes certifications</a
+            >
+
             <a href="#SkillsContainer" class="outlineButton"
               >Voir mes compétences</a
             >
@@ -641,7 +645,11 @@
 
         <div class="col col-half contact-form">
           <div class="form-wrapper">
-            <form action="https://formspree.io/f/xnjkpodb" method="post">
+            <form
+              action="https://formspree.io/f/xnjkpodb"
+              method="post"
+              id="contact-form"
+            >
               <div class="row">
                 <div class="col col-half">
                   <input
@@ -676,12 +684,17 @@
                   ></textarea>
                 </div>
               </div>
+              <div class="submit-wrapper">
+                <div id="success-message" class="success-message">
+                  ✔ Message envoyé avec succès ! Merci 😊
+                </div>
 
-              <input
-                class="form-submit-btn mt-16"
-                type="submit"
-                value="ENVOYER"
-              />
+                <input
+                  class="form-submit-btn mt-16"
+                  type="submit"
+                  value="ENVOYER"
+                />
+              </div>
             </form>
 
             <img src="./assets/idea.svg" alt="idea icon" class="contact-svg" />
@@ -698,5 +711,6 @@
         <p>© Portfolio de KIEN Le Dang Huy</p>
       </div>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>

@@ -137,6 +137,17 @@
     display: block;
   }
 
+  .submit-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .success-message {
+    white-space: normal;
+  }
+
   .contact-svg {
     display: none;
   }
