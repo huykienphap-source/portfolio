@@ -204,11 +204,12 @@
 
 /* Thanh cuộn taskbar chìm */
 .card-back-right::-webkit-scrollbar {
-  width: 4px;
+  width: 2.5px;
+  height: 3px;
 }
 .card-back-right::-webkit-scrollbar-track {
   background: transparent;
-  margin: 12px 0;
+  margin: 16px 0;
 }
 .card-back-right::-webkit-scrollbar-thumb {
   background: var(--p-100, #d1d5db);
@@ -327,7 +328,7 @@
 
 .content-box:hover .card-front,
 .content-box:hover .card-back {
-  border-color: #2563eb; 
+  border-color: #2563eb;
   box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
 }
 
