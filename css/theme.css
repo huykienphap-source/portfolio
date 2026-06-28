@@ -147,6 +147,7 @@ table {
   --p-300: hsl(219, 91%, 82%);
   --p-400: hsl(224, 86%, 74%);
   --p-450: hsl(198, 81%, 63%);
+  --p-450-code: 198, 81%, 63%;
   --p-500: hsl(228, 81%, 63%);
   --p-500-code: 228, 81%, 63%;
   --p-600: hsl(233, 73%, 59%);
@@ -168,6 +169,12 @@ table {
   /* Gradients */
   --main-gradient-color: linear-gradient(to right, var(--p-450), var(--p-500));
   --gradient-color: linear-gradient(var(--foreground-color) 10%, var(--p-100));
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--p-450),
+    var(--p-500),
+    var(--p-700)
+  );
 
   /*================================= 
         FONTS -  Sử dụng Scale 1.125

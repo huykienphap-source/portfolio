@@ -6,6 +6,7 @@
 @import "./sections/footer.css";
 @import "./animations.css";
 @import "./sections/contact.css";
+@import "./sections/experience.css";
 
 * {
   box-sizing: border-box; /* padding và border ko làm thay đổi kích thước phần tử */

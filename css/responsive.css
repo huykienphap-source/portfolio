@@ -151,6 +151,86 @@
   .contact-svg {
     display: none;
   }
+
+  /** EXPERIENCE/WORK **/
+  /* 1. Thu nhỏ padding tổng của khu vực */
+  .work__section {
+    padding: 2rem 0;
+  }
+
+  /* 2. Ép khoảng cách bao ngoài thu hẹp lại, chừa chỗ cho card bung rộng */
+  .timeline-wrapper {
+    padding: 1rem 4% 1rem 1.5rem; /* Giảm padding tối đa để card không bị bóp nghẹt */
+  }
+
+  /* 3. QUAN TRỌNG: Chuyển grid từ 2 cột thành 1 cột xếp chồng */
+  .timeline-row {
+    grid-template-columns: 1fr;
+    gap: 3rem; /* Khoảng cách giữa khối Formation và Expérience */
+  }
+
+  /* 4. Tăng khoảng cách đệm bên trái để đường kẻ dọc có không gian */
+  .timeline-box {
+    padding-left: 2rem;
+    gap: 2rem; /* Thu hẹp khoảng cách dọc giữa các card cho vừa màn hình nhỏ */
+  }
+
+  /* 5. Căn chỉnh lại vị trí chấm tròn trên trục dọc cho chuẩn xác trên mobile */
+  .content-box::before {
+    left: -2.12rem; /* Giúp chấm tròn nhảy về đúng tâm đường kẻ trên màn hình nhỏ */
+    width: 14px; /* Thu nhỏ nhẹ chấm tròn cho tinh tế */
+    height: 14px;
+    top: 2.3rem;
+  }
+
+  /* 6. Thay đổi cấu trúc mặt trước card (Nếu màn hình quá nhỏ) */
+  .card-front {
+    padding: 1.25rem; /* Giảm padding bên trong card */
+  }
+
+  /* Giảm font chữ tiêu đề để không bị rớt dòng xấu xí */
+  .content-box h3 {
+    font-size: 1.1rem;
+  }
+
+  .date {
+    font-size: 1.1rem;
+  }
+
+  /* Thu nhỏ vùng cụm xoay một chút để nhường chỗ cho chữ */
+  .rotation-icon-wrapper {
+    width: 75px;
+    gap: 4px;
+  }
+
+  .hint-text {
+    font-size: 0.65rem;
+  }
+
+  /* 7. ĐẶC BIỆT: Cấu trúc mặt sau trên điện thoại */
+  /* Do chiều ngang mobile rất hẹp, nếu chia 30% logo và 70% chữ sẽ khiến chữ bị bó dòng rất dài. 
+     Ta sẽ chuyển mặt sau thành dạng xếp chồng: Logo ở trên, chữ ở dưới. */
+  .card-back {
+    flex-direction: column; /* Xếp dọc logo và chữ ở mặt sau */
+  }
+
+  .card-back-left {
+    width: 100%;
+    height: 50px; /* Thu nhỏ khu vực chứa logo thành một dải ngang phía trên */
+    padding: 0.5rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Chuyển đường kẻ thành đường ngang */
+  }
+
+  .card-logo {
+    max-height: 80%; /* Giữ logo nhỏ gọn xinh xắn */
+  }
+
+  .card-back-right {
+    width: 100%;
+    height: calc(100% - 50px); /* Phần chiều cao còn lại dành cho văn bản */
+    padding: 1rem;
+  }
 }
 
 /* **********************
