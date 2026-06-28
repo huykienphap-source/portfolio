@@ -9,113 +9,114 @@
 @import "./sections/experience.css";
 
 * {
-  box-sizing: border-box; /* padding và border ko làm thay đổi kích thước phần tử */
+    box-sizing: border-box; /* padding và border ko làm thay đổi kích thước phần tử */
 }
 
 :root {
-  font-size: var(--p-font-size);
-  line-height: var(--p-line-height);
-  letter-spacing: var(--p-letter-spacing);
-  font-family: "Chakra Petch", sans-serif;
-  font-weight: 400; /* độ đậm chữ bình thường */
-  font-style: normal; /* kiểu chữ bình thường */
-  scroll-behavior: smooth;
+    font-size: var(--p-font-size);
+    line-height: var(--p-line-height);
+    letter-spacing: var(--p-letter-spacing);
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 400; /* độ đậm chữ bình thường */
+    font-style: normal; /* kiểu chữ bình thường */
+    scroll-behavior: smooth;
 }
 
 input,
 textarea {
-  font-family: "Chakra Petch", sans-serif;
-  font-size: var(--p-font-size);
-  color: var(--p-950);
+    font-family: "Chakra Petch", sans-serif;
+    font-size: var(--p-font-size);
+    color: var(--p-950);
+    resize: none;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--p-950);
+    color: var(--p-950);
 }
 
 /* ===== Engineering Background Pattern ===== */
 
 body {
-  background-color: #ffffff;
-  position: relative;
-  min-height: 100vh;
+    background-color: #ffffff;
+    position: relative;
+    min-height: 100vh;
 }
 
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
 
-  /* Kích thước pattern */
-  --s: 70px;
+    /* Kích thước pattern */
+    --s: 70px;
 
-  /* Màu xanh rất nhạt */
-  --c1: #bfdbfe;
-  --c2: #dbeafe;
-  --c3: #ffffff;
+    /* Màu xanh rất nhạt */
+    --c1: #bfdbfe;
+    --c2: #dbeafe;
+    --c3: #ffffff;
 
-  background:
-    repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--c3) 0 180deg)
-      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
-    repeating-conic-gradient(
-      from 30deg,
-      var(--c1) 0 60deg,
-      var(--c2) 0 120deg,
-      var(--c3) 0 180deg
-    );
+    background:
+        repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--c3) 0 180deg)
+            calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+        repeating-conic-gradient(
+            from 30deg,
+            var(--c1) 0 60deg,
+            var(--c2) 0 120deg,
+            var(--c3) 0 180deg
+        );
 
-  background-size: var(--s) calc(var(--s) * 0.577);
+    background-size: var(--s) calc(var(--s) * 0.577);
 
-  opacity: 0.06;
+    opacity: 0.06;
 }
 
 a {
-  text-decoration: none; /* xóa các gạch chân mặc định của link */
+    text-decoration: none; /* xóa các gạch chân mặc định của link */
 }
 
 section {
-  margin-top: 120px;
-  margin-bottom: 120px;
+    margin-top: 120px;
+    margin-bottom: 120px;
 }
 
 .container {
-  margin: 0 auto; /* 0px trên dưới và auto trái phải */
-  max-width: 1536px; /* giá trị mặc định của container */
-  padding: 0 2rem; /* 0px trên dưới và 2rem trái phải */
+    margin: 0 auto; /* 0px trên dưới và auto trái phải */
+    max-width: 1536px; /* giá trị mặc định của container */
+    padding: 0 2rem; /* 0px trên dưới và 2rem trái phải */
 }
 
 .section__header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
 }
 
 /* đc tái sử dụng trong các phần sau nên để ở đây */
 .section__title {
-  font-size: var(--h1-font-size);
-  line-height: var(--h1-line-height);
-  font-weight: bold; /* in đậm chữ */
-  color: var(--p-950);
-  text-transform: capitalize; /* viết hoa những chữ đầu dòng */
+    font-size: var(--h1-font-size);
+    line-height: var(--h1-line-height);
+    font-weight: bold; /* in đậm chữ */
+    color: var(--p-950);
+    text-transform: capitalize; /* viết hoa những chữ đầu dòng */
 }
 
 .section__description {
-  text-align: center;
-  max-width: 65ch; /* chiều rộng tối đa 65 kí tự */
-  color: var(--n-500);
+    text-align: center;
+    max-width: 65ch; /* chiều rộng tối đa 65 kí tự */
+    color: var(--n-500);
 }
 
 #ContactContainer {
-  background: linear-gradient(
-    135deg,
-    rgba(37, 99, 235, 0.12),
-    rgba(59, 130, 246, 0.08)
-  );
+    background: linear-gradient(
+        135deg,
+        rgba(37, 99, 235, 0.12),
+        rgba(59, 130, 246, 0.08)
+    );
 
-  border-radius: 16px;
-  padding: 48px 32px;
+    border-radius: 16px;
+    padding: 48px 32px;
 }
