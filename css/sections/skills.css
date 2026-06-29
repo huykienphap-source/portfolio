@@ -41,6 +41,7 @@
 
   &:nth-child(1) {
     border: none;
+    min-height: auto;
     /* background-image: url("../../assets/cat1.jpeg");
     background-position: center;
     background-repeat: no-repeat;
