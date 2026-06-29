@@ -167,7 +167,7 @@
 
 /* Bên trái chứa ảnh logo */
 .card-back-left {
-  width: 32%;
+  flex: 0 0 28%;
   background-color: #f1f3f7;
 
   display: flex;
@@ -193,7 +193,8 @@
 
 /* Bên phải chứa thông tin văn bản */
 .card-back-right {
-  width: 70%;
+  flex: 1;
+  min-width: 0;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
