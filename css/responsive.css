@@ -85,6 +85,11 @@
     max-width: 640px;
   }
 
+  /** ANIMATIONS **/
+  section {
+    animation-range: entry 8% cover 18%;
+  }
+
   /** ABOUT ME **/
   .aboutMe__section {
     margin: 80px auto;
