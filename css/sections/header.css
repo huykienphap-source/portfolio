@@ -14,6 +14,10 @@ header {
     color: var(--p-950);
     font-weight: 600;
   }
+
+  & a {
+    font-weight: 600;
+  }
 }
 
 .header__title {
