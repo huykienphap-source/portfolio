@@ -284,7 +284,7 @@
 }
 
 .skills__grid_item:hover {
-  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.08);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.1);
 }
 
 .skills__section .section__title {
