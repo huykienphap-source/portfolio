@@ -30,6 +30,8 @@
       Header
     ---------------->
     <header>
+      <div class="header-circle"></div>
+      <div class="header-circle-small"></div>
       <div class="container header__container">
         <!-- left column -->
         <div class="header__column--left">
@@ -64,6 +66,24 @@
           </p>
         </div>
       </div>
+
+      <!-- Wave -->
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path
+            d="M0,60
+           C300,130
+           600,0
+           900,70
+           C1200,130
+           1350,90
+           1440,60
+           L1440,120
+           L0,120
+           Z"
+          />
+        </svg>
+      </div>
     </header>
 
     <!----------------------------------
@@ -76,7 +96,7 @@
       <img src="./assets/tech-icon.svg" alt="tech icon" />
 
       <!-- Nội dung chính -->
-      <div class="aboutMe__container">
+      <div class="aboutMe__container reveal">
         <div class="aboutMe__content_container">
           <h1 class="section__title">À propos de moi</h1>
 
@@ -123,7 +143,7 @@
       Skills - Kỹ năng
     ----------------------------------->
     <section class="skills__section" id="SkillsContainer">
-      <div class="container skills__container">
+      <div class="container skills__container reveal">
         <!--2 class đc tạo là container và skills__container-->
         <!-- header -->
         <div class="section__header">
@@ -481,19 +501,102 @@
       </div>
     </section>
 
+    <div class="pcb-circuit-divider">
+      <svg
+        viewBox="0 0 1000 220"
+        preserveAspectRatio="xMidYMid meet"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <!-- Trái -->
+        <path
+          class="circuit-trace trace-secondary"
+          d="M 180 0
+         L 180 70
+         L 230 120
+         L 230 220"
+        />
+
+        <circle
+          class="circuit-via via-blue opacity-5"
+          cx="230"
+          cy="120"
+          r="5"
+        />
+
+        <!-- Giữa trái -->
+        <path
+          class="circuit-trace trace-main"
+          d="M 440 0
+         L 440 70
+         L 490 120
+         L 490 220"
+        />
+
+        <circle class="circuit-via via-blue" cx="490" cy="120" r="6" />
+
+        <!-- Chính giữa -->
+        <path
+          class="circuit-trace trace-main"
+          d="M 500 0
+         L 500 60
+         L 550 120
+         L 550 220"
+        />
+
+        <circle
+          class="circuit-via via-blue pulse-delay-1"
+          cx="550"
+          cy="120"
+          r="6"
+        />
+
+        <!-- Giữa phải -->
+        <path
+          class="circuit-trace trace-main"
+          d="M 560 0
+         L 560 70
+         L 610 120
+         L 610 220"
+        />
+
+        <circle
+          class="circuit-via via-blue pulse-delay-2"
+          cx="610"
+          cy="120"
+          r="6"
+        />
+
+        <!-- Phải -->
+        <path
+          class="circuit-trace trace-secondary"
+          d="M 820 0
+         L 820 70
+         L 770 120
+         L 770 220"
+        />
+
+        <circle
+          class="circuit-via via-blue opacity-5"
+          cx="770"
+          cy="120"
+          r="5"
+        />
+      </svg>
+    </div>
+
     <!----------------------------------
       Expérience - Kinh nghiệm
     ----------------------------------->
     <section class="work__section" id="WorkContainer">
       <!-- Tiêu đề lớn của khu vực -->
-      <div class="section__header">
+      <div class="section__header reveal">
         <h1 class="section__title">Mon Parcours</h1>
         <p class="section__description">
           Formation académique et expériences professionnelles
         </p>
       </div>
 
-      <div class="timeline-wrapper">
+      <div class="timeline-wrapper reveal">
         <div class="timeline-row">
           <!-- ================= CỘT BÊN TRÁI: FORMATION (3 CARDS) ================= -->
           <div class="timeline-col">
@@ -925,5 +1028,6 @@
     </footer>
     <script src="./js/script.js"></script>
     <script src="./js/flip-card.js"></script>
+    <script src="./js/scrollReveal.js"></script>
   </body>
 </html>

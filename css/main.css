@@ -78,11 +78,8 @@ a {
 }
 
 section {
-  margin-top: 120px;
-  margin-bottom: 120px;
-  animation: fadeInScale linear;
-  animation-timeline: view();
-  animation-range: entry 15% cover 35%;
+  margin: 0;
+  padding: 7rem 0;
 }
 
 .container {

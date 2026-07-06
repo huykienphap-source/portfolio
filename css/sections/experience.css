@@ -1,26 +1,41 @@
 .work__section {
   position: relative;
   overflow: hidden;
-  padding: 4rem 0;
+  padding: 8rem 0;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0) 0%,
-    hsla(var(--p-500-code), 0.03) 30%,
-    hsla(var(--p-450-code), 0.04) 50%,
-    hsla(var(--p-500-code), 0.03) 70%,
-    rgba(255, 255, 255, 0) 100%
+    #fbfdff 0%,
+    #f2f7ff 40%,
+    #eef5ff 75%,
+    #ffffff 100%
   );
 }
 
 .work__section::before {
   content: "";
   position: absolute;
+  width: 620px;
+  height: 620px;
+  right: -353px;
+  top: -300px;
+  transform: rotate(18deg);
+  border-radius: 50%;
+  border: 2px dashed rgba(37, 99, 235, 0.08);
+  opacity: 0.8;
+}
+
+.work__section::after {
+  content: "";
+  position: absolute;
   inset: 0;
-  background: radial-gradient(
-    600px circle at 50% 15%,
-    hsla(var(--p-500-code), 0.08),
-    transparent 70%
-  );
+
+  background:
+    linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1.5px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1.5px);
+
+  background-size: 60px 60px;
+
+  opacity: 0.35;
   pointer-events: none;
 }
 
@@ -44,6 +59,8 @@
 .heading {
   display: flex;
   align-items: center;
+  position: relative;
+  padding-bottom: 12px;
   gap: 0.8rem;
   font-size: var(--h2-font-size);
   margin: 2rem 0;
@@ -52,6 +69,17 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 95px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4f7dff, transparent);
 }
 
 .heading i,
@@ -85,23 +113,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Định vị lại chấm tròn timeline gốc không bị đè */
-.content-box::before {
-  content: "";
-  position: absolute;
-  left: -2.7rem; /* Giữ nguyên khoảng cách đến trục */
-  top: 2.2rem;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--p-450), var(--p-700));
-  border: 4px solid white;
-  box-shadow:
-    0 0 0 5px hsla(var(--p-500-code), 0.12),
-    0 6px 16px rgba(74, 94, 227, 0.18);
-  z-index: 5;
-}
-
 .card-inner {
   position: relative;
   width: 100%;
@@ -128,10 +139,9 @@
   backface-visibility: hidden;
   border-radius: 1rem;
   font-size: 14px; /* Giữ font chữ gốc của bạn */
-  border: 3px solid rgb(110, 110, 110); /* Giữ viền xám gốc của bạn */
-  background-color: var(--p-20); /* Giữ màu nền gốc */
-  backdrop-filter: blur(5px);
-  transition: 0.4s ease;
+  border: 3px solid rgba(59, 130, 246, 0.28);
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+  transition: 0.35s ease;
   box-sizing: border-box; /* Ép border tính vào trong, chống tràn */
 }
 
@@ -152,8 +162,7 @@
   overflow: hidden;
   border-radius: 1rem;
   border: 3px solid rgb(110, 110, 110);
-  background-color: var(--p-20);
-  backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, #ffffff, #f7fbff);
 }
 
 /* MẶT SAU: Chia ngang tỉ lệ chuẩn */
@@ -167,8 +176,9 @@
 
 /* Bên trái chứa ảnh logo */
 .card-back-left {
+  position: relative;
   flex: 0 0 28%;
-  background-color: #f1f3f7;
+  background-color: #f5f9ff;
 
   display: flex;
   align-items: center;
@@ -177,6 +187,16 @@
   box-sizing: border-box;
 
   border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-back-left::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 18%;
+  height: 64%;
+  width: 1px;
+  background: #1e4272;
 }
 
 .card-logo {
@@ -198,7 +218,7 @@
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem; /* Khoảng cách vừa vặn, ko bị sát sít */
+  gap: 0.4rem; /* Khoảng cách vừa vặn, ko bị sát sít */
   overflow-y: auto;
   box-sizing: border-box;
 }
@@ -220,6 +240,7 @@
 .date {
   display: flex;
   align-items: center;
+  letter-spacing: 0.4px;
   gap: 0.4rem;
   font-size: 1.3rem;
   font-weight: 700;
@@ -289,8 +310,8 @@
 /* 1. Thiết lập lại ô tròn xoay */
 .rotation-icon {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 43px;
+  height: 43px;
   background-color: rgba(37, 99, 235, 0.06);
   border: 1px solid rgba(37, 99, 235, 0.15);
   border-radius: 50%;
@@ -329,7 +350,7 @@
 
 .content-box:hover .card-front,
 .content-box:hover .card-back {
-  border-color: #2563eb;
+  border-color: #4f7dff;
   box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
 }
 
@@ -344,22 +365,32 @@
   flex-direction: column;
   gap: 2.5rem; /* Khoảng cách dọc thông thoáng giữa các card */
   margin-top: 2rem;
-  padding-left: 2.5rem;
+  padding-left: 35px;
 }
 
 .timeline-box::before {
   content: "";
   position: absolute;
-  left: 8px;
+  left: 10px;
+  border-radius: 999px;
   top: 0;
   bottom: 0;
-  width: 3px;
-  border-radius: 999px;
+  width: 4px;
   background: linear-gradient(
     to bottom,
-    var(--p-450),
-    var(--p-500),
-    var(--p-700)
+
+    #7aa2ff,
+    #4f7dff,
+    #265df2
   );
-  box-shadow: 0 0 12px hsla(var(--p-500-code), 0.18);
+  box-shadow: 0 0 8px rgba(79, 125, 255, 0.18);
+  z-index: 1;
+}
+
+.work__section .section__header {
+  padding-top: 1rem;
+}
+
+.work__section .section__title {
+  color: var(--p-900);
 }

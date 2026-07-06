@@ -58,15 +58,113 @@
   }
 }
 
-@keyframes fadeInScale {
-  from {
-    opacity: 0.3;
-    scale: 0.8;
-    /* transform: translate(-100px); */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+  will-change: transform, opacity;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Thiết lập chung cho các Section */
+.pcb-section {
+  padding: 100px 0;
+  position: relative;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Section 1: Màu trắng xanh nhạt theo ảnh mẫu */
+.section-light {
+  background-color: #f4f8ff;
+  color: #1e293b;
+}
+
+/* Section 2: Màu nền tối hơn một chút */
+.section-dark {
+  background-color: #e2eeff;
+  color: #0f172a;
+}
+
+/* KHU VỰC NỐI MẠCH PCB GIỮA 2 SECTION */
+.pcb-circuit-divider {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  height: 240px;
+  z-index: 10;
+  pointer-events: none;
+
+  /* Kéo sát 2 section và đè mạch lên đường ranh giới */
+  margin-top: -120px;
+  margin-bottom: -120px;
+}
+
+.pcb-circuit-divider svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ĐƯỜNG MẠCH (TRACES) */
+.circuit-trace {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round; /* Bo tròn nhẹ góc bẻ 45 độ chuẩn PCB */
+}
+
+/* 3 Đường mạch song song chính ở giữa - Màu xanh hoàng gia sắc nét */
+.trace-main {
+  stroke: #2563eb;
+  stroke-width: 4px;
+}
+
+/* Các đường mạch phụ hai bên - Màu xanh dịu mờ */
+.trace-secondary {
+  stroke: #60a5fa;
+  stroke-width: 3px;
+  opacity: 0.4;
+}
+
+/* NỐT GIAO MẠCH (VIA / PAD TRÒN) */
+.circuit-via {
+  fill: #2563eb;
+  stroke: #ffffff;
+  stroke-width: 2px;
+  transform-origin: center;
+  animation: viaPulse 2s ease-in-out infinite;
+}
+
+.opacity-5 {
+  opacity: 0.5;
+}
+
+/* Tạo độ lệch pha nhấp nháy cho các nốt mạch sinh động hơn */
+.pulse-delay-1 {
+  animation-delay: 0.4s;
+}
+.pulse-delay-2 {
+  animation-delay: 0.8s;
+}
+
+/* HIỆU ỨNG HOẠT ẢNH XUNG PHÁT SÁNG */
+@keyframes viaPulse {
+  0%,
+  100% {
+    r: 6px;
+    filter: drop-shadow(0 0 2px rgba(37, 99, 235, 0.4));
   }
-  to {
-    opacity: 1;
-    scale: 1;
-    /* transform: translate(0); */
+  50% {
+    r: 9px;
+    filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.8));
   }
 }

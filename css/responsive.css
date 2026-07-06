@@ -29,6 +29,18 @@
   .softSkills__book_icons {
     display: none;
   }
+
+  .skills__grid_item {
+    padding: 2rem;
+  }
+
+  .skills__grid_item_header h2 {
+    font-size: 2rem;
+  }
+
+  .skills__grid_item_header p {
+    font-size: 1rem;
+  }
 }
 
 /* **********************
@@ -41,8 +53,7 @@
   }
 
   section {
-    margin-top: 80px;
-    margin-bottom: 80px;
+    padding: 6rem 0;
   }
 
   /** Header **/
@@ -69,11 +80,34 @@
     align-items: center;
   }
 
+  .header-circle-small {
+    display: none;
+  }
+
+  .header-circle {
+    top: auto;
+    left: 60rem;
+    bottom: 29rem;
+  }
+
+  /** SKILLS **/
+  .skills__grid_item {
+    padding: 1.6rem;
+  }
+
+  .skills__grid_item_header h2 {
+    font-size: 1.6rem;
+  }
+
   /** CONTACT **/
   .contact__section {
     & img {
       display: none;
     }
+  }
+
+  .pcb-circuit-divider {
+    height: 145px;
   }
 }
 
@@ -85,14 +119,19 @@
     max-width: 640px;
   }
 
-  /** ANIMATIONS **/
+  /** Header **/
+  .header-circle-small,
+  .header-circle {
+    display: none;
+  }
+
   section {
-    animation-range: entry 8% cover 18%;
+    padding: 5rem 0;
   }
 
   /** ABOUT ME **/
   .aboutMe__section {
-    margin: 80px auto;
+    margin: 0 auto;
 
     & img {
       display: none; /* ẩn hình ảnh cho small tablet */
@@ -110,6 +149,19 @@
       grid-column: span 1 !important;
       grid-row: span 1 !important;
     }
+  }
+
+  .skills__section {
+    padding-bottom: 40px;
+  }
+
+  .skills__grid_item_header p {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .skills__grid_item {
+    padding: 1.2rem;
   }
 
   /** PROJECTS **/
@@ -162,10 +214,15 @@
     display: none;
   }
 
+  .pcb-circuit-divider {
+    display: none;
+  }
+
   /** EXPERIENCE/WORK **/
   /* 1. Thu nhỏ padding tổng của khu vực */
   .work__section {
-    padding: 2rem 0;
+    padding: 4rem 0;
+    padding-top: 30px;
   }
 
   /* 2. Ép khoảng cách bao ngoài thu hẹp lại, chừa chỗ cho card bung rộng */
@@ -270,6 +327,15 @@
 
   .header__badge_container {
     flex-direction: column; /* để 2 nhãn nằm trên 1 cột thay vì 1 hàng */
+  }
+
+  /** SKILLS **/
+  .skills__grid_item_header h2 {
+    font-size: 1.35rem;
+  }
+
+  .skills__grid_item_header p {
+    font-size: 0.95rem;
   }
 
   /** ABOUT ME **/

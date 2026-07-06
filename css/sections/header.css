@@ -1,21 +1,95 @@
 header {
-  margin-top: 40px; /* nội dung ko bị sát vào mép trên */
+  background: linear-gradient(135deg, var(--p-950), var(--p-900));
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 0 7rem;
+  color: white;
+}
+
+header::before,
+header::after {
+  z-index: 0;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+
+  top: -120px;
+  right: -80px;
+
+  width: 520px;
+  height: 520px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(hsla(var(--p-500-code), 0.18), transparent 70%);
+
+  opacity: 0.9;
+}
+
+header::after {
+  content: "";
+
+  position: absolute;
+
+  right: 8%;
+  bottom: 18%;
+
+  width: 120px;
+  height: 120px;
+
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.12) 1px,
+    transparent 1px
+  );
+
+  background-size: 12px 12px;
+
+  opacity: 0.45;
+}
+
+.header-circle {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  right: 8%;
+  top: 12%;
+  z-index: 0;
+}
+
+.header-circle-small {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  top: -10%;
+  left: 38%;
+  z-index: 0;
 }
 
 .header__container {
   display: flex; /* 2 cột trên cùng 1 hàng */
-  gap: 40px; /* tạo khoảng cách giữa 2 cột trái phải */
+  gap: 50px;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
 
   & p {
-    color: var(--n-600);
+    color: rgba(255, 255, 255, 0.72);
   }
 
   & span {
-    color: var(--p-950);
+    color: var(--p-300);
     font-weight: 600;
   }
 
   & a {
+    color: white;
     font-weight: 600;
   }
 }
@@ -48,10 +122,11 @@ header {
   & .badge {
     font-size: var(--caption-font-size);
     line-height: var(--caption-line-height);
-    color: var(--p-950);
+    color: white;
     padding: 4px 12px; /* 4 trên dưới 12 trái phải */
-    background-color: var(--p-50);
-    border-radius: 4px; /* để bo góc của cái khung hay cái badge */
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px; /* để bo góc của cái khung hay cái badge */
     /* line clamp - giới hạn số dòng cho phép hiển thị */
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -70,17 +145,43 @@ header {
 }
 
 .header__img {
-  width: 160px;
-  height: 160px;
+  width: 180px;
+  height: 180px;
+  position: relative;
   background-image: url("../../assets/profile.webp");
   background-position: center; /* canh giữa nền theo cả ngang và dọc */
   background-size: cover; /* phóng to vừa đủ để phủ kín khung */
   flex-shrink: 0; /* làm cho phần tử ko bị thu hẹp khi trong flex container */
-  border-radius: 100px; /* làm vuông thành tròn */
-  box-shadow: /* làm tạo bóng cho đẹp */
-    inset 0px -1px 1px hsla(0, 0%, 100%, 0.5),
-    /* bóng bên trong */ 0 4px 6px -1px hsla(0, 0%, 0%, 0.2),
-    /* bóng bên ngoài */ 0 2px 4px -2px hsla(0, 0%, 0%, 0.2),
-    /* bóng bên ngoài mờ hơn */ inset 0px 1px 3px hsla(0, 0%, 0%, 0.1)
-      /* bóng đen nhạt làm rõ độ sâu bên trong */;
+  border-radius: 50%; /* làm vuông thành tròn */
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.header__img::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  background: radial-gradient(hsla(var(--p-500-code), 0.25), transparent 72%);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.wave-bottom {
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 120px;
+  line-height: 0;
+  z-index: 1;
+}
+
+.wave-bottom svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wave-bottom path {
+  fill: #EEF5FF;
 }
