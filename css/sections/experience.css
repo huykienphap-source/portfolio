@@ -65,10 +65,7 @@
   font-size: var(--h2-font-size);
   margin: 2rem 0;
   font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #4f7dff;
 }
 
 .heading::after {
@@ -84,11 +81,7 @@
 
 .heading i,
 .heading span {
-  background: var(--gradient-primary);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: #4f7dff;
 }
 
 .heading i {
@@ -178,7 +171,7 @@
 .card-back-left {
   position: relative;
   flex: 0 0 28%;
-  background-color: #f5f9ff;
+  background-color: #f5e6c8;
 
   display: flex;
   align-items: center;

@@ -105,10 +105,6 @@
       display: none;
     }
   }
-
-  .pcb-circuit-divider {
-    height: 145px;
-  }
 }
 
 /* **********************
@@ -211,10 +207,6 @@
   }
 
   .contact-svg {
-    display: none;
-  }
-
-  .pcb-circuit-divider {
     display: none;
   }
 
