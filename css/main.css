@@ -70,7 +70,7 @@ body::before {
 
   background-size: var(--s) calc(var(--s) * 0.577);
 
-  opacity: 0.06;
+  opacity: 0.1;
 }
 
 a {
@@ -116,8 +116,6 @@ section {
     rgba(37, 99, 235, 0.12),
     rgba(59, 130, 246, 0.08)
   );
-
-  border-radius: 16px;
   padding: 48px 32px;
 }
 
