@@ -90,6 +90,11 @@
     bottom: 29rem;
   }
 
+  /** CERTIFICATIONS **/
+  .certification__grid {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+  }
+
   /** SKILLS **/
   .skills__grid_item {
     padding: 1.6rem;
@@ -319,6 +324,19 @@
 
   .header__badge_container {
     flex-direction: column; /* để 2 nhãn nằm trên 1 cột thay vì 1 hàng */
+  }
+
+  /** CERTIFICATIONS **/
+  .certification__section {
+    padding: 6rem 0;
+  }
+
+  .certification__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cert-card {
+    min-height: auto;
   }
 
   /** SKILLS **/
