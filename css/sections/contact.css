@@ -73,12 +73,12 @@
   padding-left: 40px;
 
   & p {
-    color: var(--p-950);
+    color: #334155;
     font-weight: 600;
   }
 
   & a {
-    color: var(--p-500);
+    color: #2563eb;
     font-weight: 600;
   }
 }
@@ -90,7 +90,7 @@
 .form-control {
   padding: 10px;
   background-color: var(--p-50);
-  border: 1px solid var(--p-950);
+  border: 1px solid #cbd5e1;
   border-radius: 4px;
   width: 100%;
 }
@@ -128,4 +128,16 @@
   width: 170px;
   height: auto;
   flex-shrink: 0;
+}
+
+.contact__section .section__title {
+  color: #1e3a8a;
+}
+
+.contact__section .section__description {
+  color: #64748b;
+}
+
+.form-control::placeholder {
+  color: #94a3b8;
 }

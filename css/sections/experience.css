@@ -68,17 +68,6 @@
   color: #4f7dff;
 }
 
-.heading::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 95px;
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #4f7dff, transparent);
-}
-
 .heading i,
 .heading span {
   color: #4f7dff;
