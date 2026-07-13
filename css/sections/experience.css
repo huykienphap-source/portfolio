@@ -82,31 +82,27 @@
   background: transparent;
   border: none !important;
   padding: 0;
-  margin: 0; /* XÓA BỎ margin: 0 2rem cũ - nguyên nhân bóp nghẹt card */
-  width: 100%; /* ÉP BUỘC CARD BUNG RỘNG HẾT DIỆN TÍCH CỦA CỘT */
-  height: 180px; /* Chiều cao cố định chuẩn để lật mượt */
-  content-visibility: auto;
-  contain-intrinsic-size: 180px;
-  perspective: 2500px;
+  margin: 0;
+  width: 100%;
+  height: 180px;
+  perspective: 1200px;
   cursor: pointer;
   box-sizing: border-box;
-  contain: layout style;
-  will-change: transform;
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
   transform-style: preserve-3d;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .content-box.flipped .card-inner {
-  transform: rotateX(180deg);
+  transform: rotateY(180deg);
 }
 
 /* Đảm bảo 2 mặt trước sau luôn rộng bằng khung cha, ko bị co rúm chữ */
@@ -119,6 +115,7 @@
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  transform-style: preserve-3d;
   border-radius: 1rem;
   font-size: 14px; /* Giữ font chữ gốc của bạn */
   border: 3px solid rgba(59, 130, 246, 0.28);
@@ -149,7 +146,7 @@
 
 /* MẶT SAU: Chia ngang tỉ lệ chuẩn */
 .card-back {
-  transform: rotateX(180deg);
+  transform: rotateY(180deg);
   display: flex;
   flex-direction: row;
   padding: 0;
@@ -333,11 +330,11 @@
 .content-box:hover .card-front,
 .content-box:hover .card-back {
   border-color: #4f7dff;
-  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.12);
 }
 
 .content-box:hover {
-  transform: translateY(-4px);
+  transform: translate3d(0, -3px, 0);
   will-change: transform;
 }
 
@@ -375,4 +372,9 @@
 
 .work__section .section__title {
   color: var(--p-900);
+}
+
+.content-box:hover .card-inner,
+.content-box.flipped .card-inner {
+  will-change: transform;
 }
