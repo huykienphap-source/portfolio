@@ -123,6 +123,12 @@
     line-clamp: 1;
     overflow: hidden;
   }
+
+  & h3:hover {
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+  }
 }
 
 .projects__section .section__title {
