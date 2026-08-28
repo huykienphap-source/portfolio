@@ -70,7 +70,7 @@
 
 .skills__grid_item {
   overflow: hidden;
-  border: 1px solid rgba(99, 102, 241, 0.1);
+  border: 2px solid rgba(99, 102, 241, 0.1);
   border-radius: 24px;
   background-color: rgba(255, 255, 255, 0.88);
   padding: 2rem 2rem;
@@ -83,7 +83,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover; */
-    background: url("../../assets/cat1.jpeg") center / cover no-repeat;
+    background: url("../../assets/human.jpg") center / cover no-repeat;
   }
 
   &:nth-child(2) {
@@ -273,11 +273,11 @@
   }
 
   &:nth-child(4) {
-    background: url("../../assets/cat3.jpeg") center / cover no-repeat;
+    background: url("../../assets/groupe1.jpg") center / cover no-repeat;
     border: none;
 
     &:hover {
-      background-image: url("../../assets/cat2.jpeg");
+      background-image: url("../../assets/groupe.jpg");
     }
   }
 }

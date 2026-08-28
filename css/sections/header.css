@@ -148,8 +148,8 @@ header::after {
   width: 180px;
   height: 180px;
   position: relative;
-  background-image: url("../../assets/profile.webp");
-  background-position: center; /* canh giữa nền theo cả ngang và dọc */
+  background-image: url("../../assets/avatar.webp");
+  background-position: center 18%; /* canh giữa nền theo cả ngang và dọc */
   background-size: cover; /* phóng to vừa đủ để phủ kín khung */
   flex-shrink: 0; /* làm cho phần tử ko bị thu hẹp khi trong flex container */
   border-radius: 50%; /* làm vuông thành tròn */
