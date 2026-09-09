@@ -1,0 +1,409 @@
+<!doctype html>
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ingénierie électrique | Laboratoire de projets</title>
+
+    <!-- FONT -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="preload"
+      as="image"
+      href="assets/electrical_projects_background.jpg"
+    />
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/electrical-projects.css" />
+  </head>
+
+  <body>
+    <!-- =========================
+         LOADING SCREEN
+    ========================== -->
+
+    <div id="page-loader" class="page-loader">
+      <!-- LOADING BACKGROUND IMAGE -->
+
+      <div class="loader-background"></div>
+
+      <!-- DARK OVERLAY -->
+
+      <div class="loader-overlay"></div>
+
+      <!-- GRID -->
+
+      <div class="loader-grid"></div>
+
+      <!-- CIRCUIT DECORATION -->
+
+      <div class="loader-circuit loader-circuit-left"></div>
+
+      <div class="loader-circuit loader-circuit-right"></div>
+
+      <!-- LOADER CONTENT -->
+
+      <!-- LOADER CONTENT -->
+      <div class="loader-content">
+        <div class="loader-symbol">
+          <svg class="ring ring-outer" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" stroke-dasharray="6, 8" />
+          </svg>
+
+          <svg class="ring ring-middle" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="39" stroke-dasharray="160 80" />
+          </svg>
+
+          <svg class="ring ring-inner" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="32" stroke-dasharray="40 40" />
+          </svg>
+
+          <div class="symbol-core">⚡</div>
+        </div>
+
+        <!-- TITLE -->
+        <div class="loader-title">
+          <span> INGÉNIERIE ÉLECTRIQUE </span>
+          <h1>LABORATOIRE DE PROJETS</h1>
+        </div>
+
+        <!-- LOADING TEXT -->
+        <p class="loading-text">Chargement en cours...</p>
+
+        <!-- PROGRESS -->
+        <div class="progress-wrapper">
+          <div class="progress-bar">
+            <div id="progress" class="progress"></div>
+          </div>
+          <span id="progress-number" class="progress-number"> 0% </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================
+         MAIN PAGE
+    ========================== -->
+
+    <main id="main-content" class="main-content">
+      <!-- MAIN BACKGROUND -->
+
+      <div class="main-background"></div>
+
+      <!-- MAIN DARK OVERLAY -->
+
+      <div class="main-overlay"></div>
+
+      <!-- NAVIGATION -->
+
+      <header class="topbar">
+        <!-- LOGO -->
+
+        <a href="index.html" class="logo">
+          <span class="logo-mark"> HK </span>
+
+          <span class="logo-name"> HUY KIEN </span>
+        </a>
+
+        <!-- BACK HOME -->
+
+        <a href="index.html" class="back-home">
+          <span> ← </span>
+
+          Retour à l'accueil
+        </a>
+      </header>
+
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-text">
+            <span class="hero-label">INGÉNIERIE ÉLECTRIQUE</span>
+
+            <h1>
+              LABORATOIRE <br />
+              <span class="glow-text"
+                >PROJETS <i class="lightning-bolt">⚡</i></span
+              >
+            </h1>
+
+            <p>Découvrez mes projets en électronique et automatique.</p>
+
+            <div class="hero-line"></div>
+
+            <a href="#projects" class="hero-scroll-btn">
+              <span class="scroll-arrow">↓</span>
+              <span>Faites défiler pour explorer</span>
+            </a>
+          </div>
+
+          <div class="hero-visual">
+            <div class="hero-glow"></div>
+
+            <div class="tech-chip">
+              <div class="chip-inner">
+                <span class="chip-icon">⚡</span>
+                <span class="chip-status">SYSTEM ONLINE</span>
+              </div>
+
+              <span class="pin pin-1"></span>
+              <span class="pin pin-2"></span>
+              <span class="pin pin-3"></span>
+              <span class="pin pin-4"></span>
+              <span class="pin pin-5"></span>
+              <span class="pin pin-6"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+             PROJECTS
+        ========================== -->
+
+      <section id="projects" class="projects-section">
+        <div class="projects-container">
+          <!-- HEADER -->
+
+          <div class="projects-header">
+            <div>
+              <span> PROJETS SÉLECTIONNÉS </span>
+
+              <h2>
+                DÉCOUVREZ
+
+                <strong> MES PROJETS </strong>
+              </h2>
+            </div>
+
+            <p>Une collection de projets techniques et personnels.</p>
+          </div>
+
+          <!-- =========================
+                     PROJECT GRID
+                ========================== -->
+
+          <div class="project-grid">
+            <!-- PROJECT 01 -->
+
+            <article class="project-card">
+              <span class="project-index"> 01 </span>
+
+              <div class="project-image">
+                <img src="assets/cat1.jpeg" alt="Automatic Landing System" />
+              </div>
+
+              <div class="project-content">
+                <span class="project-type"> EMBEDDED SYSTEMS </span>
+
+                <h3>Automatic Landing System</h3>
+
+                <p>
+                  Simulation of an automatic aircraft landing system using
+                  Arduino, sensors and servos.
+                </p>
+
+                <div class="project-tags">
+                  <span>Arduino</span>
+
+                  <span>Servo</span>
+
+                  <span>LCD</span>
+                </div>
+
+                <a href="#" class="project-button">
+                  View Project
+
+                  <span> → </span>
+                </a>
+              </div>
+            </article>
+
+            <!-- PROJECT 02 -->
+
+            <article class="project-card">
+              <span class="project-index"> 02 </span>
+
+              <div class="project-image">
+                <img src="assets/cat2.jpeg" alt="PLC Mini Simulator" />
+              </div>
+
+              <div class="project-content">
+                <span class="project-type"> AUTOMATION </span>
+
+                <h3>PLC Mini Simulator</h3>
+
+                <p>
+                  Simulation of a PLC system controlling an automated water
+                  tank.
+                </p>
+
+                <div class="project-tags">
+                  <span>C</span>
+
+                  <span>PLC</span>
+
+                  <span>Qt</span>
+                </div>
+
+                <a href="#" class="project-button">
+                  View Project
+
+                  <span> → </span>
+                </a>
+              </div>
+            </article>
+
+            <!-- PROJECT 03 -->
+
+            <article class="project-card">
+              <span class="project-index"> 03 </span>
+
+              <div class="project-image">
+                <img src="assets/cat3.jpeg" alt="Automatic Door System" />
+              </div>
+
+              <div class="project-content">
+                <span class="project-type"> ELECTRONICS </span>
+
+                <h3>Automatic Door System</h3>
+
+                <p>
+                  Automatic door using ultrasonic sensor, Arduino and servo
+                  motor.
+                </p>
+
+                <div class="project-tags">
+                  <span>Arduino</span>
+
+                  <span>HC-SR04</span>
+
+                  <span>Servo</span>
+                </div>
+
+                <a href="#" class="project-button">
+                  View Project
+
+                  <span> → </span>
+                </a>
+              </div>
+            </article>
+
+            <!-- PROJECT 04 -->
+
+            <article class="project-card">
+              <span class="project-index"> 04 </span>
+
+              <div class="project-image">
+                <img src="assets/circuit-icon.svg" alt="Finance App" />
+              </div>
+
+              <div class="project-content">
+                <span class="project-type"> SOFTWARE </span>
+
+                <h3>Finance Management</h3>
+
+                <p>
+                  Personal finance management application using Python and data
+                  visualization.
+                </p>
+
+                <div class="project-tags">
+                  <span>Python</span>
+
+                  <span>Pandas</span>
+
+                  <span>CSV</span>
+                </div>
+
+                <a href="#" class="project-button">
+                  View Project
+
+                  <span> → </span>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+
+      <footer class="footer">
+
+        <div class="footer-circuit-top"></div>
+
+        <div class="footer-container">
+          <div class="footer-col footer-col-left">
+            <div class="hud-box">
+              <span class="hud-corner top-left"></span>
+              <span class="hud-corner top-right"></span>
+              <span class="hud-corner bottom-left"></span>
+              <span class="hud-corner bottom-right"></span>
+              <div class="hud-text">
+                INGÉNIERIE x INNOVATION x FUTUR <strong class="bolt">⚡</strong>
+              </div>
+            </div>
+            <div class="status-indicator">
+              <span class="prefix">+ SYSTÈME ACTIVE // EN-LIGNE</span>
+              <span class="status-dot"></span>
+            </div>
+          </div>
+
+          <div class="footer-col footer-col-center">
+
+            <div class="sound-wave">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="copyright-text">
+              © 2026 • PORTFOLIO DE PROJETS • TOUS DROITS RÉSERVÉS
+            </div>
+          </div>
+
+          <div class="footer-col footer-col-right">
+            <div class="hud-box hud-system-status">
+              <span class="hud-corner top-left"></span>
+              <span class="hud-corner top-right"></span>
+              <span class="hud-corner bottom-left"></span>
+              <span class="hud-corner bottom-right"></span>
+              <div class="status-info">
+                <span>STATUT: OPTIMAL // SECURISÉ</span>
+                <div class="status-bar">
+                  <span></span><span></span><span></span><span></span
+                  ><span></span><span></span>
+                </div>
+                <span class="sub-info"
+                  >SYSTÈME DE PORTFOLIO • VER 3.0 // CONFIRMÉ</span
+                >
+              </div>
+              <button
+                onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+                class="back-to-top-btn"
+              >
+                RETOUR EN HAUT ↑
+              </button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- JAVASCRIPT -->
+
+    <script src="js/electrical-loader.js"></script>
+  </body>
+</html>

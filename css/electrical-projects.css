@@ -1,0 +1,208 @@
+@import "../css/electrical_sections/loading.css";
+@import "../css/electrical_sections/projects_page_design.css";
+@import "../css/electrical_sections/projects_page_main.css";
+@import "../css/electrical_sections/responsive_electrical_page.css";
+
+/* ========================================
+   CSS RESET
+======================================== */
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* ========================================
+   HTML5 DISPLAY RESET
+======================================== */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+/* ========================================
+   LIST RESET
+======================================== */
+
+ol,
+ul {
+  list-style: none;
+}
+
+/* ========================================
+   QUOTE RESET
+======================================== */
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+}
+
+/* ========================================
+   TABLE RESET
+======================================== */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ========================================
+   GLOBAL SETTINGS
+======================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ========================================
+   HTML
+======================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========================================
+   BODY
+======================================== */
+
+body {
+  font-family: "Inter", sans-serif;
+
+  background: #081320;
+
+  color: #f8fafc;
+
+  overflow-x: hidden;
+}
+
+:root {
+  --background: #081320;
+
+  --surface: #0e1c2b;
+
+  --surface-light: #13283b;
+
+  --primary: #3b82f6;
+
+  --secondary: #38bdf8;
+
+  --accent: #22d3ee;
+
+  --text-primary: #f8fafc;
+
+  --text-secondary: #94a3b8;
+
+  --border: rgba(56, 189, 248, 0.2);
+
+  --glow: rgba(34, 211, 238, 0.35);
+}

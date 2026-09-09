@@ -1,0 +1,335 @@
+/* =========================
+   PAGE LOADER
+========================= */
+
+.page-loader {
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 9999;
+
+  overflow: hidden;
+
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+}
+
+/* =========================
+   LOADING BACKGROUND
+========================= */
+
+.loader-background {
+  position: absolute;
+
+  inset: 0;
+
+  background-image: url("../../assets/electrical_projects_background.jpg");
+
+  background-size: cover;
+
+  background-position: center;
+
+  background-repeat: no-repeat;
+
+  transform: scale(1.05);
+
+  animation: backgroundZoom 12s ease-in-out infinite alternate;
+}
+
+/* =========================
+   LOADER OVERLAY
+========================= */
+
+.loader-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(15, 45, 70, 0.6),
+    rgba(30, 80, 110, 0.5),
+    rgba(10, 35, 60, 0.65)
+  );
+}
+
+/* =========================
+   LOADER GRID
+========================= */
+
+.loader-grid {
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(56, 189, 248, 0.05) 1px,
+
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(56, 189, 248, 0.05) 1px,
+
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+
+  opacity: 0.7;
+}
+
+/* =========================
+   BACKGROUND ANIMATION
+========================= */
+
+@keyframes backgroundZoom {
+  from {
+    transform: scale(1.05);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+}
+
+/* =========================
+   LOADING CONTENT
+========================= */
+
+.loader-content {
+  position: relative;
+
+  z-index: 10;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+
+  gap: 24px;
+}
+
+/* =========================
+   LOADING SYMBOL
+========================= */
+.loader-symbol {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  transform: none;
+  box-shadow: none;
+  animation: none;
+}
+
+.loader-symbol .ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.loader-symbol .ring-outer {
+  stroke: var(--secondary, #38bdf8);
+  stroke-width: 1.5;
+  opacity: 0.5;
+  animation: spinClockwise 12s linear infinite;
+}
+
+.loader-symbol .ring-middle {
+  stroke: var(--accent, #22d3ee);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 10px var(--accent, #22d3ee));
+  animation: spinClockwise 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.loader-symbol .ring-inner {
+  stroke: var(--secondary, #38bdf8);
+  stroke-width: 2;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 5px var(--secondary, #38bdf8));
+  animation: spinCounterClockwise 4s linear infinite;
+}
+
+.symbol-core {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(15, 30, 55, 0.7);
+  border: 2px solid var(--accent, #22d3ee);
+  color: #f59e0b; /* Màu cam tia sét */
+  font-size: 26px;
+  transform: rotate(45deg);
+  box-shadow:
+    0 0 20px rgba(34, 211, 238, 0.4),
+    inset 0 0 10px rgba(34, 211, 238, 0.2);
+  z-index: 2;
+  animation: corePulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes spinClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinCounterClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes corePulse {
+  from {
+    transform: rotate(45deg) scale(0.95);
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+  }
+  to {
+    transform: rotate(45deg) scale(1.05);
+    box-shadow: 0 0 25px rgba(34, 211, 238, 0.7);
+  }
+}
+
+/* =========================
+   LOADING TITLE
+========================= */
+
+.loader-title {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.loader-title span {
+  font-size: 12px;
+
+  font-weight: 600;
+
+  letter-spacing: 6px;
+
+  color: var(--secondary);
+}
+
+.loader-title h1 {
+  font-size: clamp(32px, 5vw, 60px);
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+
+  text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+.loading-text {
+  color: var(--text-secondary);
+
+  font-size: 14px;
+}
+
+.progress-wrapper {
+  width: min(320px, 80vw);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+
+  height: 4px;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  border-radius: 20px;
+
+  overflow: hidden;
+}
+
+.progress {
+  width: 0%;
+
+  height: 100%;
+
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+
+  box-shadow: 0 0 20px var(--accent);
+
+  transition: width 0.2s ease;
+}
+
+.progress-number {
+  text-align: right;
+
+  color: var(--accent);
+
+  font-size: 12px;
+}
+
+/* =========================
+   LOADING HIDE
+========================= */
+
+.page-loader.hidden {
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+}
+
+/* =========================
+   MEDIA QUERRY
+========================= */
+
+@media (max-width: 480px) {
+  .loader-symbol {
+    width: 65px;
+
+    height: 65px;
+
+    border-width: 1.5px;
+  }
+
+  .symbol-core {
+    width: 42px;
+
+    height: 42px;
+
+    font-size: 20px;
+  }
+}
