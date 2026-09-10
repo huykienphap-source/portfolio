@@ -227,3 +227,12 @@
     justify-content: center;
   }
 }
+
+/* =========================
+   GALLERY
+========================= */
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}

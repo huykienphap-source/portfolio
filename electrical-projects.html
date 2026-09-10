@@ -171,7 +171,7 @@
 
       <!-- =========================
              PROJECTS
-        ========================== -->
+      ========================== -->
 
       <section id="projects" class="projects-section">
         <div class="projects-container">
@@ -193,7 +193,7 @@
 
           <!-- =========================
                      PROJECT GRID
-                ========================== -->
+          ========================== -->
 
           <div class="project-grid">
             <!-- PROJECT 01 -->
@@ -300,41 +300,6 @@
                 </a>
               </div>
             </article>
-
-            <!-- PROJECT 04 -->
-
-            <article class="project-card">
-              <span class="project-index"> 04 </span>
-
-              <div class="project-image">
-                <img src="assets/circuit-icon.svg" alt="Finance App" />
-              </div>
-
-              <div class="project-content">
-                <span class="project-type"> SOFTWARE </span>
-
-                <h3>Finance Management</h3>
-
-                <p>
-                  Personal finance management application using Python and data
-                  visualization.
-                </p>
-
-                <div class="project-tags">
-                  <span>Python</span>
-
-                  <span>Pandas</span>
-
-                  <span>CSV</span>
-                </div>
-
-                <a href="#" class="project-button">
-                  View Project
-
-                  <span> → </span>
-                </a>
-              </div>
-            </article>
           </div>
         </div>
       </section>
@@ -342,7 +307,6 @@
       <!-- FOOTER -->
 
       <footer class="footer">
-
         <div class="footer-circuit-top"></div>
 
         <div class="footer-container">
@@ -363,7 +327,6 @@
           </div>
 
           <div class="footer-col footer-col-center">
-
             <div class="sound-wave">
               <span></span><span></span><span></span><span></span><span></span>
               <span></span><span></span><span></span><span></span><span></span>
@@ -402,8 +365,62 @@
       </footer>
     </main>
 
+    <!-- =========================
+     PROJECT DETAIL MODAL (POPUP)
+    ========================= -->
+
+    <div id="project-modal" class="project-modal">
+      <div class="modal-overlay"></div>
+      <div class="modal-container">
+        <!-- Nút đóng PopUp -->
+        <button class="modal-close-btn">&times;</button>
+
+        <!-- Header Popup -->
+        <div class="modal-header">
+          <span id="modal-category" class="project-type">EMBEDDED SYSTEMS</span>
+          <h2 id="modal-title">Automatic Landing System</h2>
+        </div>
+
+        <!-- CÁC TAB CHUYỂN CATEGORY (Ảnh / Video / Files) -->
+        <div class="modal-tabs">
+          <button class="tab-btn active" data-tab="tab-images">
+            🖼️ Photos du projet
+          </button>
+          <button class="tab-btn" data-tab="tab-videos">🎬 Vidéo Démo</button>
+          <button class="tab-btn" data-tab="tab-files">
+            📁 Fichiers et Documents
+          </button>
+        </div>
+
+        <!-- NỘI DUNG TỪNG TAB -->
+        <div class="modal-body">
+          <!-- TAB 1: DANH SÁCH ẢNH -->
+          <div id="tab-images" class="tab-content active">
+            <div class="gallery-grid" id="modal-gallery">
+              <!-- Ảnh sẽ được đổ tự động bằng JS -->
+            </div>
+          </div>
+
+          <!-- TAB 2: VIDEO DEMO -->
+          <div id="tab-videos" class="tab-content">
+            <div class="video-container" id="modal-video">
+              <!-- Video sẽ được đổ bằng JS -->
+            </div>
+          </div>
+
+          <!-- TAB 3: FILE & TÀI LIỆU -->
+          <div id="tab-files" class="tab-content">
+            <ul class="file-list" id="modal-files">
+              <!-- File đính kèm sẽ được đổ bằng JS -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- JAVASCRIPT -->
 
     <script src="js/electrical-loader.js"></script>
+    <script src="js/pop-up-page.js"></script>
   </body>
 </html>
