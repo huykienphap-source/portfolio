@@ -231,8 +231,12 @@
 /* =========================
    GALLERY
 ========================= */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .gallery-grid {
-    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .gallery-grid img {
+    border-radius: 10px;
   }
 }

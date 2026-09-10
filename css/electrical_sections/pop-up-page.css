@@ -24,7 +24,8 @@
   position: absolute;
   inset: 0;
   background: rgba(3, 10, 18, 0.85);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .modal-container {
@@ -36,15 +37,30 @@
   border: 2px solid #00f0ff;
   border-radius: 20px;
   padding: 30px;
-  box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
   overflow-y: auto;
   z-index: 2;
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
+
+  /* --- 1. ẨN THANH CUỘN (SCROLLBAR) --- */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  /* --- 2. TỐI ƯU HIỆU NĂNG (GẮN GPU ACCELERATION GIẢM LAG) --- */
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0) scale(0.95);
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease;
+}
+
+.modal-container::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .project-modal.active .modal-container {
-  transform: scale(1);
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .modal-close-btn {
@@ -103,8 +119,8 @@
 /* Gallery Grid */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
   padding: 10px 0;
 }
 
@@ -114,15 +130,14 @@
   object-fit: cover;
   border-radius: 14px;
   border: 1px solid rgba(0, 240, 255, 0.35);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
 }
 
 .gallery-grid img:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-3px) scale(1.02);
   border-color: #00f0ff;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-  cursor: pointer;
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
 }
 
 /* Video & File Lists */
