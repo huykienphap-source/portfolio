@@ -11,7 +11,10 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: all 0.35s ease;
+  transition:
+    opacity 0.2s linear,
+    visibility 0.2s linear;
+  contain: layout style;
 }
 
 .project-modal.active {
@@ -23,9 +26,7 @@
 .modal-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(3, 10, 18, 0.85);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(3, 10, 18, 0.92);
 }
 
 .modal-container {
@@ -36,31 +37,25 @@
   background: #081424;
   border: 2px solid #00f0ff;
   border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+  padding: 24px;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
   overflow-y: auto;
   z-index: 2;
 
-  /* --- 1. ẨN THANH CUỘN (SCROLLBAR) --- */
   -ms-overflow-style: none;
   scrollbar-width: none;
 
-  /* --- 2. TỐI ƯU HIỆU NĂNG (GẮN GPU ACCELERATION GIẢM LAG) --- */
-  will-change: transform, opacity;
-  transform: translate3d(0, 0, 0) scale(0.95);
-  transition:
-    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.25s ease;
+  will-change: transform;
+  transform: translateZ(0) scale(0.96);
+  transition: transform 0.2s cubic-bezier(0, 0, 0.2, 1);
 }
 
 .modal-container::-webkit-scrollbar {
   display: none;
-  width: 0;
-  height: 0;
 }
 
 .project-modal.active .modal-container {
-  transform: translate3d(0, 0, 0) scale(1);
+  transform: translateZ(0) scale(1);
 }
 
 .modal-close-btn {
@@ -128,10 +123,9 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 14px;
-  border: 1px solid rgba(0, 240, 255, 0.35);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  content-visibility: auto;
 }
 
 .gallery-grid img:hover {
@@ -152,19 +146,21 @@
 .file-list {
   list-style: none;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  width: 100%;
 }
 
 .file-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: rgba(15, 30, 50, 0.5);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  border-radius: 10px;
+  padding: 14px 20px;
+  background: rgba(15, 30, 50, 0.6);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
 }
 
 .file-item a {
@@ -172,13 +168,40 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 13px;
+  padding: 6px 14px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 20px;
+  margin-left: 16px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 .empty-msg {
-  color: #64748b;
-  font-size: 13px;
-  font-style: italic;
-  text-align: center;
-  padding: 20px 0;
   width: 100%;
+  grid-column: 1 / -1;
+  text-align: center !important;
+  color: #64748b;
+  font-size: 14px;
+  font-style: italic;
+  letter-spacing: 0.5px;
+  padding: 40px 0;
+  margin: 0 auto;
+}
+
+#modal-gallery,
+#modal-video,
+#modal-files {
+  min-height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#modal-gallery:has(img) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  align-items: start;
 }

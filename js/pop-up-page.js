@@ -22,11 +22,11 @@ const projectsData = {
     category: "ELECTRONICS",
     images: ["assets/cat3.jpeg"],
     video: "",
-    files: [], // theo format này { name: "Bản vẽ 3D Cảm biến (.dwg)", url: "#" }
+    files: [], // format: { name: "Bản vẽ 3D Cảm biến (.dwg)", url: "#" }
   },
 };
 
-// ĐIỀU KHIỂN MODAL POPUP
+// ĐIỀU KHIỂN MODAL POPUP (TỐI ƯU HIỆU NĂNG & DỮ LIỆU RỖNG)
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("project-modal");
   const closeBtn = document.querySelector(".modal-close-btn");
@@ -47,50 +47,72 @@ document.addEventListener("DOMContentLoaded", () => {
     const data = projectsData[id];
     if (!data) return;
 
-    // Đổ dữ liệu chữ
-    document.getElementById("modal-title").innerText = data.title;
-    document.getElementById("modal-category").innerText = data.category;
+    // 1. Đổ tiêu đề & danh mục
+    document.getElementById("modal-title").textContent = data.title || "Projet";
+    document.getElementById("modal-category").textContent =
+      data.category || "TECHNOLOGIE";
 
-    // Đổ danh sách Ảnh (Kiểm tra mảng rỗng)
+    // 2. Đổ danh sách Ảnh (Kiểm tra kỹ mảng rỗng)
     const galleryEl = document.getElementById("modal-gallery");
-    galleryEl.innerHTML =
-      data.images && data.images.length > 0
-        ? data.images
-            .map((img) => `<img src="${img}" alt="Project image">`)
-            .join("")
-        : `<p class="empty-msg">Aucune photo disponible pour ce projet.</p>`;
+    galleryEl.innerHTML = ""; // Xóa sạch bộ nhớ tạm
 
-    // Đổ Video
+    if (Array.isArray(data.images) && data.images.length > 0) {
+      const fragment = document.createDocumentFragment();
+      data.images.forEach((imgSrc) => {
+        const img = document.createElement("img");
+        img.src = imgSrc;
+        img.alt = "Image du projet";
+        img.loading = "lazy";
+        img.decoding = "async";
+        fragment.appendChild(img);
+      });
+      galleryEl.appendChild(fragment);
+    } else {
+      galleryEl.innerHTML = `<p class="empty-msg">Aucune photo disponible pour ce projet.</p>`;
+    }
+
+    // 3. Đổ Video (Tránh lag bằng cách nạp sau khi animation bật popup hoàn tất)
     const videoEl = document.getElementById("modal-video");
-    videoEl.innerHTML = data.video
-      ? `<iframe src="${data.video}" frameborder="0" allowfullscreen></iframe>`
-      : `<p class="empty-msg">Aucune vidéo démo disponible pour ce projet.</p>`;
+    videoEl.innerHTML = "";
+    if (data.video && data.video.trim() !== "") {
+      setTimeout(() => {
+        videoEl.innerHTML = `<iframe src="${data.video}" frameborder="0" loading="lazy" allowfullscreen></iframe>`;
+      }, 250);
+    } else {
+      videoEl.innerHTML = `<p class="empty-msg">Aucune vidéo démo disponible pour ce projet.</p>`;
+    }
 
-    // Đổ danh sách File (Kiểm tra mảng rỗng)
+    // 4. Đổ danh sách File (Kiểm tra kỹ mảng rỗng)
     const filesEl = document.getElementById("modal-files");
-    filesEl.innerHTML =
-      data.files && data.files.length > 0
-        ? data.files
-            .map(
-              (f) => `
-          <li class="file-item">
-            <span>📄 ${f.name}</span>
-            <a href="${f.url}" download>Télécharger ↓</a>
-          </li>
-        `,
-            )
-            .join("")
-        : `<p class="empty-msg">Aucun fichier joint pour ce projet.</p>`;
+    filesEl.innerHTML = "";
 
-    // Mở Modal
-    modal.classList.add("active");
+    if (Array.isArray(data.files) && data.files.length > 0) {
+      const fragment = document.createDocumentFragment();
+      data.files.forEach((f) => {
+        const li = document.createElement("li");
+        li.className = "file-item";
+        li.innerHTML = `
+          <span>📄 ${f.name}</span>
+          <a href="${f.url}" download>Télécharger ↓</a>
+        `;
+        fragment.appendChild(li);
+      });
+      filesEl.appendChild(fragment);
+    } else {
+      filesEl.innerHTML = `<p class="empty-msg">Aucun fichier joint pour ce projet.</p>`;
+    }
+
+    // 5. Kích hoạt Modal bằng GPU Frame
+    requestAnimationFrame(() => {
+      modal.classList.add("active");
+    });
   }
 
-  // Đóng Modal khi bấm X hoặc bấm ra ngoài
+  // Đóng Modal
   closeBtn.addEventListener("click", () => modal.classList.remove("active"));
   overlay.addEventListener("click", () => modal.classList.remove("active"));
 
-  // Chuyển Tab Ảnh / Video / File
+  // Chuyển Tab (Images / Video / Files)
   tabBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       tabBtns.forEach((b) => b.classList.remove("active"));
@@ -99,7 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .forEach((c) => c.classList.remove("active"));
 
       btn.classList.add("active");
-      document.getElementById(btn.dataset.tab).classList.add("active");
+      const activeTabContent = document.getElementById(btn.dataset.tab);
+      if (activeTabContent) {
+        activeTabContent.classList.add("active");
+      }
     });
   });
 });
