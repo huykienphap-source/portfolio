@@ -18,11 +18,11 @@ const projectsData = {
     files: [{ name: "Tài liệu PLC Siemens (.pdf)", url: "#" }],
   },
   3: {
-    title: "Automatic Door System",
-    category: "ELECTRONICS",
-    images: ["assets/cat3.jpeg"],
+    title: "Système de porte automatique",
+    category: ["AUTOMATIQUE", "SYSTÈME EMBARQUÉ"],
+    images: ["assets/automatic_door_circuit.png"],
     video: "",
-    files: [], // format: { name: "Bản vẽ 3D Cảm biến (.dwg)", url: "#" }
+    files: [{ name: "Automatic Door Materials (.pdf)", url: "assets/Automatic Door.pdf" }], // format: { name: "Bản vẽ 3D Cảm biến (.dwg)", url: "#" }
   },
 };
 
@@ -49,8 +49,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 1. Đổ tiêu đề & danh mục
     document.getElementById("modal-title").textContent = data.title || "Projet";
-    document.getElementById("modal-category").textContent =
-      data.category || "TECHNOLOGIE";
+    const categoryEl = document.getElementById("modal-category");
+
+    categoryEl.innerHTML = "";
+
+    const categories = Array.isArray(data.category)
+      ? data.category
+      : [data.category || "TECHNOLOGIE"];
+
+    categories.forEach((category) => {
+      const tag = document.createElement("span");
+      tag.className = "project-type";
+      tag.textContent = category;
+
+      categoryEl.appendChild(tag);
+    });
 
     // 2. Đổ danh sách Ảnh (Kiểm tra kỹ mảng rỗng)
     const galleryEl = document.getElementById("modal-gallery");
