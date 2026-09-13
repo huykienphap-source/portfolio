@@ -20,9 +20,23 @@ const projectsData = {
   3: {
     title: "Système de porte automatique",
     category: ["AUTOMATIQUE", "SYSTÈME EMBARQUÉ"],
-    images: ["assets/automatic_door_circuit.png"],
-    video: "",
-    files: [{ name: "Automatic Door Materials (.pdf)", url: "assets/Automatic Door.pdf" }], // format: { name: "Bản vẽ 3D Cảm biến (.dwg)", url: "#" }
+    images: [
+      "assets/automatic_door_circuit.png",
+      "assets/automatic_door_image_1.jpg",
+      "assets/automatic_door_image_2.jpg",
+      "assets/automatic_door_image_3.jpg",
+    ],
+    video: "https://www.youtube.com/embed/i3bBuMMdMZI",
+    files: [
+      {
+        name: "Automatic Door Materials (.pdf)",
+        url: "assets/Automatic Door.pdf",
+      },
+      {
+        name: "Automatic Door Code (.cpp)",
+        url: "assets/Automatic Door.cpp",
+      },
+    ], // format: { name: "Bản vẽ 3D Cảm biến (.dwg)", url: "#" }
   },
 };
 
