@@ -11,11 +11,29 @@ const projectsData = {
     ],
   },
   2: {
-    title: "PLC Mini Simulator",
-    category: "AUTOMATION",
-    images: ["assets/cat2.jpeg"],
-    video: "",
-    files: [{ name: "Tài liệu PLC Siemens (.pdf)", url: "#" }],
+    title: "Système radar de détection d'obstacles",
+    category: ["AUTOMATIQUE", "SYSTÈME EMBARQUÉ"],
+    images: [
+      "assets/obstacle_radar_circuit.png",
+      "assets/obstacle_radar_image_1.jpg",
+      "assets/obstacle_radar_image_2.jpg",
+      "assets/obstacle_radar_image_3.jpg",
+    ],
+    video: "https://www.youtube.com/embed/EvvDYUcivAs",
+    files: [
+      {
+        name: "Obstacle Radar Materials (.pdf)",
+        url: "assets/Obstacle Detection Radar System.pdf",
+      },
+      {
+        name: "Obstacle Radar Code Python (.py)",
+        url: "assets/radar_2d.py",
+      },
+      {
+        name: "Obstacle Radar Code (.cpp)",
+        url: "assets/Obstacle Radar Code.cpp",
+      },
+    ],
   },
   3: {
     title: "Système de porte automatique",
