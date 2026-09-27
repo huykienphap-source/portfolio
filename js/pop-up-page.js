@@ -1,9 +1,9 @@
 // DỮ LIỆU CÁC DỰ ÁN (ẢNH, VIDEO, FILES)
 const projectsData = {
   1: {
-    title: "Automatic Landing System",
-    category: "EMBEDDED SYSTEMS",
-    images: [],
+    title: "Mini-panneau de contrôle de vol",
+    category: ["AUTOMATIQUE", "SYSTÈME EMBARQUÉ"],
+    images: ["assets/control_panel_circuit.png", "assets/flap_image.jpg"],
     video: "", // Hoặc link video mp4
     files: [
       { name: "Sơ đồ mạch Arduino (.pdf)", url: "#" },
@@ -103,12 +103,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (Array.isArray(data.images) && data.images.length > 0) {
       const fragment = document.createDocumentFragment();
-      data.images.forEach((imgSrc) => {
+      data.images.forEach((imgSrc, index) => {
         const img = document.createElement("img");
         img.src = imgSrc;
         img.alt = "Image du projet";
         img.loading = "lazy";
         img.decoding = "async";
+        // CHỈ PROJECT 1:
+        // 2 ảnh đầu tiên = mỗi ảnh 1 hàng
+        if (id === 1 && index < 2) {
+          img.classList.add("project1-full-width");
+        }
+
         fragment.appendChild(img);
       });
       galleryEl.appendChild(fragment);

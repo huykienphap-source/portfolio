@@ -88,7 +88,6 @@
   white-space: nowrap;
 }
 
-
 .modal-close-btn {
   position: absolute;
   top: 15px;
@@ -235,4 +234,19 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   align-items: start;
+}
+
+/* Juste pour le projet 1 */
+#modal-gallery:has(.project1-full-width) {
+  min-height: 0;
+}
+
+/* 2 images du projet 1 */
+#modal-gallery .project1-full-width {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  display: block;
 }
