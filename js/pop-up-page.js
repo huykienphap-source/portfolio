@@ -17,7 +17,10 @@ const projectsData = {
         name: "Mini Control Panel Code (.cpp)",
         url: "assets/Mini Control Panel Code.cpp",
       },
-      { name: "Mini Control Panel Materials (.pdf)", url: "#" },
+      {
+        name: "Mini Control Panel Materials (.pdf)",
+        url: "assets/Mini Aircraft Flight Control Panel.pdf",
+      },
     ],
   },
   2: {
