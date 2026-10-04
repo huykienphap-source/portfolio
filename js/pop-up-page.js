@@ -3,11 +3,21 @@ const projectsData = {
   1: {
     title: "Mini-panneau de contrôle de vol",
     category: ["AUTOMATIQUE", "SYSTÈME EMBARQUÉ"],
-    images: ["assets/control_panel_circuit.png", "assets/flap_image.jpg"],
-    video: "", // Hoặc link video mp4
+    images: [
+      "assets/control_panel_circuit.png",
+      "assets/flap_image.jpg",
+      "assets/Mini_Panel_1.jpg",
+      "assets/Mini_Panel_2.jpg",
+      "assets/Mini_Panel_3.jpg",
+      "assets/Mini_Panel_4.jpg",
+    ],
+    video: "https://www.youtube.com/embed/k57FZC_rVEM", // Hoặc link video mp4
     files: [
-      { name: "Sơ đồ mạch Arduino (.pdf)", url: "#" },
-      { name: "Mã nguồn C++ (.zip)", url: "#" },
+      {
+        name: "Mini Control Panel Code (.cpp)",
+        url: "assets/Mini Control Panel Code.cpp",
+      },
+      { name: "Mini Control Panel Materials (.pdf)", url: "#" },
     ],
   },
   2: {
