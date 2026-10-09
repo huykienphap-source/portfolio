@@ -114,3 +114,67 @@ section {
 .break {
   word-break: break-all;
 }
+
+/* Widget mascot */
+.projects__mascot {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 120px;
+  height: 120px;
+  z-index: 99999;
+  cursor: pointer;
+
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+
+  background-image: url("/assets/rocket-directions.webp");
+  background-size: 300% 300%;
+  background-position: var(--bg-x, 50%) var(--bg-y, 50%);
+  background-color: #08142f;
+  border-radius: 50%;
+  border: 2px solid #00f0ff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.projects__mascot::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 240, 255, 0.3);
+  pointer-events: none;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+  transition: opacity 0.2s ease;
+}
+
+.projects__mascot:hover {
+  transform: scale(1.06) translate3d(0, 0, 0);
+  border-color: #79a2ff;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+}
+
+.projects__mascot:hover::before {
+  border-color: rgba(121, 162, 255, 0.6);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+}
+
+.projects__mascot:active {
+  transform: scale(0.95) translate3d(0, 0, 0);
+}
+
+@media (max-width: 768px) {
+  .projects__mascot {
+    width: 85px;
+    height: 85px;
+    bottom: 20px;
+    right: 20px;
+  }
+}
