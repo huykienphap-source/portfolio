@@ -14,6 +14,11 @@ let isReacting = false;
 let reactionTimeout;
 let ticking = false;
 
+if (mascot) {
+  mascot.style.backgroundImage = "url('./assets/rocket-directions.webp')";
+  mascot.style.setProperty("--bg-x", "50%");
+  mascot.style.setProperty("--bg-y", "50%");
+}
 
 document.addEventListener("mousemove", (e) => {
   if (!mascot || isReacting || ticking) return;
@@ -65,7 +70,6 @@ document.addEventListener("mousemove", (e) => {
   });
 });
 
-
 if (mascot) {
   mascot.addEventListener("click", () => {
     isReacting = true;
@@ -80,6 +84,6 @@ if (mascot) {
 
     reactionTimeout = setTimeout(() => {
       isReacting = false;
-    }, 1500); //1.5 secondes
+    }, 1500); // 1.5 giây
   });
 }
