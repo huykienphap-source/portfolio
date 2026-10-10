@@ -169,12 +169,3 @@ section {
 .projects__mascot:active {
   transform: scale(0.95) translate3d(0, 0, 0);
 }
-
-@media (max-width: 768px) {
-  .projects__mascot {
-    width: 85px;
-    height: 85px;
-    bottom: 20px;
-    right: 20px;
-  }
-}

@@ -170,6 +170,13 @@
     padding-top: 10rem;
   }
 
+  .projects__mascot {
+    width: 85px;
+    height: 85px;
+    bottom: 20px;
+    right: 20px;
+  }
+
   /** CONTACT **/
   .contact-content {
     flex-direction: column;
