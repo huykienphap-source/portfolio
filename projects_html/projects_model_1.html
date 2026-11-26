@@ -1,0 +1,2793 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TP d'Électronique Numérique L3</title>
+    <!-- Đường dẫn trỏ đúng vào file projects_write.css của bạn -->
+    <link rel="stylesheet" href="../css/projects_pages/projects_write.css" />
+  </head>
+  <body>
+    <!-- Barre de progression de lecture en haut -->
+    <div id="progress-bar"></div>
+
+    <!-- Barre de navigation supérieure -->
+    <nav class="top-nav">
+      <div class="top-nav-inner">
+        <a href="../index.html" class="back-link">← Retour à l'accueil</a>
+        <span class="nav-badge">TP d'Électronique Numérique L3</span>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div class="article-card">
+        <!-- SECTION 1 : EN-TÊTE & MÉTADONNÉES -->
+        <header>
+          <span class="context-tag"
+            >Travaux Pratiques · VHDL &amp; FPGA · 2026</span
+          >
+          <h1>
+            Mini-projet: Conception d'une console de jeux SU-EE100 avec FPGA et
+            VHDL
+          </h1>
+          <div class="meta-line">
+            <span>Mis à jour le 23 nov. 2026</span>
+            <span>•</span>
+            <span id="read-time">Calcul en cours...</span>
+            <span>•</span>
+            <span>Par : KIEN Le Dang Huy</span>
+          </div>
+        </header>
+
+        <article>
+          <!-- SECTION 2 : TABLEAU RÉCAPITULATIF (RÉSUMÉ) -->
+          <dl class="summary-box">
+            <div class="summary-item">
+              <dt>État d'avancement</dt>
+              <dd>
+                Prototype pleinement opérationnel, testé et validé sur la carte
+                FPGA ainsi que sur l'écran soit en Casse Briques, soit en Pong
+                (couvrant les tâches 0 à 4).
+              </dd>
+            </div>
+            <div class="summary-item">
+              <dt>Ma contribution</dt>
+              <dd>
+                <ul>
+                  <li>
+                    <strong>Conception VHDL :</strong> contrôleur VGA (couleurs
+                    sur 4 bits), gestion des raquettes via encodeur rotatif,
+                    logique du jeu, obstacle mobile et compteur de score sur
+                    afficheurs 7 segments.
+                  </li>
+                  <li>
+                    <strong>Vérification :</strong> simulation sous
+                    environnement VHDL et validation matérielle sur carte FPGA.
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="summary-item">
+              <dt>Technologies utilisées</dt>
+              <dd class="tech-pills">
+                <span class="tech-pill">Vivado 2018.3</span>
+                <span class="tech-pill">VHDL</span>
+                <span class="tech-pill">Carte Basys 3</span>
+                <span class="tech-pill">Écran TV</span>
+                <span class="tech-pill">Câble VGA vers HDMI</span>
+              </dd>
+            </div>
+          </dl>
+
+          <!-- Tableau des indicateurs rapides (3 colonnes) -->
+          <table class="metrics-table">
+            <thead>
+              <tr>
+                <th>Matériel &amp; Périphériques</th>
+                <th>Architecture VHDL</th>
+                <th>Résultats &amp; Validation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ul>
+                    <li>Carte FPGA &amp; écran TV</li>
+                    <li>Encodeur rotatif (raquettes)</li>
+                    <li>Accéléromètre</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li>Contrôleur VGA (couleurs 4 bits)</li>
+                    <li>Logique de jeu &amp; obstacle mobile</li>
+                    <li>Compteur de score (7 segments)</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li>Simulation VHDL validée</li>
+                    <li>Prototype testé sur carte FPGA</li>
+                    <li>Jeux Pong &amp; Casse-Briques opérationnels</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Table des matières automatique (TOC) générée par le JS -->
+          <nav class="toc-box" aria-label="Table des matières">
+            <div class="toc-title">Sommaire</div>
+            <ul class="toc-list" id="toc-list"></ul>
+          </nav>
+
+          <p>
+            Dans le cadre du mini-projet d'électronique numérique (UL3EE100 à
+            Sorbonne Université), l'objectif était de concevoir et finaliser une
+            console de jeux embarquée (<strong>SU-EE100</strong>) sur carte FPGA
+            (Digilent Basys 3) à partir d'une architecture matérielle
+            incomplète.
+          </p>
+          <p>
+            Le principal défi technique résidait dans la conception et la
+            synchronisation en temps réel de plusieurs modules numériques en
+            <strong>VHDL</strong> sous <strong>Vivado</strong> : génération des
+            signaux vidéo VGA codés sur 4 bits par couleur (4096 teintes),
+            décodage des signaux en quadrature d'un encodeur rotatif, gestion
+            des états de jeu (victoire, défaite, pause) via des machines à états
+            (MAE) et intégration d'un obstacle mobile.
+          </p>
+          <p>
+            Globalement, l'architecture acquiert les commandes du joueur depuis
+            les périphériques externes (encodeur rotatif, accéléromètre et
+            boutons de la carte), exécute la logique des jeux <em>Pong</em> et
+            <em>Casse-Briques</em> au coeur du FPGA, puis génère l'affichage
+            vidéo en direct sur écran TV tout en actualisant le score sur les
+            afficheurs 7 segments.
+          </p>
+
+          <!-- SECTION 3 : CORPS DU TEXTE AVEC CHAPITRES NUMÉROTÉS -->
+          <!-- =========================================================
+          CHAPITRE 01 : ARCHITECTURE GÉNÉRALE & TÂCHE 0
+          ========================================================= -->
+          <h2>
+            <span class="chapter-num">01 —</span> Architecture générale et base
+            temporelle (Tâche 0)
+          </h2>
+          <p>
+            La console <strong>SU-EE100</strong> repose sur une architecture
+            numérique modulaire décrite en <strong>VHDL</strong> et implémentée
+            sur une carte FPGA <strong>Digilent Basys 3</strong> (oscillateur
+            interne à <strong>100 MHz</strong>). L'ensemble du système
+            s'articule autour de trois blocs principaux : l'acquisition des
+            commandes (encodeur rotatif, accéléromètre, boutons, interrupteurs),
+            le moteur de jeu (machines à états et gestion des collisions) et
+            l'affichage en temps réel (contrôleur VGA et afficheurs 7 segments).
+          </p>
+          <p>
+            <strong>Diviseur d'horloge (100 MHz &rarr; 25 MHz) :</strong>
+            L'affichage vidéo au format VGA (640&times;480 à 60 Hz) exige une
+            fréquence pixel précise de <strong>25 MHz</strong>. J'ai corrigé et
+            simulé le module <code>ClkDiv.vhd</code> basé sur un compteur modulo
+            2 afin d'obtenir un rapport cyclique de 50 % et un facteur de
+            division exact de 4.
+          </p>
+
+          <!-- Ô DÁN ẢNH 1 (Sơ đồ tổng thể hoặc Waveform Tâche 0) -->
+          <figure>
+            <img
+              src="/assets/TP_Elec/Architecture_globale_TP.png"
+              alt="Architecture globale et chronogramme ClkDiv"
+            />
+            <figcaption>
+              Figure 1 : Architecture globale de la console SU-EE100 et
+              validation du diviseur d'horloge 25 MHz.
+            </figcaption>
+          </figure>
+
+          <!-- Ô DÁN CODE 1 (ClkDiv.vhd) -->
+          <div class="code-container">
+            <div class="code-header">
+              <span>ClkDiv.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity ClkDiv is
+    Port ( clk100, reset : in  STD_LOGIC; -- Horloge 100 MHz et Reset Asynchrone
+           clk25         : out STD_LOGIC  -- Horloge 25 MHz
+         );
+end ClkDiv;
+
+architecture Behavioral of ClkDiv is
+
+    -- Compteur pour le Facteur de Division de l'Horloge 100 MHz
+    signal CPT_25M : std_logic_vector(1 downto 0);
+
+    -- Signal Interne de l'Horloge 25 MHz
+    signal clk_int : std_logic;
+
+begin
+
+    -- Affectation Horloge 25 MHz en Sortie
+    clk25 &lt;= clk_int;
+
+    ---------------------------------------------------------------
+    -- GESTION DU COMPTEUR DE DIVISION
+    -- ET GENERATION DE L'HORLOGE 25 MHz
+    ---------------------------------------------------------------
+    process(clk100, reset)
+    begin
+        -- Reset Asynchrone
+        if reset = '0' then   
+            CPT_25M &lt;= "00"; 
+            clk_int &lt;= '0';
+        -- Sinon Test Front d'Horloge
+        elsif rising_edge(clk100) then
+            -- Incrémentation du Compteur de Division
+            CPT_25M &lt;= CPT_25M + 1;
+              
+            -- Si la Valeur Limite Est Atteinte
+            if CPT_25M = "01" then  
+                -- RAZ Compteur et Changement Etat Horloge 25 MHz
+                CPT_25M &lt;= "00";
+                clk_int &lt;= not clk_int;
+            end if;
+        end if;
+    end process;
+
+end Behavioral;</code></pre>
+          </div>
+
+          <!-- =========================================================
+          CHAPITRE 02 : TÂCHE 1 — CONTRÔLEUR VGA 4 BITS
+          ========================================================= -->
+          <h2>
+            <span class="chapter-num">02 —</span> Tâche 1 : Contrôleur VGA 4
+            bits et générateur de couleurs
+          </h2>
+          <p>
+            <strong>Extension graphique :</strong> La version initiale de la
+            console limitait l'affichage à 3 bits (8 couleurs). J'ai étendu le
+            contrôleur VGA (<code>VGA_4bits.vhd</code>) sur
+            <strong>4 bits par couleur primaire</strong>, offrant une palette de
+            <strong>4096 teintes</strong>.
+          </p>
+          <p>
+            J'ai ensuite développé le module
+            <code>Moving_Colors.vhd</code> combinant un diviseur d'horloge à
+            <strong>20 Hz</strong>, trois compteurs 5 bits et une
+            <strong>Machine à États Finis (MAE)</strong> à 3 phases pour générer
+            un dégradé de couleurs dynamique.
+          </p>
+
+          <!-- Ô DÁN ẢNH 2 (Ảnh sơ đồ khối Moving Colors hoặc ảnh chụp màn hình VGA) -->
+          <figure>
+            <img
+              src="/assets/TP_Elec/Generateur_De_Couleurs.png"
+              alt="Generateur de Couleurs"
+            />
+            <figcaption>Figure 2 : Générateur de couleurs.</figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Architecture_Generateur_De_Couleurs.png"
+              alt="Architecture interne de Generateur de Couleurs"
+            />
+            <figcaption>
+              Figure 3 : Architecture de <code>Generateur_De_Couleurs</code>.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Moving_Colors_Schema.jpg"
+              alt="Architecture interne de Moving Colors"
+            />
+            <figcaption>
+              Figure 4 : Architecture de <code>Moving_Colors</code>.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Moving_Colors_Schema.jpg"
+            >
+              <source
+                src="/assets/TP_Elec/Validation_sur_ecran_TV.webm"
+                type="video/webm"
+              />
+              <source
+                src="/assets/TP_Elec/Validation_sur_ecran_TV.mp4"
+                type="video/mp4"
+              />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>
+              Vidéo 1 : Fonctionnement de <code>Moving_Colors</code> et
+              variation dynamique des teintes sur écran TV.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/poster_test_moving_colors.png"
+            >
+              <source
+                src="/assets/TP_Elec/Test_Moving_Colors_Ecran.webm"
+                type="video/webm"
+              />
+              <source
+                src="/assets/TP_Elec/Test_Moving_Colors_Ecran.mp4"
+                type="video/mp4"
+              />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>
+              Vidéo 2 : Fonctionnement de <code>Moving_Colors</code> sur écran
+              avec console de jeux.
+            </figcaption>
+          </figure>
+
+          <!-- Ô DÁN CODE 2 (Moving_Colors.vhd / VGA_4bits.vhd) -->
+          <div class="code-container">
+            <div class="code-header">
+              <span>Compteurs_5bits.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity Compteurs_5bits is
+    generic (
+        INIT_VALUE : std_logic_vector(4 downto 0) := "00000"
+    );
+    port (
+        CLK   : in  std_logic;
+        RESET : in  std_logic;
+        Cmd   : in  std_logic_vector(1 downto 0);
+        S     : out std_logic_vector(3 downto 0);
+        Max   : out std_logic
+    );
+end Compteurs_5bits;
+
+architecture archi of Compteurs_5bits is
+
+    signal cpt : std_logic_vector(4 downto 0);
+
+begin
+
+    S   &lt;= cpt(4 downto 1);
+    Max &lt;= '1' when cpt = "11111" else '0';
+
+    process(CLK, RESET)
+    begin
+        if RESET = '0' then
+            cpt &lt;= INIT_VALUE;
+        elsif rising_edge(CLK) then
+            case Cmd is
+                when "01"   =&gt; cpt &lt;= cpt - 1;
+                when "10"   =&gt; cpt &lt;= cpt + 1;
+                when others =&gt; cpt &lt;= cpt;
+            end case;
+        end if;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>MAE_Moving.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity MAE_Moving is
+    port (
+        RED_MAX, BLUE_MAX, GREEN_MAX : in  std_logic;
+        CLK_100M, RESET              : in  std_logic;
+        CMD_RED, CMD_BLUE, CMD_GREEN : out std_logic_vector(1 downto 0)
+    );
+end MAE_Moving;
+
+architecture archi of MAE_Moving is
+
+    -- DÉFINITION DES ÉTATS
+    type ETAT is (P1, P2, P3);
+
+    -- DÉFINITION DE L'ÉTAT FUTUR ET PRÉSENT
+    signal EF, EP : ETAT;
+
+begin
+
+    -- PROCESS POUR LE REGISTRE D'ÉTAT
+    process(CLK_100M, RESET)
+    begin
+        if RESET = '0' then
+            EP &lt;= P1;
+        elsif rising_edge(CLK_100M) then
+            EP &lt;= EF;
+        end if;
+    end process;
+
+    -- PROCESS POUR LE COMBINATOIRE D'ÉTATS
+    process(EP, RED_MAX, BLUE_MAX, GREEN_MAX)
+    begin
+        case EP is
+            when P1 =&gt;
+                if GREEN_MAX = '1' then
+                    EF &lt;= P2;
+                else
+                    EF &lt;= P1;
+                end if;
+
+            when P2 =&gt;
+                if BLUE_MAX = '1' then
+                    EF &lt;= P3;
+                else
+                    EF &lt;= P2;
+                end if;
+
+            when P3 =&gt;
+                if RED_MAX = '1' then
+                    EF &lt;= P1;
+                else
+                    EF &lt;= P3;
+                end if;
+        end case;
+    end process;
+
+    -- PROCESS POUR LE COMBINATOIRE DE SORTIES
+    process(EP)
+    begin
+        case EP is
+            -- CSTE: "00", "11" | INC: "10" | DEC: "01"
+            when P1 =&gt;
+                CMD_RED   &lt;= "01";
+                CMD_BLUE  &lt;= "00";
+                CMD_GREEN &lt;= "10";
+
+            when P2 =&gt;
+                CMD_RED   &lt;= "00";
+                CMD_BLUE  &lt;= "10";
+                CMD_GREEN &lt;= "01";
+
+            when P3 =&gt;
+                CMD_RED   &lt;= "10";
+                CMD_BLUE  &lt;= "01";
+                CMD_GREEN &lt;= "00";
+        end case;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>DivHorloge.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity DivHorloge is
+    generic (
+        DIV_VALUE : integer := 5
+    );
+    port (
+        CLK_100M, RESET : in  std_logic;
+        CLK_DIV         : out std_logic
+    );
+end DivHorloge;
+
+architecture archi of DivHorloge is
+
+    signal cpt     : integer range 0 to DIV_VALUE;
+    signal CLK_TMP : std_logic;
+
+begin
+
+    CLK_DIV &lt;= CLK_TMP;
+
+    process(CLK_100M, RESET)
+    begin
+        if RESET = '0' then
+            cpt     &lt;= 0;
+            CLK_TMP &lt;= '0';
+        elsif rising_edge(CLK_100M) then
+            cpt &lt;= cpt + 1;
+            if cpt = DIV_VALUE - 1 then
+                CLK_TMP &lt;= not(CLK_TMP);
+                cpt     &lt;= 0;
+            end if;
+        end if;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>Moving_Colors.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity Moving_Colors is
+    port ( CLK_100M, RESET : in  std_logic;
+           RED_Out         : out std_logic_vector(3 downto 0);
+           GREEN_Out       : out std_logic_vector(3 downto 0);
+           BLUE_Out        : out std_logic_vector(3 downto 0)
+         );
+end Moving_Colors;
+
+architecture archi of Moving_Colors is
+
+    signal CLK_INT                      : std_logic;
+    signal CMD_RED, CMD_BLUE, CMD_GREEN : std_logic_vector(1 downto 0);
+    signal RED_MAX, BLUE_MAX, GREEN_MAX : std_logic;
+
+begin
+
+    Diviseur_20Hz: entity work.DivHorloge
+        generic map (
+            DIV_VALUE =&gt; 2500000
+        )
+        port map (
+            CLK_100M =&gt; CLK_100M,
+            RESET    =&gt; RESET,
+            CLK_DIV  =&gt; CLK_INT
+        );
+
+    Compteur_RED: entity work.Compteurs_5bits
+        generic map (
+            INIT_VALUE =&gt; "11111"
+        )
+        port map (
+            CLK   =&gt; CLK_INT,
+            RESET =&gt; RESET,
+            Cmd   =&gt; CMD_RED,
+            S     =&gt; RED_Out,
+            Max   =&gt; RED_MAX
+        );
+
+    Compteur_BLUE: entity work.Compteurs_5bits
+        port map (
+            CLK   =&gt; CLK_INT,
+            RESET =&gt; RESET,
+            Cmd   =&gt; CMD_BLUE,
+            S     =&gt; BLUE_Out,
+            Max   =&gt; BLUE_MAX
+        );
+
+    Compteur_GREEN: entity work.Compteurs_5bits
+        port map (
+            CLK   =&gt; CLK_INT,
+            RESET =&gt; RESET,
+            Cmd   =&gt; CMD_GREEN,
+            S     =&gt; GREEN_Out,
+            Max   =&gt; GREEN_MAX
+        );
+
+    MAE: entity work.MAE_Moving
+        port map (
+            RED_MAX   =&gt; RED_MAX,
+            BLUE_MAX  =&gt; BLUE_MAX,
+            GREEN_MAX =&gt; GREEN_MAX,
+            RESET     =&gt; RESET,
+            CLK_100M  =&gt; CLK_100M,
+            CMD_RED   =&gt; CMD_RED,
+            CMD_BLUE  =&gt; CMD_BLUE,
+            CMD_GREEN =&gt; CMD_GREEN
+        );
+
+end archi;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>VGA_4bits.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity VGA_4bits is
+    port (
+        clk25, reset     : in  std_logic;                    -- Horloge, Reset Asynchrone
+        r, g, b          : in  std_logic_vector(3 downto 0); -- Commande de Couleur Donnee par le Controleur de Jeu
+        red, green, blue : out std_logic_vector(3 downto 0); -- Affichage Couleur vers Ecran VGA
+        hsync, vsync     : out std_logic;                    -- Synchro Ligne (H) et Trame (V)
+        visible          : out std_logic;                    -- Partie Visible de l'Image
+        endframe         : out std_logic;                    -- Dernier Pixel Visible d'une Frame
+        xpos, ypos       : out std_logic_vector(9 downto 0)  -- Coordonnees du Pixel Courant
+    );
+end VGA_4bits;
+
+architecture archi of VGA_4bits is
+
+    -- Compteur Coordonnees Pixel
+    signal xcord, ycord   : std_logic_vector(9 downto 0);
+
+    -- Signal de Fin de Ligne
+    signal endline        : std_logic;
+
+    -- Signal Zone Visible de l'Image
+    signal image_visible  : std_logic;
+
+begin
+
+    -- Affichage Couleur
+    red   &lt;= r when image_visible = '1' else (others =&gt; '0');
+    green &lt;= g when image_visible = '1' else (others =&gt; '0');
+    blue  &lt;= b when image_visible = '1' else (others =&gt; '0');
+
+    -- Affectation en Sortie des Coordonnees Pixel
+    xpos &lt;= xcord;
+    ypos &lt;= ycord;
+
+    -- Partie Visible de l'Image (Matrice 640 Colonnes x 480 Lignes)
+    image_visible &lt;= '1' when (xcord &lt; 640) and (ycord &lt; 480) else '0';
+    visible       &lt;= image_visible;
+
+    -- Signal de Fin de Ligne (Partie Visible + Non Visible)
+    endline  &lt;= '1' when xcord = 799 else '0';
+
+    -- Fin de Trame (Dernier Pixel Visible de l'Image)
+    endframe &lt;= '1' when (xcord = 0) and (ycord = 480) else '0';
+
+    -------------------------------------------------------------------------
+    -- COMPTEURS LIGNE ET COLONNE
+    -------------------------------------------------------------------------
+    process(clk25, reset)
+    begin
+        if reset = '0' then
+            xcord &lt;= (others =&gt; '0');
+            ycord &lt;= (others =&gt; '0');
+        elsif rising_edge(clk25) then
+            -- Incrementation Compteur Colonne
+            xcord &lt;= xcord + 1;
+
+            -- Si on Arrive en Fin de Ligne
+            if (endline = '1') then
+                -- RAZ Compteur Colonne
+                xcord &lt;= (others =&gt; '0');
+
+                -- Incrementation Compteur Ligne (RAZ apres 521 Lignes)
+                if (ycord = 520) then
+                    ycord &lt;= (others =&gt; '0');
+                else
+                    ycord &lt;= ycord + 1;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -------------------------------------------------------------------------
+    -- GENERATION DES SIGNAUX DE SYNCHRO
+    --
+    -- SYNCHRO LIGNE (HSYNC)
+    --   Colonne 0   --&gt; 639 : Partie Visible
+    --   Colonne 640 --&gt; 664 : Pre-Synchro
+    --   Colonne 665 --&gt; 759 : Synchro
+    --   Colonne 760 --&gt; 799 : Post-Synchro
+    --
+    -- SYNCHRO TRAME (VSYNC)
+    --   Ligne 0     --&gt; 479 : Partie Visible
+    --   Ligne 480   --&gt; 489 : Pre-Synchro
+    --   Ligne 490   --&gt; 491 : Synchro
+    --   Ligne 492   --&gt; 520 : Post-Synchro
+    -------------------------------------------------------------------------
+    process(clk25, reset)
+    begin
+        if reset = '0' then
+            hsync &lt;= '1';
+            vsync &lt;= '1';
+        elsif rising_edge(clk25) then
+            -- Synchro Ligne
+            if (xcord &gt; 664) and (xcord &lt;= 759) then
+                hsync &lt;= '0';
+            else
+                hsync &lt;= '1';
+            end if;
+
+            -- Synchro Trame
+            if (ycord = 490) or (ycord = 491) then
+                vsync &lt;= '0';
+            else
+                vsync &lt;= '1';
+            end if;
+        end if;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <!-- =========================================================
+          CHAPITRE 03 : TÂCHE 2 — ENCODEUR ROTATIF
+          ========================================================= -->
+          <h2>
+            <span class="chapter-num">03 —</span> Tâche 2 : Pilotage des
+            raquettes via encodeur rotatif
+          </h2>
+          <p>
+            <strong>Décodage en quadrature :</strong> Pour contrôler les
+            raquettes, j'ai conçu le sous-module <code>move.vhd</code> au sein
+            de l'IP <code>ip_rotary</code>. Après filtrage anti-rebond des
+            signaux de l'encodeur (<code>QA</code> et <code>QB</code>), la
+            machine à états analyse leur déphasage : si <code>QA</code> commute
+            avant <code>QB</code>, une impulsion <code>Rot_Left</code> est
+            générée ; dans le cas inverse, <code>Rot_Right</code> est activé.
+          </p>
+
+          <!-- Ô DÁN ẢNH 3 (Ảnh sơ đồ trạng thái MAE của encodeur rotatif) -->
+          <figure>
+            <img src="/assets/TP_Elec/IP_Rotary.png" alt="Bloc IP_Rotary" />
+            <figcaption>
+              Figure 5 : Bloc IP_Rotary intégrant le décodeur d'encodeur rotatif
+              et la MAE <code>Move</code>.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Architecture_IP_Rotary.png"
+              alt="Architecture interne de l'IP_Rotary"
+            />
+            <figcaption>
+              Figure 6 : Architecture de <code>IP_Rotary</code>.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Chronogramme_MAE_Move.jpg"
+              alt="Chronogramme de la MAE Move"
+            />
+            <figcaption>
+              Figure 7 : Chronogramme de la MAE <code>Move</code>
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Graphe_etat_Move.jpg"
+              alt="Graphe d'états de Move"
+            />
+            <figcaption>
+              Figure 8 : Graphe d'états de la MAE <code>Move</code> et détection
+              du sens de rotation.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Test_Encodeur_Rotatif.png"
+            >
+              <source
+                src="/assets/TP_Elec/test_encodeur_rotatif.webm"
+                type="video/webm"
+              />
+              <source
+                src="/assets/TP_Elec/test_encodeur_rotatif.mp4"
+                type="video/mp4"
+              />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>
+              Vidéo 3 : Fonctionnement de <code>Move</code> ou
+              <code>IP_Rotary</code> sur écran avec console de jeux.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Test_Encodeur_Rotatif_2.png"
+            >
+              <source
+                src="/assets/TP_Elec/Test_Encodeur_Rotatif_2.webm"
+                type="video/webm"
+              />
+              <source
+                src="/assets/TP_Elec/Test_Encodeur_Rotatif_2.mp4"
+                type="video/mp4"
+              />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>
+              Vidéo 4 : Jeux de <code>Move</code> ou <code>IP_Rotary</code> sur
+              écran avec Encodeur Rotatif.
+            </figcaption>
+          </figure>
+
+          <!-- Ô DÁN CODE 3 (move.vhd) -->
+          <div class="code-container">
+            <div class="code-header">
+              <span>move.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity move is
+    port (
+        CLK_25M, RESET      : in  std_logic;
+        QA, QB              : in  std_logic;
+        Rot_Left, Rot_Right : out std_logic
+    );
+end move;
+
+architecture archi of move is
+
+    -- DÉFINITION DES ÉTATS
+    type ETAT is (S0, S1, S2, S3);
+
+    -- DÉFINITION DE L'ÉTAT FUTUR ET PRÉSENT
+    signal EF, EP : ETAT;
+
+begin
+
+    -- PROCESS POUR LE REGISTRE D'ÉTAT
+    process(CLK_25M, RESET)
+    begin
+        if RESET = '0' then
+            EP &lt;= S0;
+        elsif rising_edge(CLK_25M) then
+            EP &lt;= EF;
+        end if;
+    end process;
+
+    -- PROCESS POUR LE COMBINATOIRE D'ÉTATS
+    process(EP, QA, QB)
+    begin
+        case EP is
+            when S0 =&gt;
+                if QA = '1' and QB = '0' then
+                    EF &lt;= S1;
+                elsif QA = '0' and QB = '1' then
+                    EF &lt;= S3;
+                else
+                    EF &lt;= S0;
+                end if;
+
+            when S1 =&gt;
+                if QA = '1' and QB = '1' then
+                    EF &lt;= S2;
+                elsif QA = '0' and QB = '0' then
+                    EF &lt;= S0;
+                else
+                    EF &lt;= S1;
+                end if;
+
+            when S2 =&gt;
+                if QA = '0' and QB = '1' then
+                    EF &lt;= S3;
+                elsif QA = '1' and QB = '0' then
+                    EF &lt;= S1;
+                else
+                    EF &lt;= S2;
+                end if;
+
+            when S3 =&gt;
+                if QA = '0' and QB = '0' then
+                    EF &lt;= S0;
+                elsif QA = '1' and QB = '1' then
+                    EF &lt;= S2;
+                else
+                    EF &lt;= S3;
+                end if;
+        end case;
+    end process;
+
+    -- PROCESS POUR LE SORTIE SYNCHRONE (MEALY ENREGISTRÉE)
+    process(CLK_25M, RESET)
+    begin
+        if RESET = '0' then
+            Rot_Left  &lt;= '0';
+            Rot_Right &lt;= '0';
+        elsif rising_edge(CLK_25M) then
+            -- Valeurs par défaut
+            Rot_Left  &lt;= '0';
+            Rot_Right &lt;= '0';
+
+            case EP is
+                -- S0 -&gt; S1 : ROTATION GAUCHE
+                when S0 =&gt;
+                    if QA = '1' and QB = '0' then
+                        Rot_Left &lt;= '1';
+                    end if;
+
+                -- S1 -&gt; S0 : ROTATION DROITE
+                when S1 =&gt;
+                    if QA = '0' and QB = '0' then
+                        Rot_Right &lt;= '1';
+                    end if;
+
+                -- S2 -&gt; S3 : ROTATION GAUCHE
+                when S2 =&gt;
+                    if QA = '0' and QB = '1' then
+                        Rot_Left &lt;= '1';
+                    end if;
+
+                -- S3 -&gt; S2 : ROTATION DROITE
+                when S3 =&gt;
+                    if QA = '1' and QB = '1' then
+                        Rot_Right &lt;= '1';
+                    end if;
+            end case;
+        end if;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <!-- =========================================================
+          CHAPITRE 04 : TÂCHE 3 — GESTION DES ÉTATS DE JEU
+          ========================================================= -->
+          <h2>
+            <span class="chapter-num">04 —</span> Tâche 3 : Gestion des parties
+            et mode Pause (Module Mode)
+          </h2>
+          <p>
+            <strong>Orchestration des parties :</strong> J'ai développé le
+            module <code>mode.vhd</code> intégrant trois sous-blocs synchronisés
+            à 25 MHz :
+          </p>
+          <ul>
+            <li>
+              <strong>Tempo Pause (compteur 10 bits) :</strong> Anti-rebond du
+              bouton poussoir de l'encodeur pour un basculement unique
+              Pause/Actif.
+            </li>
+            <li>
+              <strong>Timer Lost (compteur 6 bits) :</strong> Maintien de
+              l'écran rouge (<code>Game_Lost</code>) pendant 64 images lorsque
+              la balle sort du terrain.
+            </li>
+            <li>
+              <strong>MAE de contrôle :</strong> Gestion des transitions de jeu
+              et activation de l'écran vert (<code>Brick_Win</code>) lorsque
+              toutes les briques sont détruites.
+            </li>
+          </ul>
+
+          <!-- Ô DÁN ẢNH 4 (Ảnh sơ đồ khối Mode hoặc Waveform) -->
+          <figure>
+            <img src="/assets/TP_Elec/Mode.png" alt="Bloc Mode" />
+            <figcaption>Figure 9 : Bloc <code>Mode</code>.</figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Architecture_de_Mode.png"
+              alt="Architecture du bloc Mode"
+            />
+            <figcaption>
+              Figure 10 : Architecture interne du bloc <code>Mode</code> (MAE,
+              <code>Tempo_Pause</code> et <code>Timer_Lost</code>).
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Tempo_Pause_Schema.jpg"
+              alt="Architecture du bloc Tempo_Pause"
+            />
+            <figcaption>
+              Figure 11 : Architecture interne du bloc <code>Tempo_Pause</code>.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Timer_Lost_Schema.jpg"
+              alt="Architecture du bloc Timer_Lost"
+            />
+            <figcaption>
+              Figure 12 : Architecture interne du bloc <code>Timer_Lost</code>.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <img
+              src="/assets/TP_Elec/Graphe_Etat_MAE_Mode.jpg"
+              alt="Architecture du bloc MAE_Mode"
+            />
+            <figcaption>
+              Figure 13 : Graphe d'état du bloc <code>MAE_Mode</code>.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Pause_Actif.png"
+            >
+              <source
+                src="/assets/TP_Elec/Pause_Actif.webm"
+                type="video/webm"
+              />
+              <source src="/assets/TP_Elec/Pause_Actif.mp4" type="video/mp4" />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>Vidéo 5 : Fonctionnement de Pause/Actif.</figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Lost.png"
+            >
+              <source src="/assets/TP_Elec/Lost.webm" type="video/webm" />
+              <source src="/assets/TP_Elec/Lost.mp4" type="video/mp4" />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>Vidéo 6 : Fonctionnement de Lost.</figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Win.png"
+            >
+              <source src="/assets/TP_Elec/Win.webm" type="video/webm" />
+              <source src="/assets/TP_Elec/Win.mp4" type="video/mp4" />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>Vidéo 7 : Fonctionnement de Win.</figcaption>
+          </figure>
+
+          <!-- Ô DÁN CODE 4 (mode.vhd) -->
+          <div class="code-container">
+            <div class="code-header">
+              <span>Tempo_Pause.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity Tempo_Pause is
+    port (
+        CLK_25M, RESET                      : in  std_logic;
+        RAZ_Tempo_Pause, Update_Tempo_Pause : in  std_logic;
+        Fin_Tempo_Pause                     : out std_logic
+    );
+end Tempo_Pause;
+
+architecture archi of Tempo_Pause is
+
+    signal cpt : std_logic_vector(9 downto 0);
+
+begin
+
+    Fin_Tempo_Pause &lt;= '1' when cpt = "1111111111" else '0';
+
+    process(CLK_25M, RESET)
+    begin
+        if RESET = '0' then
+            cpt &lt;= (others =&gt; '0');
+        elsif rising_edge(CLK_25M) then
+            if RAZ_Tempo_Pause = '1' then
+                cpt &lt;= (others =&gt; '0');
+            elsif Update_Tempo_Pause = '1' then
+                cpt &lt;= cpt + 1;
+            else
+                cpt &lt;= cpt;
+            end if;
+        end if;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>Timer_Lost.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity Timer_Lost is
+    port (
+        CLK_25M, RESET                     : in  std_logic;
+        Load_Timer_Lost, Update_Timer_Lost : in  std_logic;
+        Game_Lost                          : out std_logic;
+        Timer_Lost                         : out std_logic_vector(5 downto 0)
+    );
+end Timer_Lost;
+
+architecture archi of Timer_Lost is
+
+    signal cpt : std_logic_vector(5 downto 0);
+
+begin
+
+    Timer_Lost &lt;= cpt;
+    Game_Lost  &lt;= '1' when cpt &gt; 0 else '0';
+
+    process(CLK_25M, RESET)
+    begin
+        if RESET = '0' then
+            cpt &lt;= (others =&gt; '0');
+        elsif rising_edge(CLK_25M) then
+            if Load_Timer_Lost = '1' then
+                cpt &lt;= "111111";
+            elsif Update_Timer_Lost = '1' then
+                cpt &lt;= cpt - 1;
+            else
+                cpt &lt;= cpt;
+            end if;
+        end if;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>MAE_Mode.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity MAE_Mode is
+    port (
+        CLK_25M, RESET                                                       : in  std_logic;
+        Pause_Rqt, Endframe, Lost, No_Brick, Fin_Tempo_Pause                 : in  std_logic;
+        Timer_Lost                                                           : in  std_logic_vector(5 downto 0);
+        Brick_Win, Pause                                                     : out std_logic;
+        RAZ_Tempo_Pause, Update_Tempo_Pause, Load_Timer_Lost, Update_Timer_Lost : out std_logic
+    );
+end MAE_Mode;
+
+architecture archi of MAE_Mode is
+
+    -- DÉFINITION DES ÉTATS
+    type ETAT is (S0, S1, S2, S3, S4, S5, S6, S7, S8);
+
+    -- DÉFINITION DE L'ÉTAT FUTUR ET PRÉSENT
+    signal EF, EP : ETAT;
+
+begin
+
+    -- PROCESS POUR LE REGISTRE D'ÉTAT
+    process(CLK_25M, RESET)
+    begin
+        if RESET = '0' then
+            EP &lt;= S0;
+        elsif rising_edge(CLK_25M) then
+            EP &lt;= EF;
+        end if;
+    end process;
+
+    -- PROCESS POUR LE COMBINATOIRE D'ÉTATS
+    process(EP, Pause_Rqt, Endframe, Lost, No_Brick, Fin_Tempo_Pause, Timer_Lost)
+    begin
+        case EP is
+            when S0 =&gt;
+                if Pause_Rqt = '1' then
+                    EF &lt;= S1;
+                else
+                    EF &lt;= S0;
+                end if;
+
+            when S1 =&gt;
+                if Fin_Tempo_Pause = '1' and Pause_Rqt = '0' then
+                    EF &lt;= S2;
+                else
+                    EF &lt;= S1;
+                end if;
+
+            when S2 =&gt;
+                if Pause_Rqt = '1' then
+                    EF &lt;= S3;
+                elsif No_Brick = '1' and Lost = '0' then
+                    EF &lt;= S4;
+                elsif Lost = '1' and No_Brick = '0' then
+                    EF &lt;= S5;
+                else
+                    EF &lt;= S2;
+                end if;
+
+            when S3 =&gt;
+                if Fin_Tempo_Pause = '1' and Pause_Rqt = '0' then
+                    EF &lt;= S0;
+                else
+                    EF &lt;= S3;
+                end if;
+
+            when S4 =&gt;
+                EF &lt;= S4;
+
+            when S5 =&gt;
+                EF &lt;= S6;
+
+            when S6 =&gt;
+                if Endframe = '1' then
+                    EF &lt;= S7;
+                else
+                    EF &lt;= S6;
+                end if;
+
+            when S7 =&gt;
+                if Timer_Lost = "000000" then
+                    EF &lt;= S8;
+                else
+                    EF &lt;= S6;
+                end if;
+
+            when S8 =&gt;
+                EF &lt;= S8;
+        end case;
+    end process;
+
+    -- PROCESS POUR LE COMBINATOIRE DE SORTIES
+    process(EP, Timer_Lost)
+    begin
+        -- VALEURS PAR DÉFAUT
+        Pause              &lt;= '0';
+        RAZ_Tempo_Pause    &lt;= '0';
+        Brick_Win          &lt;= '0';
+        Update_Tempo_Pause &lt;= '0';
+        Load_Timer_Lost    &lt;= '0';
+        Update_Timer_Lost  &lt;= '0';
+
+        case EP is
+            when S0 =&gt;
+                Pause           &lt;= '1';
+                RAZ_Tempo_Pause &lt;= '1';
+
+            when S1 =&gt;
+                Update_Tempo_Pause &lt;= '1';
+
+            when S2 =&gt;
+                RAZ_Tempo_Pause &lt;= '1';
+
+            when S3 =&gt;
+                Pause              &lt;= '1';
+                Update_Tempo_Pause &lt;= '1';
+
+            when S4 =&gt;
+                Brick_Win &lt;= '1';
+
+            when S5 =&gt;
+                Load_Timer_Lost &lt;= '1';
+                Pause           &lt;= '1';
+
+            when S6 =&gt;
+                Pause &lt;= '1';
+
+            when S7 =&gt;
+                Pause &lt;= '1';
+                if Timer_Lost /= "000000" then
+                    Update_Timer_Lost &lt;= '1';
+                end if;
+
+            when S8 =&gt;
+                Pause &lt;= '1';
+        end case;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>mode.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity mode is
+    port (
+        CLK_25M, RESET                      : in  std_logic;
+        Pause_Rqt, Endframe, Lost, No_Brick : in  std_logic;
+        Game_Lost, Brick_Win, Pause         : out std_logic
+    );
+end mode;
+
+architecture archi of mode is
+
+    signal RAZ_Tempo_Pause, Update_Tempo_Pause, Fin_Tempo_Pause : std_logic;
+    signal Load_Timer_Lost, Update_Timer_Lost                   : std_logic;
+    signal Timer_Lost                                           : std_logic_vector(5 downto 0);
+
+begin
+
+    Tempo_Pause_Compteur: entity work.Tempo_Pause
+        port map (
+            CLK_25M            =&gt; CLK_25M,
+            RESET              =&gt; RESET,
+            RAZ_Tempo_Pause    =&gt; RAZ_Tempo_Pause,
+            Update_Tempo_Pause =&gt; Update_Tempo_Pause,
+            Fin_Tempo_Pause    =&gt; Fin_Tempo_Pause
+        );
+
+    Timer_Lost_Compteur: entity work.Timer_Lost
+        port map (
+            CLK_25M           =&gt; CLK_25M,
+            RESET             =&gt; RESET,
+            Load_Timer_Lost   =&gt; Load_Timer_Lost,
+            Update_Timer_Lost =&gt; Update_Timer_Lost,
+            Game_Lost         =&gt; Game_Lost,
+            Timer_Lost        =&gt; Timer_Lost
+        );
+
+    MAE: entity work.MAE_Mode
+        port map (
+            CLK_25M            =&gt; CLK_25M,
+            RESET              =&gt; RESET,
+            Pause_Rqt          =&gt; Pause_Rqt,
+            Endframe           =&gt; Endframe,
+            Lost               =&gt; Lost,
+            No_Brick           =&gt; No_Brick,
+            Fin_Tempo_Pause    =&gt; Fin_Tempo_Pause,
+            Timer_Lost         =&gt; Timer_Lost,
+            Brick_Win          =&gt; Brick_Win,
+            Pause              =&gt; Pause,
+            RAZ_Tempo_Pause    =&gt; RAZ_Tempo_Pause,
+            Update_Tempo_Pause =&gt; Update_Tempo_Pause,
+            Load_Timer_Lost    =&gt; Load_Timer_Lost,
+            Update_Timer_Lost  =&gt; Update_Timer_Lost
+        );
+
+end archi;</code></pre>
+          </div>
+
+          <!-- =========================================================
+          CHAPITRE 05 : TÂCHE 4 & AMÉLIORATION (OBSTACLE + SCORE)
+          ========================================================= -->
+          <h2>
+            <span class="chapter-num">05 —</span> Tâche 4 &amp; Amélioration :
+            Obstacle mobile et compteur de score
+          </h2>
+          <p>
+            <strong>Obstacle mobile (<code>decor.vhd</code>) :</strong>
+            Implémentation d'une barre horizontale de 100&times;8 pixels au
+            centre de l'écran (activable via <code>S1</code>), se déplaçant de 2
+            pixels par image avec inversion automatique du sens au contact des
+            parois latérales.
+          </p>
+          <p>
+            <strong>Compteur de points sur afficheurs 7 segments :</strong>
+            Ajout d'un compteur s'incrémentant à chaque brique détruite et
+            pilotant directement les <strong>afficheurs 7 segments</strong> de
+            la carte Basys 3 en temps réel.
+          </p>
+
+          <!-- Ô DÁN CODE 5 (decor.vhd & compteur 7 segments) -->
+          <div class="code-container">
+            <div class="code-header">
+              <span>decor.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity decor is
+    Port (
+        clk25       : in  STD_LOGIC;                    -- Horloge 25 MHz
+        reset       : in  STD_LOGIC;                    -- Reset Asynchrone
+
+        -- INDICATIONS D'AFFICHAGE DES PIXELS
+        endframe    : in  STD_LOGIC;                    -- Fin de l'Image Visible
+        xpos        : in  STD_LOGIC_VECTOR (9 downto 0); -- Coordonnee X du Pixel Courant
+        ypos        : in  STD_LOGIC_VECTOR (9 downto 0); -- Coordonnee Y du Pixel Courant
+
+        -- PARAMETRES DE JEU
+        game_type   : in  STD_LOGIC;                    -- Type de Jeu
+        obstacle    : in  STD_LOGIC;                    -- Parametre Obstacle
+
+        -- ELEMENTS DE DECOR
+        bluebox     : out STD_LOGIC;                    -- Pixel Courant = Case Bleue
+        left        : out STD_LOGIC;                    -- Pixel Courant = Gauche de l'Ecran
+        right       : out STD_LOGIC;                    -- Pixel Courant = Droite de l'Ecran
+        bottom      : out STD_LOGIC;                    -- Pixel Courant = Bas de l'Ecran
+        barrier     : out std_logic;                    -- Pixel Courant = Obstacle (Jeu Casse Briques)
+        wall_top    : out STD_LOGIC;                    -- Pixel Courant = Mur du Haut
+        wall_bottom : out STD_LOGIC;                    -- Pixel Courant = Mur du Bas
+        wall_left   : out STD_LOGIC;                    -- Pixel Courant = Mur de Gauche
+        wall_right  : out STD_LOGIC;                    -- Pixel Courant = Mur de Droite
+        wall_pong   : out STD_LOGIC;                    -- Pixel Courant = Mur Jeu Pong
+        wall_brick  : out STD_LOGIC                     -- Pixel Courant = Mur Jeu Casse Briques
+    );
+end decor;
+
+architecture Behavioral of decor is
+
+    signal ybarrier  : std_logic;                    -- Coordonnees Y du Pixel dans la Zone de l'Obstacle
+    signal xbarrier  : std_logic_vector(9 downto 0); -- Coordonnees en X de l'Obstacle
+    signal direction : std_logic;                    -- Sens de Deplacement de l'Obstacle
+
+begin
+
+    -------------------------------------------------------------------------------------------
+    -- GESTION DU DECOR
+    --   Damier Bleu et Noir de Fond d'Ecran
+    --   Generation des Murs (En Fonction du Jeu Choisi)
+    --   Signal de Bas de l'Ecran
+    -------------------------------------------------------------------------------------------
+    process(xpos, ypos, game_type)
+    begin
+        wall_pong   &lt;= '0';
+        wall_brick  &lt;= '0';
+        wall_left   &lt;= '0';
+        wall_right  &lt;= '0';
+        wall_top    &lt;= '0';
+        wall_bottom &lt;= '0';
+        left        &lt;= '0';
+        right       &lt;= '0';
+        bottom      &lt;= '0';
+        bluebox     &lt;= '0';
+
+        -- Delimitation des Cases Bleues (Tous les 32x32 Pixels)
+        bluebox &lt;= xpos(3) xor ypos(3);
+
+        -- Mur Haut (Present dans Pong et Casse Briques)
+        if (ypos &lt; 4) then
+            wall_top &lt;= '1'; wall_brick &lt;= '1'; wall_pong &lt;= '1';
+        end if;
+
+        -- Si on Joue au Casse Briques
+        if game_type = '0' then
+            -- Mur Gauche
+            if (xpos &lt;= 4) then
+                wall_left &lt;= '1'; wall_brick &lt;= '1';
+            end if;
+
+            -- Mur Droit
+            if (xpos &gt; 635) then
+                wall_right &lt;= '1'; wall_brick &lt;= '1';
+            end if;
+
+            -- Bas de l'ecran
+            if (ypos &gt; 475) then
+                bottom &lt;= '1';
+            end if;
+
+        -- Si on Joue a Pong
+        else
+            -- Mur du Bas
+            if (ypos &gt; 475) then
+                wall_bottom &lt;= '1'; wall_pong &lt;= '1';
+            end if;
+
+            -- Bord Gauche de L'Ecran
+            if (xpos &lt;= 4) then
+                left &lt;= '1';
+            end if;
+
+            -- Bord Droit de l'Ecran
+            if (xpos &gt; 635) then
+                right &lt;= '1';
+            end if;
+        end if;
+    end process;
+
+    -------------------------------------------------------------------------------------------
+    -- GESTION DE L'OBSTACLE
+    --   Déplacement horizontal de l'obstacle
+    -------------------------------------------------------------------------------------------
+    process(clk25, reset)
+    begin
+        if reset = '0' then
+            xbarrier  &lt;= "0100001110"; -- x_debut = 270
+            direction &lt;= '0';          -- '0' à droite, '1' à gauche
+        elsif rising_edge(clk25) then
+            if endframe = '1' then     -- chaque image
+                if direction = '0' then
+                    if xbarrier &gt;= 536 then -- limite droite
+                        direction &lt;= '1';
+                    else
+                        xbarrier  &lt;= xbarrier + 2;
+                    end if;
+                else
+                    if xbarrier &lt;= 6 then   -- limite gauche
+                        direction &lt;= '0';
+                    else
+                        xbarrier  &lt;= xbarrier - 2;
+                    end if;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -- Détection de la zone dans l'obstacle
+    ybarrier &lt;= '1' when (ypos &gt;= 236 and ypos &lt; 244) else '0'; -- 8 pixels
+
+    -- Activation de la sortie barrier
+    barrier  &lt;= '1' when (game_type = '0' and obstacle = '1' and
+                          ybarrier = '1' and xpos &gt;= xbarrier and
+                          xpos &lt; (xbarrier + 100)) else '0';
+
+end Behavioral;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>bounce.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>----------------------------------------------------------------------------------
+-- Company: UPMC
+-- Engineer: Julien Denoulet
+--
+-- Gestion des Rebonds
+----------------------------------------------------------------------------------
+library IEEE, work;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use work.pong_pack.all;
+
+entity bounce is
+    Port (
+        clk25                : in  STD_LOGIC; -- Horloge
+        reset                : in  STD_LOGIC; -- Reset Asynchrone
+        endframe             : in  STD_LOGIC; -- Signal de Fin de l'Image Visible
+        game_type            : in  STD_LOGIC; -- Type de Jeu
+
+        -- OBJETS DU JEU
+        ball                 : in  STD_LOGIC; -- Pixel Courant = Balle
+
+        pong_left            : in  std_logic; -- Pixel Appartient a la Raquette Gauche (Pong)
+        pong_right           : in  std_logic; -- Pixel Appartient a la Raquette Droite (Pong)
+
+        pad_far_left         : in  std_logic; -- Pixel Appartient a la Zone Extreme Gauche
+        pad_left             : in  std_logic; -- Pixel Appartient a la Zone Gauche
+        pad_center           : in  std_logic; -- Pixel Appartient a la Zone Centrale
+        pad_right            : in  std_logic; -- Pixel Appartient a la Zone Droite
+        pad_far_right        : in  std_logic; -- Pixel Appartient a la Zone Extreme Droite
+
+        wall_left            : in  STD_LOGIC; -- Pixel Courant = Mur Gauche
+        wall_right           : in  STD_LOGIC; -- Pixel Courant = Mur Droit
+        wall_top             : in  STD_LOGIC; -- Pixel Courant = Mur Haut
+        wall_bottom          : in  STD_LOGIC; -- Pixel Courant = Mur Bas
+
+        barrier              : in  std_logic; -- Pixel Courant = Obstacle (Pong)
+        brick                : in  tableau;   -- Pixel Courant = Brique
+
+        -- GENERATION DES REBONDS
+        leftbounce           : out STD_LOGIC; -- Rebond Mur Gauche
+        rightbounce          : out STD_LOGIC; -- Rebond Mur Droit
+        ybounce              : out STD_LOGIC; -- Rebond Brique ou Murs du Haut ou du Bas
+
+        barrier_bounce       : out STD_LOGIC; -- Rebond Contre l'Obstacle
+        brick_bounce         : out tableau;   -- Rebond Contre une Brique
+
+        pong_left_bounce     : out STD_LOGIC; -- Rebond Contre Raquette Gauche (Pong)
+        pong_right_bounce    : out STD_LOGIC; -- Rebond Contre Raquette Droite (Pong)
+
+        pad_far_left_bounce  : out STD_LOGIC; -- Rebond Contre Partie Extreme Gauche de Raquette
+        pad_left_bounce      : out STD_LOGIC; -- Rebond Contre Partie Gauche de Raquette
+        pad_center_bounce    : out STD_LOGIC; -- Rebond Contre Partie Centrale de Raquette
+        pad_right_bounce     : out STD_LOGIC; -- Rebond Contre Partie Droite de Raquette
+        pad_far_right_bounce : out STD_LOGIC; -- Rebond Contre Partie Extreme Droite de Raquette
+        Brick_Break          : out std_logic  -- Signal de compteur de points *HUY*
+    );
+end bounce;
+
+architecture Behavioral of bounce is
+
+    signal brick_scored : tableau;
+
+begin
+
+    -- GESTION DES REBONDS
+    process(clk25, reset)
+    begin
+        -- Au Reset, pas de Rebond sur les Murs, la Raquette ou les Briques
+        if reset = '0' then
+            leftbounce           &lt;= '0';
+            rightbounce          &lt;= '0';
+            Brick_Break          &lt;= '0';    -- Signal de compteur de points *HUY*
+            ybounce              &lt;= '0';
+            pad_far_left_bounce  &lt;= '0';
+            pad_left_bounce      &lt;= '0';
+            pad_center_bounce    &lt;= '0';
+            pad_right_bounce     &lt;= '0';
+            pad_far_right_bounce &lt;= '0';
+            pong_left_bounce     &lt;= '0';
+            pong_right_bounce    &lt;= '0';
+            barrier_bounce       &lt;= '0';
+
+            for i in 0 to 1 loop          -- *HUY*
+                for j in 0 to 8 loop
+                    brick_scored(i)(j) &lt;= '0';
+                end loop;
+            end loop;                     -- *HUY*
+
+            for i in 0 to 1 loop
+                for j in 0 to 8 loop
+                    brick_bounce(i)(j) &lt;= '0';
+                end loop;
+            end loop;
+
+        elsif rising_edge(clk25) then
+            Brick_Break &lt;= '0';           -- Signal de compteur de points *HUY*
+
+            -- Si on n'Est pas a la Fin de l'Image
+            if endframe = '0' then
+                -- Si le Pixel Courant Appartient a la Balle...
+                if ball = '1' then
+                    -- Collision avec le Mur Droit
+                    if wall_right = '1' then
+                        rightbounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec le Mur Gauche
+                    if wall_left = '1' then
+                        leftbounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec le Mur du Haut ou du Bas
+                    if (wall_top or wall_bottom) = '1' then
+                        ybounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec la Raquette Droite du Jeu Pong
+                    if pong_right = '1' then
+                        pong_right_bounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec la Raquette Gauche du Jeu Pong
+                    if pong_left = '1' then
+                        pong_left_bounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec la Zone Extreme Gauche de la Raquette Casse Briques
+                    if pad_far_left = '1' then
+                        pad_far_left_bounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec la Zone Gauche de la Raquette Casse Briques
+                    if pad_left = '1' then
+                        pad_left_bounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec la Zone Centrale de la Raquette Casse Briques
+                    if pad_center = '1' then
+                        pad_center_bounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec la Zone Droite de la Raquette Casse Briques
+                    if pad_right = '1' then
+                        pad_right_bounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec la Zone Extreme Droite de la Raquette Casse Briques
+                    if pad_far_right = '1' then
+                        pad_far_right_bounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec l'Obstacle
+                    if barrier = '1' then
+                        barrier_bounce &lt;= '1';
+                    end if;
+
+                    -- Collision avec une Brique (Si le Jeu Est Bien Casse Briques)
+                    if game_type = '0' then
+                        for i in 0 to 1 loop
+                            for j in 0 to 8 loop
+                                if brick(i)(j) = '1' then
+                                    brick_bounce(i)(j) &lt;= '1';
+                                    ybounce &lt;= '1';
+                                    -- Compter chaque brique une seule fois *HUY*
+                                    if brick_scored(i)(j) = '0' then    -- *HUY*
+                                        Brick_Break &lt;= '1';
+                                        brick_scored(i)(j) &lt;= '1';      -- *HUY*
+                                    end if;
+                                end if;
+                            end loop;
+                        end loop;
+                    end if;
+                end if;
+
+            -- Si on Est a la Fin de l'Image
+            else
+                -- Reinitialisation des Flags de Rebond
+                barrier_bounce       &lt;= '0';
+                leftbounce           &lt;= '0';
+                rightbounce          &lt;= '0';
+                ybounce              &lt;= '0';
+                pad_far_left_bounce  &lt;= '0';
+                pad_left_bounce      &lt;= '0';
+                pad_center_bounce    &lt;= '0';
+                pad_right_bounce     &lt;= '0';
+                pad_far_right_bounce &lt;= '0';
+                pong_right_bounce    &lt;= '0';
+                pong_left_bounce     &lt;= '0';
+            end if;
+        end if;
+    end process;
+
+end Behavioral;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>compteur_points.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>library ieee;
+use ieee.std_logic_unsigned.all;
+use ieee.std_logic_1164.all;
+
+entity compteur_points is
+    port (
+        CLK_25M, RESET : in  std_logic;
+        Brick_Break    : in  std_logic;
+        Points         : out std_logic_vector(4 downto 0)
+    );
+end compteur_points;
+
+architecture archi of compteur_points is
+
+    signal cpt : std_logic_vector(4 downto 0);
+
+begin
+
+    Points &lt;= cpt;
+
+    process(CLK_25M, RESET)
+    begin
+        if RESET = '0' then
+            cpt &lt;= (others =&gt; '0');
+        elsif rising_edge(CLK_25M) then
+            if Brick_Break = '1' then
+                cpt &lt;= cpt + 1;
+            else
+                cpt &lt;= cpt;
+            end if;
+        end if;
+    end process;
+
+end archi;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>objects.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>----------------------------------------------------------------------------------
+-- Company: UPMC
+-- Engineer: Julien Denoulet
+--
+-- Gestion des Objets du Jeu (Balle, Raquette, Briques, Decor)
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use work.pong_pack.ALL;
+
+entity objects is
+    Port (
+        clk25        : in  STD_LOGIC;                    -- Horloge 25 MHz
+        clk_acc      : in  std_logic;                    -- Horloge 25 Hz (Pour l'Accéléromètre)
+        reset        : in  STD_LOGIC;                    -- Reset Asynchrone
+
+        -- SIGNAUX DU CTRL VGA
+        endframe     : in  STD_LOGIC;                    -- Signal de Fin de l'Image Visible
+        xpos         : in  STD_LOGIC_VECTOR (9 downto 0); -- Coordonnee X du Pixel Courant
+        ypos         : in  STD_LOGIC_VECTOR (9 downto 0); -- Coordonnee Y du Pixel Courant
+
+        -- SIGNAUX ENCODEUR ROTATIF
+        own_left     : in  std_logic;                    -- Commande Deplacement Gauche Carte
+        own_right    : in  std_logic;                    -- Commande Deplacement Droite Carte
+        other_left   : in  std_logic;                    -- Commande Deplacement Gauche Autre Carte
+        other_right  : in  std_logic;                    -- Commande Deplacement Droite Autre Carte
+
+        -- MODES DU JEU
+        manette      : in  std_logic;                    -- Selection Manette (Encodeur / Accéléromètre)
+        game_type    : in  std_logic;                    -- Type de Jeu
+        taille       : in  std_logic;                    -- Paramètre Taille
+        speed        : in  STD_LOGIC;                    -- Vitesse du Jeu
+        obstacle     : in  std_logic;                    -- Presence d'un Obstacle (Pong)
+        pause        : in  std_logic;                    -- Commande Mode Pause
+        game_lost    : in  std_logic;                    -- Mode Echec
+
+        -- OBJETS CORRESPONDANT AU PIXEL COURANT
+        bluebox      : out STD_LOGIC;                    -- Pixel Courant = Case Bleue
+        left         : out STD_LOGIC;                    -- Pixel Courant = Gauche de l'Ecran
+        right        : out STD_LOGIC;                    -- Pixel Courant = Droite de l'Ecran
+        bottom       : out STD_LOGIC;                    -- Pixel Courant = Bas de l'Ecran
+        wall_pong    : out STD_LOGIC;                    -- Pixel Courant = Mur pour Jeu Pong
+        wall_brick   : out STD_LOGIC;                    -- Pixel Courant = Mur pour Jeu Casse Briques
+        barrier      : out STD_LOGIC;                    -- Pixel Courant = Obstacle (Jeu Pong)
+        pad          : out std_logic;                    -- Pixel Appartient a la Raquette
+        brick        : out tableau;                      -- Pixel Courant = Brique
+        brick_bounce : out tableau;                      -- Rebond Contre une Brique
+        ball         : out STD_LOGIC;                    -- Pixel Courant = Balle
+        Points       : out std_logic_vector(4 downto 0)  -- Points affichés *HUY*
+    );
+end objects;
+
+architecture Behavioral of objects is
+
+    -- OBJETS DU DECOR ET REBONDS ASSOCIES
+    signal wall_top             : STD_LOGIC; -- Pixel Courant = Mur du Haut
+    signal wall_bottom          : STD_LOGIC; -- Pixel Courant = Mur du Bas
+    signal wall_left            : STD_LOGIC; -- Pixel Courant = Mur de Gauche
+    signal wall_right           : STD_LOGIC; -- Pixel Courant = Mur de Droite
+    signal barrier_tmp          : STD_LOGIC; -- Pixel Courant = Obstacle (Pong)
+
+    signal leftbounce           : STD_LOGIC; -- Rebond Mur Gauche
+    signal rightbounce          : STD_LOGIC; -- Rebond Mur Droit
+    signal ybounce              : STD_LOGIC; -- Rebond Contre une Brique ou Mur du Haut ou du Bas
+    signal barrier_bounce       : STD_LOGIC; -- Rebond Contre Obstacle
+
+    -- RAQUETTE DU JEU CASSE BRIQUES ET REBONDS ASSOCIES
+    signal pad_tmp              : std_logic; -- Pixel Courant = Raquette
+    signal pad_far_left         : std_logic; -- Pixel Courant = Zone Extreme Gauche Raquette
+    signal pad_left             : std_logic; -- Pixel Courant = Zone Gauche Raquette
+    signal pad_center           : std_logic; -- Pixel Courant = Zone Centrale Raquette
+    signal pad_right            : std_logic; -- Pixel Courant = Zone Droite Raquette
+    signal pad_far_right        : std_logic; -- Pixel Courant = Zone Extreme Droite Raquette
+
+    signal pad_far_left_bounce  : STD_LOGIC; -- Rebond Contre Zone Extreme Gauche de Raquette
+    signal pad_left_bounce      : STD_LOGIC; -- Rebond Contre Zone Gauche de Raquette
+    signal pad_center_bounce    : STD_LOGIC; -- Rebond Contre Zone Centrale de Raquette
+    signal pad_right_bounce     : STD_LOGIC; -- Rebond Contre Zone Droite de Raquette
+    signal pad_far_right_bounce : STD_LOGIC; -- Rebond Contre Zone Extreme Droite de Raquette
+
+    -- RAQUETTE DU JEU PONG ET REBONDS ASSOCIES
+    signal pong_left            : std_logic; -- Pixel Courant = Raquette Gauche
+    signal pong_right           : std_logic; -- Pixel Courant = Raquette Droite
+
+    signal pong_left_bounce     : STD_LOGIC; -- Rebond Contre la Raquette Gauche
+    signal pong_right_bounce    : STD_LOGIC; -- Rebond Contre la Raquette Droite
+
+    -- BRIQUES ET REBONDS ASSOCIES
+    signal brick_tmp            : tableau;   -- Position des Briques
+    signal brick_bounce_tmp     : tableau;   -- Rebond sur des Briques
+    signal Brick_Break_tmp      : std_logic; -- Signal pour gagner un point *HUY*
+
+    -- BALLE
+    signal ball_tmp             : std_logic; -- Pixel Courant = Balle
+
+begin
+
+    -- GESTION DU DECOR
+    fond_ecran: entity work.decor
+        port map (
+            clk25       =&gt; clk25,       -- Horloge
+            reset       =&gt; reset,       -- Reset Asynchrone
+            endframe    =&gt; endframe,    -- Signal Fin Image Visible
+            xpos        =&gt; xpos,        -- Coordonnee X du Pixel Courant
+            ypos        =&gt; ypos,        -- Coordonnee Y du Pixel Courant
+            game_type   =&gt; game_type,   -- Type de Jeu
+            obstacle    =&gt; obstacle,    -- Presence d'un Obstacle (Pong)
+            bluebox     =&gt; bluebox,     -- Pixel Courant = Case Bleue
+            left        =&gt; left,        -- Pixel Courant = Gauche de l'Ecran
+            right       =&gt; right,       -- Pixel Courant = Droite de l'Ecran
+            bottom      =&gt; bottom,      -- Pixel Courant = Bas de l'Ecran
+            barrier     =&gt; barrier_tmp, -- Pixel Courant = Obstacle (Jeu Pong)
+            wall_top    =&gt; wall_top,    -- Pixel Courant = Mur du Haut
+            wall_left   =&gt; wall_left,   -- Pixel Courant = Mur de Gauche
+            wall_right  =&gt; wall_right,  -- Pixel Courant = Mur de Droite
+            wall_bottom =&gt; wall_bottom, -- Pixel Courant = Mur du Bas
+            wall_pong   =&gt; wall_pong,   -- Pixel Courant = Mur Jeu Pong
+            wall_brick  =&gt; wall_brick   -- Pixel Courant = Mur Jeu Casse Briques
+        );
+
+    barrier &lt;= barrier_tmp;
+
+    ----------------------------------------------------------------------
+
+    pad &lt;= pad_tmp;
+
+    -- CONTROLEUR DE RAQUETTE
+    pad_ctrl: entity work.pad
+        port map (
+            clk25               =&gt; clk25,         -- Horloge 25 MHz
+            clk_acc             =&gt; clk_acc,       -- Horloge 25 Hz
+            reset               =&gt; reset,         -- Reset Asynchrone
+            manette             =&gt; manette,       -- Selection Manette (Encodeur / Accéléromètre)
+            game_type           =&gt; game_type,     -- Type de Jeu
+            taille              =&gt; taille,        -- Commande de Taille Raquette
+            pause               =&gt; pause,         -- Commande de Pause du Jeu
+            rot_left_pad        =&gt; own_left,      -- Deplacement Gauche Raquette Casse Briques
+            rot_right_pad       =&gt; own_right,     -- Deplacement Droite Raquette Casse Briques
+            rot_up_pong_left    =&gt; own_left,      -- Deplacement Haut Raquette Gauche Pong
+            rot_down_pong_left  =&gt; own_right,     -- Deplacement Bas Raquette Gauche Pong
+            rot_up_pong_right   =&gt; other_left,    -- Deplacement Haut Raquette Droite Pong
+            rot_down_pong_right =&gt; other_right,   -- Deplacement Bas Raquette Droite Pong
+            xpos                =&gt; xpos,          -- Coordonnee X du Pixel Courant
+            ypos                =&gt; ypos,          -- Coordonnee Y du Pixel Courant
+            pad                 =&gt; pad_tmp,       -- Pixel Appartient a la Raquette
+            pad_far_left        =&gt; pad_far_left,  -- Pixel Appartient a la Zone Extreme Gauche
+            pad_left            =&gt; pad_left,      -- Pixel Appartient a la Zone Gauche
+            pad_center          =&gt; pad_center,    -- Pixel Appartient a la Zone Centrale
+            pad_right           =&gt; pad_right,     -- Pixel Appartient a la Zone Droite
+            pad_far_right       =&gt; pad_far_right, -- Pixel Appartient a la Zone Extreme Droite
+            pong_left           =&gt; pong_left,     -- Pixel Appartient a la Raquette Gauche (Pong)
+            pong_right          =&gt; pong_right     -- Pixel Appartient a la Raquette Droite (Pong)
+        );
+
+    ---------------------------------------------------------------------------
+
+    -- GESTION DES REBONDS
+    bounce_ctrl: entity work.bounce
+        port map (
+            clk25                =&gt; clk25,                -- Horloge
+            reset                =&gt; reset,                -- Reset Asynchrone
+            endframe             =&gt; endframe,             -- Signal Fin Image Visible
+            ball                 =&gt; ball_tmp,             -- Pixel Courant = Balle
+            game_type            =&gt; game_type,            -- Type de Jeu
+            pong_left            =&gt; pong_left,            -- Pixel Appartient a la Raquette Gauche (Pong)
+            pong_right           =&gt; pong_right,           -- Pixel Appartient a la Raquette Droite (Pong)
+            pad_far_left         =&gt; pad_far_left,         -- Pixel Appartient a la Zone Extreme Gauche
+            pad_left             =&gt; pad_left,             -- Pixel Appartient a la Zone Gauche
+            pad_center           =&gt; pad_center,           -- Pixel Appartient a la Zone Centrale
+            pad_right            =&gt; pad_right,            -- Pixel Appartient a la Zone Droite
+            pad_far_right        =&gt; pad_far_right,        -- Pixel Appartient a la Zone Extreme Droite
+            wall_left            =&gt; wall_left,            -- Pixel Courant = Mur Gauche
+            wall_right           =&gt; wall_right,           -- Pixel Courant = Mur Droit
+            wall_top             =&gt; wall_top,             -- Pixel Courant = Mur Haut
+            wall_bottom          =&gt; wall_bottom,          -- Pixel Courant = Mur Bas
+            barrier              =&gt; barrier_tmp,          -- Pixel Courant = Obstacle (Pong)
+            brick                =&gt; brick_tmp,            -- Pixel Courant = Brique
+            leftbounce           =&gt; leftbounce,           -- Rebond Contre le Mur Gauche
+            rightbounce          =&gt; rightbounce,          -- Rebond Contre le Mur Droit
+            ybounce              =&gt; ybounce,              -- Rebond Contre une Brique ou Mur du Haut ou du Bas
+            barrier_bounce       =&gt; barrier_bounce,       -- Rebond Contre l'Obstacle
+            brick_bounce         =&gt; brick_bounce_tmp,     -- Rebond Contre une Brique
+            pong_left_bounce     =&gt; pong_left_bounce,     -- Rebond Contre Raquette Gauche (Pong)
+            pong_right_bounce    =&gt; pong_right_bounce,    -- Rebond Contre Raquette Droite (Pong)
+            pad_far_left_bounce  =&gt; pad_far_left_bounce,  -- Rebond Contre Zone Extreme Gauche de Raquette
+            pad_left_bounce      =&gt; pad_left_bounce,      -- Rebond Contre Zone Gauche de Raquette
+            pad_center_bounce    =&gt; pad_center_bounce,    -- Rebond Contre Zone Centrale de Raquette
+            pad_right_bounce     =&gt; pad_right_bounce,     -- Rebond Contre Zone Droite de Raquette
+            pad_far_right_bounce =&gt; pad_far_right_bounce, -- Rebond Contre Zone Extreme Droite de Raquette
+            Brick_Break          =&gt; Brick_Break_tmp       -- Signal pour gagner un point *HUY*
+        );
+
+    ---------------------------------------------------------------------------------------
+
+    ball &lt;= ball_tmp;
+
+    -- GESTION DE LA BALLE
+    ball_ctrl: entity work.ball
+        port map (
+            clk25                =&gt; clk25,                -- Horloge
+            reset                =&gt; reset,                -- Reset Asynchrone
+            endframe             =&gt; endframe,             -- Signal Fin Image Visible
+            pause                =&gt; pause,                -- Mode Pause
+            speed                =&gt; speed,                -- Vitesse du Jeu
+            game_lost            =&gt; game_lost,            -- Partie Perdue
+            leftbounce           =&gt; leftbounce,           -- Rebond Contre le Mur Gauche
+            rightbounce          =&gt; rightbounce,          -- Rebond Contre le Mur Droit
+            ybounce              =&gt; ybounce,              -- Rebond Contre une Brique ou Mur du Haut ou du Bas
+            barrier_bounce       =&gt; barrier_bounce,       -- Rebond Contre l'Obstacle (Pong)
+            pong_left_bounce     =&gt; pong_left_bounce,     -- Rebond Contre Raquette Gauche (Pong)
+            pong_right_bounce    =&gt; pong_right_bounce,    -- Rebond Contre Raquette Droite (Pong)
+            pad_far_left_bounce  =&gt; pad_far_left_bounce,  -- Rebond Contre Zone Extreme Gauche de Raquette
+            pad_left_bounce      =&gt; pad_left_bounce,      -- Rebond Contre Zone Gauche de Raquette
+            pad_center_bounce    =&gt; pad_center_bounce,    -- Rebond Contre Zone Centrale de Raquette
+            pad_right_bounce     =&gt; pad_right_bounce,     -- Rebond Contre Zone Droite de Raquette
+            pad_far_right_bounce =&gt; pad_far_right_bounce, -- Rebond Contre Zone Extreme Droite de Raquette
+            xpos                 =&gt; xpos,                 -- Coordonnee X du Pixel Courant
+            ypos                 =&gt; ypos,                 -- Coordonnee Y du Pixel Courant
+            ball                 =&gt; ball_tmp              -- Pixel Courant = Balle
+        );
+
+    -----------------------------------------------------------------------------------
+
+    -- GESTION DES BRIQUES
+    process(brick_tmp, brick_bounce_tmp)
+    begin
+        for i in 0 to 1 loop
+            for j in 0 to 8 loop
+                brick_bounce(i)(j) &lt;= brick_bounce_tmp(i)(j);
+                brick(i)(j)        &lt;= brick_tmp(i)(j);
+            end loop;
+        end loop;
+    end process;
+
+    brick_ctrl: entity work.brick_ctrl
+        port map (
+            xpos         =&gt; xpos,             -- Coordonnee X du Pixel Courant
+            ypos         =&gt; ypos,             -- Coordonnee Y du Pixel Courant
+            game_type    =&gt; game_type,        -- Type de Jeu
+            brick_bounce =&gt; brick_bounce_tmp, -- Drapeaux des Collisions Briques
+            brick        =&gt; brick_tmp         -- Pixel Courant = Brique
+        );
+
+    --------------------------------------------------------------------------------------
+
+    -- GESTION DE POINTS *HUY*
+    points_ctrl: entity work.compteur_points
+        port map (
+            CLK_25M     =&gt; clk25,
+            RESET       =&gt; reset,
+            Brick_Break =&gt; Brick_Break_tmp,
+            Points      =&gt; Points
+        );
+
+end Behavioral;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>aff_mgr_basys.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>----------------------------------------------------------------------------------
+-- Company:  UPMC
+-- Engineer: Julien Denoulet
+--
+-- Gestion des Afficheurs 7 Segments
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL; -- *HUY* pour utiliser unsigned et to_integer
+
+entity aff_mgr_basys is
+    Port (
+        clk25        : in  STD_LOGIC;                    -- Horloge 25 MHz
+        reset        : in  STD_LOGIC;                    -- Reset Asynchrone
+        pause        : in  STD_LOGIC;                    -- Commande Pause
+        master_slave : in  STD_LOGIC;                    -- Selection Manette de Jeu (Encodeur / Accéléromètre)
+        game_type    : in  STD_LOGIC;                    -- Type de Jeu (Pong / Casse-Briques)
+        Points       : in  std_logic_vector(4 downto 0); -- Signal de points *HUY*
+        sel_seg      : out STD_LOGIC_VECTOR (3 downto 0); -- Selection de l'Afficheur
+        seg          : out STD_LOGIC_VECTOR (7 downto 0)  -- Valeur des Segments de l'Afficheur
+    );
+end aff_mgr_basys;
+
+--------------------------------------------------
+-- Fonctionnement Afficheurs
+--------------------------------------------------
+--   - Segments Allumés à 0, Eteints à 1
+--   - Validation :
+--       - SEL = 0 --&gt; Affichage des Segments
+--       - SEL = 1 --&gt; Segments Eteints
+--
+--   - Numéro des Segments Afficheur (Point = 7)
+--            0
+--        --------
+--       -        -
+--     5 -        - 1
+--       -    6   -
+--        --------
+--       -        -
+--     4 -        - 2
+--       -        -
+--        --------
+--            3
+--------------------------------------------------
+
+architecture Behavioral of aff_mgr_basys is
+
+    signal counter     : integer range 0 to 100000;        -- Compteur de Temporisation
+
+    signal timer_intro : integer range 0 to 50000000 := 0; -- Compteur de 2 secondes *HUY*
+    signal intro_done  : std_logic := '0';                 -- Compteur de 2 secondes *HUY*
+
+    signal score_value : integer range 0 to 18;            -- Points à voir *HUY*
+    signal score_tens  : integer range 0 to 1;             -- Partie décimale *HUY*
+    signal score_units : integer range 0 to 9;             -- Partie d'unité *HUY*
+
+begin
+
+    score_value &lt;= to_integer(unsigned(Points));
+    score_tens  &lt;= score_value / 10;
+    score_units &lt;= score_value mod 10;
+
+    -- Temporisation d'affichage "BRIC" pendant 2 secondes au lancement *HUY*
+    process(clk25, reset)
+    begin
+        if reset = '0' then
+            timer_intro &lt;= 0;
+            intro_done  &lt;= '0';
+        elsif rising_edge(clk25) then
+            if game_type = '1' then
+                timer_intro &lt;= 0;
+                intro_done  &lt;= '0';
+            elsif pause = '0' and intro_done = '0' then
+                if timer_intro = 49999999 then
+                    intro_done  &lt;= '1';
+                else
+                    timer_intro &lt;= timer_intro + 1;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -- Multiplexage temporel des 4 afficheurs 7 segments
+    process(clk25, reset)
+    begin
+        if reset = '0' then
+            counter &lt;= 0;
+            sel_seg &lt;= not "0000";
+            seg     &lt;= not "00000000";
+        elsif rising_edge(clk25) then
+            -- Gestion du Compteur
+            counter &lt;= counter + 1;
+            if (counter = 99999) then
+                counter &lt;= 0;
+            end if;
+
+            -- Affichage de "MANT" (Mode Manette)
+            if master_slave = '0' then
+                case (counter) is
+                    when 00000  =&gt; sel_seg &lt;= not "0001"; seg &lt;= not "01111000"; -- T
+                    when 25000  =&gt; sel_seg &lt;= not "0010"; seg &lt;= not "01010100"; -- N
+                    when 50000  =&gt; sel_seg &lt;= not "0100"; seg &lt;= not "01110111"; -- A
+                    when 75000  =&gt; sel_seg &lt;= not "1000"; seg &lt;= not "00110111"; -- M
+                    when others =&gt; NULL;
+                end case;
+
+            -- Affichage de "PAUS" (Mode Pause)
+            elsif pause = '1' then
+                case (counter) is
+                    when 00000  =&gt; sel_seg &lt;= not "0001"; seg &lt;= not "01101101"; -- S
+                    when 25000  =&gt; sel_seg &lt;= not "0010"; seg &lt;= not "00111110"; -- U
+                    when 50000  =&gt; sel_seg &lt;= not "0100"; seg &lt;= not "01110111"; -- A
+                    when 75000  =&gt; sel_seg &lt;= not "1000"; seg &lt;= not "01110011"; -- P
+                    when others =&gt; NULL;
+                end case;
+
+            -- Affichage de "PONG"
+            elsif game_type = '1' then
+                case (counter) is
+                    when 00000  =&gt; sel_seg &lt;= not "0001"; seg &lt;= not "01111101"; -- G
+                    when 25000  =&gt; sel_seg &lt;= not "0010"; seg &lt;= not "00110111"; -- N
+                    when 50000  =&gt; sel_seg &lt;= not "0100"; seg &lt;= not "00111111"; -- O
+                    when 75000  =&gt; sel_seg &lt;= not "1000"; seg &lt;= not "01110011"; -- P
+                    when others =&gt; NULL;
+                end case;
+
+            -- Affichage de "BRIC" pendant 2 secondes
+            elsif intro_done = '0' then
+                case (counter) is
+                    when 00000  =&gt; sel_seg &lt;= not "0001"; seg &lt;= not "00111001"; -- C
+                    when 25000  =&gt; sel_seg &lt;= not "0010"; seg &lt;= not "00010000"; -- I
+                    when 50000  =&gt; sel_seg &lt;= not "0100"; seg &lt;= not "01010000"; -- R
+                    when 75000  =&gt; sel_seg &lt;= not "1000"; seg &lt;= not "01111100"; -- B
+                    when others =&gt; NULL;
+                end case;
+
+            -- Affichage de SCORE (00XX)
+            else
+                case (counter) is
+                    when 00000 =&gt;
+                        sel_seg &lt;= not "0001";
+                        if score_units = 0 then
+                            seg &lt;= not "00111111";
+                        elsif score_units = 1 then
+                            seg &lt;= not "00000110";
+                        elsif score_units = 2 then
+                            seg &lt;= not "01011011";
+                        elsif score_units = 3 then
+                            seg &lt;= not "01001111";
+                        elsif score_units = 4 then
+                            seg &lt;= not "01100110";
+                        elsif score_units = 5 then
+                            seg &lt;= not "01101101";
+                        elsif score_units = 6 then
+                            seg &lt;= not "01111101";
+                        elsif score_units = 7 then
+                            seg &lt;= not "00000111";
+                        elsif score_units = 8 then
+                            seg &lt;= not "01111111";
+                        else
+                            seg &lt;= not "01101111";
+                        end if;
+
+                    when 25000 =&gt;
+                        sel_seg &lt;= not "0010";
+                        if score_tens = 0 then
+                            seg &lt;= not "00111111";
+                        else
+                            seg &lt;= not "00000110";
+                        end if;
+
+                    when 50000 =&gt;
+                        sel_seg &lt;= not "0100";
+                        seg     &lt;= not "00111111"; -- 0
+
+                    when 75000 =&gt;
+                        sel_seg &lt;= not "1000";
+                        seg     &lt;= not "00111111"; -- 0
+
+                    when others =&gt; NULL;
+                end case;
+            end if;
+        end if;
+    end process;
+
+end Behavioral;</code></pre>
+          </div>
+
+          <div class="code-container">
+            <div class="code-header">
+              <span>Top_Basys.vhd</span>
+              <span>VHDL</span>
+            </div>
+            <pre><code>----------------------------------------------------------------------------------
+-- Company: UPMC
+-- Engineer: Julien Denoulet
+--
+-- Module Principal - Casse Briques &amp; Pong
+----------------------------------------------------------------------------------
+library IEEE, work;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_unsigned.ALL;
+use work.pong_pack.all;
+
+entity top_baxys is
+    Port (
+        clk100                   : in  STD_LOGIC;                    -- Horloge 100 MHz
+        ouest                    : in  STD_LOGIC;                    -- Reset Asynchrone (Bouton Ouest)
+        nord, sud, est           : in  STD_LOGIC;                    -- Boutons Poussoir
+        centre                   : in  STD_LOGIC;                    -- Bouton Central (Demande de Pause)
+
+        S15, S3, S2, S1, S0      : in  STD_LOGIC;                    -- Switchs
+
+        rot_a_console            : in  STD_LOGIC;                    -- Encodeur Rotatif (Mode Console)
+        rot_b_console            : in  STD_LOGIC;                    -- Encodeur Rotatif (Mode Console)
+        rot_a_manette            : in  STD_LOGIC;                    -- Encodeur Rotatif (Mode Manette)
+        rot_b_manette            : in  STD_LOGIC;                    -- Encodeur Rotatif (Mode Manette)
+
+        tx_left                  : out std_logic;                    -- Emission Commande Gauche vers Autre Carte
+        rx_left                  : in  std_logic;                    -- Réception Commande Gauche d'une Autre Carte
+        tx_right                 : out std_logic;                    -- Emission Commande Droite vers Autre Carte
+        rx_right                 : in  std_logic;                    -- Réception Commande Droite d'une Autre Carte
+
+        hsync                    : out STD_LOGIC;                    -- Synchro Horizontale VGA
+        vsync                    : out STD_LOGIC;                    -- Synchro Verticale VGA
+        VGA_red                  : out STD_LOGIC_VECTOR(3 downto 0); -- Rouge VGA
+        VGA_green                : out STD_LOGIC_VECTOR(3 downto 0); -- Vert VGA
+        VGA_blue                 : out STD_LOGIC_VECTOR(3 downto 0); -- Bleu VGA
+
+        SS                       : out STD_LOGIC;                    -- Bus SPI Accéléromètre - Slave Select
+        SCLK                     : out STD_LOGIC;                    -- Bus SPI Accéléromètre - Clock
+        SDI                      : in  STD_LOGIC;                    -- Bus SPI Accéléromètre - Data Input
+        SDO                      : out STD_LOGIC;                    -- Bus SPI Accéléromètre - Data Output
+
+        SEL_SEG                  : out STD_LOGIC_VECTOR (3 downto 0); -- Selection de l'Afficheur
+        SEG                      : out STD_LOGIC_VECTOR (7 downto 0); -- Segments Afficheurs
+
+        led                      : out STD_LOGIC_VECTOR(11 downto 0) -- LEDs
+    );
+end top_baxys;
+
+architecture Behavioral of top_baxys is
+
+    signal clk25                 : std_logic;                    -- Horloge 25 MHz
+    signal reset                 : std_logic;                    -- Reset Asynchrone
+
+    signal display               : std_logic_vector(11 downto 0); -- Pour Affichage des LEDs
+
+    -- PARAMETRES DE JEU
+    signal game_rqt              : std_logic;                    -- Demande de Changement de Jeu (Appui sur un Bouton Poussoir)
+    signal master_slave          : std_logic;                    -- Mode Maitre (Console) ou Esclave (Manette)
+    signal master_slave_rqt      : std_logic;                    -- Demande de Changement de Mode (Appui sur un Bouton Poussoir)
+
+    -- SIGNAUX D'AFFICHAGE
+    signal xpos, ypos            : std_logic_vector(9 downto 0); -- Coordonnees Pixel Courant
+    signal visible               : std_logic;                    -- Zone Visible de l'Image
+    signal endframe              : std_logic;                    -- Fin Image Visible
+    signal VGA_red_i             : std_logic_vector(3 downto 0); -- Couleur R Fournie au VGA (sur 3x4 bits)
+    signal VGA_green_i           : std_logic_vector(3 downto 0); -- Couleur G Fournie au VGA (sur 3x4 bits)
+    signal VGA_blue_i            : std_logic_vector(3 downto 0); -- Couleur B Fournie au VGA (sur 3x4 bits)
+    signal red, green, blue      : std_logic_vector(3 downto 0); -- Consigne de Couleur des Objets à Afficher
+    signal variable_red          : std_logic_vector(3 downto 0); -- Consigne de Couleur RED variable (sur 4 bits)
+    signal variable_green        : std_logic_vector(3 downto 0); -- Consigne de Couleur GREEN variable (sur 4 bits)
+    signal variable_blue         : std_logic_vector(3 downto 0); -- Consigne de Couleur BLUE variable (sur 4 bits)
+    signal moving_color_cmd      : std_logic;                    -- Commande d'affichage des couleurs variables
+
+    -- SIGNAUX DES MANETTES DE JEU
+    signal manette               : std_logic;                    -- Selection Manette de Jeu (Encodeur / Accéléromètre)
+    signal rot_a, rot_b          : std_logic;                    -- Signaux de l'Encodeur Rotatif (Selon le Mode Choisi)
+    signal own_rot_left          : std_logic;                    -- Mouvement Gauche Encodeur Rotatif de la Carte
+    signal own_rot_right         : std_logic;                    -- Mouvement Droite Encodeur Rotatif de la Carte
+    signal own_left, own_right   : std_logic;                    -- Mouvement de Déplacement de la Carte
+    signal other_left            : std_logic;                    -- Mouvement Gauche de l'Autre Carte
+    signal other_right           : std_logic;                    -- Mouvement Droite de l'Autre Carte
+    signal own_press             : std_logic;                    -- Appui sur Bouton Pause
+    signal pause_rqt             : std_logic;                    -- Demande de Pause
+
+    -- SIGNAUX ACCELEROMETRE
+    signal Clk_Acc               : STD_LOGIC;                    -- Horloge Commandes Accéléromètre
+    signal own_acc_left          : STD_LOGIC;                    -- Commande Déplacement Gauche Accéléromètre
+    signal own_acc_right         : STD_LOGIC;                    -- Commande Déplacement Droite Accéléromètre
+
+    -- SIGNAUX OPTIONS DE JEU
+    signal game_type             : std_logic;                    -- Type de Jeu (0 = Casse Brique / 1 = Pong)
+    signal taille                : std_logic;                    -- Parametre Taille de la Raquette
+    signal speed                 : std_logic;                    -- Parametre Vitesse de la Balle
+    signal obstacle              : std_logic;                    -- Presence d'un Obstacle (Pong)
+    signal game_lost             : std_logic;                    -- Drapeau Partie Perdue
+    signal pause                 : std_logic;                    -- Mode Pause
+
+    -- SIGNAUX OBJETS DU JEU
+    signal bluebox               : std_logic;                    -- Pixel Courant = Case Bleue du Decor
+    signal left                  : std_logic;                    -- Pixel Courant = Bord Gauche de l'Ecran
+    signal right                 : std_logic;                    -- Pixel Courant = Bord Droit de l'Ecran
+    signal bottom                : std_logic;                    -- Pixel Courant = En Bas de l'Ecran
+    signal lost                  : std_logic;                    -- La Balle Va Sortir de l'Ecran
+    signal pad                   : std_logic;                    -- Pixel Courant = Raquette
+    signal ball                  : std_logic;                    -- Pixel Courant = Balle
+    signal wall_pong             : std_logic;                    -- Pixel Courant = Mur Jeu Pong
+    signal wall_brick            : std_logic;                    -- Pixel Courant = Mur Jeu Casse Briques
+    signal barrier               : std_logic;                    -- Pixel Courant = Obstacle
+    signal brick                 : tableau;                      -- Pixel Courant = Brique(i)(j)
+    signal brick_bounce          : tableau;                      -- Pixel Courant Rebondit Contre une Brique(i)(j)
+    signal Points                : std_logic_vector(4 downto 0); -- Signal de points *HUY*
+
+begin
+
+    -----------------------------------------------------------------------------------------
+    -- GENERATEURS D'HORLOGES
+    -----------------------------------------------------------------------------------------
+    clk25MHz: entity work.ClkDiv
+        port map (
+            clk100 =&gt; clk100, -- Horloge 100 MHz
+            reset  =&gt; reset,  -- Reset Asynchrone
+            clk25  =&gt; clk25   -- Horloge 25 MHz
+        );
+
+    clk25Hz: entity work.ClkAcc
+        port map (
+            clk100  =&gt; clk100, -- Horloge 100 MHz
+            reset   =&gt; reset,  -- Reset Asynchrone
+            Clk_Acc =&gt; Clk_Acc -- Horloge 25 Hz (Pour Traitement des Commandes Accéléromètre)
+        );
+
+    -----------------------------------------------------------------------------------------
+    -- GESTION DES ENTREES/SORTIES DE LA CARTE
+    -----------------------------------------------------------------------------------------
+    -- Switch S0: 0 = Systeme OFF / 1 = Systeme ON
+    -- Reset Asynchrone Connecte au Bouton Ouest
+    reset &lt;= (not ouest) and S0;
+
+    -- CONTROLEUR DES INTERRUPTEURS
+    switch: entity work.switch_mgr
+        port map (
+            S15      =&gt; S15,
+            S3       =&gt; S3,
+            S2       =&gt; S2,
+            S1       =&gt; S1,
+            taille   =&gt; taille,
+            speed    =&gt; speed,
+            obstacle =&gt; obstacle,
+            manette  =&gt; manette
+        );
+
+    -- CONTROLEUR DES BOUTONS POUSSOIRS
+    buttons: entity work.button_mgr
+        port map (
+            clk25          =&gt; clk25,            -- Horloge
+            reset          =&gt; reset,            -- Reset Asynchrone
+            nord           =&gt; nord,             -- Bouton Nord
+            sud            =&gt; sud,              -- Bouton Sud
+            est            =&gt; est,              -- Bouton Est
+            press_sud      =&gt; master_slave_rqt, -- Demande de Changement de Mode (Bouton Sud)
+            press_nord_est =&gt; game_rqt          -- Demande de Changement de Jeu (Bouton Nord ou Est)
+        );
+
+    -- AFFICHEURS 7 SEGMENTS
+    aff: entity work.aff_mgr_basys
+        port map (
+            clk25        =&gt; clk25,        -- Horloge 25 MHz
+            reset        =&gt; reset,        -- Reset Asynchrone
+            pause        =&gt; pause,        -- Commande Pause
+            master_slave =&gt; master_slave, -- Mode Maitre (Console) ou Esclave (Manette)
+            game_type    =&gt; game_type,    -- Type de Jeu (Pong / Casse-Briques)
+            sel_seg      =&gt; sel_seg,      -- Selection de l'Afficheur
+            Points       =&gt; Points,       -- Signal de points *HUY*
+            seg          =&gt; seg           -- Valeur des Segments de l'Afficheur
+        );
+
+    -- Sélection de l'Entrée à Utiliser pour l'Encodeur Rotatif
+    -- En Fonction du Mode Console (PMOD B) ou Manette (PMOD C)
+    rot_a &lt;= rot_a_console when master_slave = '1' else rot_a_manette;
+    rot_b &lt;= rot_b_console when master_slave = '1' else rot_b_manette;
+
+    -- CONTROLEUR DE L'ENCODEUR ROTATIF DE LA CARTE
+    codeur: entity work.ip_rotary
+        port map (
+            clk25     =&gt; clk25,        -- Horloge
+            reset     =&gt; reset,        -- Reset Asynchrone
+            rot_a     =&gt; rot_a,        -- Switch A du Codeur
+            rot_b     =&gt; rot_b,        -- Switch B du Codeur
+            rot_left  =&gt; own_rot_left, -- Commande de Rotation a Gauche
+            rot_right =&gt; own_rot_right -- Commande de Rotation a Droite
+        );
+
+    -----------------------------------------------------------------------------------------
+    -- GESTION ACCELEROMETRE
+    -----------------------------------------------------------------------------------------
+    accelero_mgr: entity work.accelero_mgr(Behavioral)
+        port map (
+            clk25         =&gt; clk25,         -- Horloge
+            reset         =&gt; RESET,         -- Reset
+
+            -- Accelerometer data signals
+            own_acc_left  =&gt; own_acc_left,  -- Commande de Déplacement à Gauche
+            own_acc_right =&gt; own_acc_right, -- Commande de Déplacement à Droite
+
+            -- SPI Interface Signals
+            SCLK          =&gt; SCLK,          -- Serial Clock
+            SDO           =&gt; SDO,           -- Data Output
+            SDI           =&gt; SDI,           -- Data Input
+            SS            =&gt; SS             -- Slave Select
+        );
+
+    -----------------------------------------------------------------------------------------
+    -- Choix de la Manette par le Switch S15 (Manette)
+    --   - 0 --&gt; Encodeur Rotatif
+    --   - 1 --&gt; Accéléromètre
+    own_left  &lt;= own_acc_left  when manette = '1' else own_rot_left;
+    own_right &lt;= own_acc_right when manette = '1' else own_rot_right;
+
+    -- Envoi des Commandes de Déplacement (pour le Mode Manette)
+    tx_left  &lt;= own_left;
+    tx_right &lt;= own_right;
+
+    -- Acquisition des Commandes de Déplacement d'une Autre Carte Utilisée comme Manette
+    other_left  &lt;= rx_left;
+    other_right &lt;= rx_right;
+
+    -- Gestion de la Pause: Seule la Carte Maitre Peut Mettre le Jeu en Pause
+    own_press &lt;= centre;
+    pause_rqt &lt;= own_press;
+
+    -----------------------------------------------------------------------------------------
+    -- GESTION DES LEDS
+    --   LED Allumees Si On Est en Mode Maitre (Console)
+    --   LED Eteintes Si On Est en Mode Esclave (Manette)
+    -----------------------------------------------------------------------------------------
+    display &lt;= (others =&gt; '1') when (S0 = '1' and master_slave = '1')
+               else (others =&gt; '0');
+
+    led &lt;= display;
+
+    -----------------------------------------------------------------------------------------
+    -- GESTION DES OBJETS
+    -----------------------------------------------------------------------------------------
+    obj_ctrl: entity work.objects
+        port map (
+            clk25        =&gt; clk25,        -- Horloge 25 MHz
+            clk_acc      =&gt; Clk_Acc,      -- Horloge pour les Commandes Accéléromètre
+            reset        =&gt; reset,        -- Reset Asynchrone
+            endframe     =&gt; endframe,     -- Fin de l'Image Visible
+            xpos         =&gt; xpos,         -- Coordonnee X du Pixel Courant
+            ypos         =&gt; ypos,         -- Coordonnee Y du Pixel Courant
+
+            own_left     =&gt; own_left,     -- Commande Deplacement Gauche Codeur de la Carte
+            own_right    =&gt; own_right,    -- Commande Deplacement Droite Codeur de la Carte
+            other_left   =&gt; other_left,   -- Commande Deplacement Gauche Codeur Autre Carte
+            other_right  =&gt; other_right,  -- Commande Deplacement Droite Codeur Autre Carte
+
+            game_type    =&gt; game_type,    -- Choix du Type de Jeu
+            manette      =&gt; manette,      -- Selection Manette (Encodeur vs Accéléromètre)
+            taille       =&gt; taille,       -- Parametre Taille
+            speed        =&gt; speed,        -- Vitesse du Jeu
+            obstacle     =&gt; obstacle,     -- Presence d'un Obstacle
+            pause        =&gt; pause,        -- Commande Mode Pause
+            game_lost    =&gt; game_lost,    -- Mode Echec
+            bluebox      =&gt; bluebox,      -- Pixel Courant = Case Bleue
+            left         =&gt; left,         -- Pixel Courant = Gauche de l'Ecran
+            right        =&gt; right,        -- Pixel Courant = Droite de l'Ecran
+            bottom       =&gt; bottom,       -- Pixel Courant = Bas de l'Ecran
+            wall_pong    =&gt; wall_pong,    -- Pixel Courant = Mur Jeu Pong
+            wall_brick   =&gt; wall_brick,   -- Pixel Courant = Mur Jeu Casse Briques
+            barrier      =&gt; barrier,      -- Pixel Courant = Obstacle
+            pad          =&gt; pad,          -- Pixel Appartient a la Raquette
+            brick        =&gt; brick,        -- Pixel Courant = Brique
+            brick_bounce =&gt; brick_bounce, -- Rebond Contre une Brique
+            ball         =&gt; ball,         -- Pixel Courant = Balle
+            Points       =&gt; Points        -- Signal de points *HUY*
+        );
+
+    -- Génération Signal de Commande d'Affichage d'une Couleur Variable
+    -- Mise à 1 si le Pixel Courant Appartient à une Brique, Mise à 0 sinon
+    process(brick)
+    begin
+        moving_color_cmd &lt;= '0';
+        for i in 0 to 1 loop
+            for j in 0 to 8 loop
+                if brick(i)(j) = '1' then
+                    moving_color_cmd &lt;= '1';
+                end if;
+            end loop;
+        end loop;
+    end process;
+
+    -----------------------------------------------------------------------------------------
+    -- GESTION DU JEU
+    -----------------------------------------------------------------------------------------
+    lost &lt;= ball and (bottom or left or right); -- La Balle Sort de l'Ecran Si Elle Atteint un des Bords
+
+    game_ctrl: entity work.game
+        port map (
+            clk25            =&gt; clk25,            -- Horloge 25 MHz
+            reset            =&gt; reset,            -- Reset Asynchrone
+            master_slave_rqt =&gt; master_slave_rqt, -- Demande de Changement de Mode (Console / Manette)
+            game_rqt         =&gt; game_rqt,         -- Demande de Changement de Jeu (Pong / Casse Briques)
+            pause_rqt        =&gt; pause_rqt,        -- Demande de Pause - Appui sur Bouton Centre
+            endframe         =&gt; endframe,         -- Fin de l'Image Visible
+            visible          =&gt; visible,          -- Zone Visible de l'Image
+            wall_pong        =&gt; wall_pong,        -- Pixel Courant = Mur Jeu Pong
+            wall_brick       =&gt; wall_brick,       -- Pixel Courant = Mur Jeu Casse Briques
+            barrier          =&gt; barrier,          -- Pixel Courant = Obstacle
+            lost             =&gt; lost,             -- La Balle Sort de l'Ecran
+            bluebox          =&gt; bluebox,          -- Pixel Courant = Case Bleue
+            pad              =&gt; pad,              -- Pixel Courant = Raquette
+            ball             =&gt; ball,             -- Pixel Courant = Balle
+            brick            =&gt; brick,            -- Pixel Courant = Brique
+            red              =&gt; red(3),           -- Commande Affichage Rouge
+            green            =&gt; green(3),         -- Commande Affichage Vert
+            blue             =&gt; blue(3),          -- Commande Affichage Bleu
+            brick_bounce     =&gt; brick_bounce,     -- Rebond Contre une Brique
+            master_slave     =&gt; master_slave,     -- Selection Mode Esclave / Maitre
+            game_type        =&gt; game_type,        -- Selection du Type de Jeu
+            game_lost        =&gt; game_lost,        -- Timer du Mode Partie Perdue
+            pause            =&gt; pause             -- Mode Pause
+        );
+
+    -----------------------------------------------------------------------------------------
+    -- CONTROLEUR VGA 4 BITS &amp; COULEURS DYNAMIQUES
+    -----------------------------------------------------------------------------------------
+    vga_ctrl: entity work.VGA_4bits
+        port map (
+            clk25    =&gt; clk25,       -- Horloge 25 MHz
+            reset    =&gt; reset,       -- Reset Asynchrone
+            r        =&gt; VGA_red_i,   -- Commande Affichage Rouge
+            g        =&gt; VGA_green_i, -- Commande Affichage Vert
+            b        =&gt; VGA_blue_i,  -- Commande Affichage Bleu
+            red      =&gt; VGA_red,     -- Affichage Pixel Rouge
+            green    =&gt; VGA_green,   -- Affichage Pixel Vert
+            blue     =&gt; VGA_blue,    -- Affichage Pixel Bleu
+            vsync    =&gt; vsync,       -- Synchro Verticale
+            hsync    =&gt; hsync,       -- Synchro Horizontale
+            visible  =&gt; visible,     -- Zone Visible de l'Image
+            endframe =&gt; endframe,    -- Fin de l'Image Visible
+            xpos     =&gt; xpos,        -- Coordonnee X du Pixel Courant
+            ypos     =&gt; ypos         -- Coordonnee Y du Pixel Courant
+        );
+
+    -- INSTANCIATION MODULE DE GENERATION DE COULEURS VARIABLES
+    ColorGen: entity work.Moving_Colors
+        port map (
+            CLK_100M  =&gt; clk100,         -- Horloge 100 MHz
+            Reset     =&gt; reset,          -- Reset Asynchrone
+            RED_OUT   =&gt; variable_red,   -- Consigne Couleur Rouge
+            GREEN_OUT =&gt; variable_green, -- Consigne Couleur Verte
+            BLUE_OUT  =&gt; variable_blue   -- Consigne Couleur Bleue
+        );
+
+    -- CONSIGNE DE COULEUR ENVOYEE AU CONTROLEUR VGA
+    VGA_red_i   &lt;= "0000"       when master_slave = '0' else     -- Noir Si on Est en Mode Manette
+                   variable_red when (moving_color_cmd = '1')    -- Sinon Couleur Variable si Commande Activée
+                   else red;                                     -- Sinon Consigne ROUGE Standard
+
+    VGA_green_i &lt;= "0000"         when master_slave = '0' else   -- Noir Si on Est en Mode Manette
+                   variable_green when (moving_color_cmd = '1')  -- Sinon Couleur Variable si Commande Activée
+                   else green;                                   -- Sinon Consigne VERTE Standard
+
+    VGA_blue_i  &lt;= "0000"        when master_slave = '0' else    -- Noir Si on Est en Mode Manette
+                   variable_blue when (moving_color_cmd = '1')   -- Sinon Couleur Variable si Commande Activée
+                   else blue;                                    -- Sinon Consigne BLEUE Standard
+
+end Behavioral;</code></pre>
+          </div>
+
+          <!-- Ô DÁN VIDEO DEMO THỰC TẾ -->
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Obstacle_mobile.png"
+            >
+              <source
+                src="/assets/TP_Elec/Obstacle_mobile.webm"
+                type="video/webm"
+              />
+              <source
+                src="/assets/TP_Elec/Obstacle_mobile.mp4"
+                type="video/mp4"
+              />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>
+              Vidéo 8 : Fonctionnement de l'Obstacle Mobile.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Jeux_Obstacle_mobile.png"
+            >
+              <source
+                src="/assets/TP_Elec/Jeux_Obstacle_mobile.webm"
+                type="video/webm"
+              />
+              <source
+                src="/assets/TP_Elec/Jeux_Obstacle_mobile.mp4"
+                type="video/mp4"
+              />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>
+              Vidéo 9 : Fonctionnement de Jeux d'Obstacle Mobile.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Compteur_Demo.png"
+            >
+              <source
+                src="/assets/TP_Elec/Compteur_Demo.webm"
+                type="video/webm"
+              />
+              <source
+                src="/assets/TP_Elec/Compteur_Demo.mp4"
+                type="video/mp4"
+              />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>Vidéo 10 : Compteur de points (Demo).</figcaption>
+          </figure>
+
+          <figure>
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster="/assets/TP_Elec/Poster_Win_Compteur.png"
+            >
+              <source
+                src="/assets/TP_Elec/Win_Compteur.webm"
+                type="video/webm"
+              />
+              <source src="/assets/TP_Elec/Win_Compteur.mp4" type="video/mp4" />
+              Votre navigateur ne prend pas en charge la lecture de vidéos.
+            </video>
+            <figcaption>
+              Vidéo 11 : Fonctionnement du Compteur de points (Win).
+            </figcaption>
+          </figure>
+
+          <figure>
+            <a
+              href="https://drive.google.com/file/d/1ArNkbsLkbv9pHNT-rL3mr1j7hctey1wa/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="display: block; position: relative; text-decoration: none"
+            >
+              <img
+                src="/assets/TP_Elec/Thumbnail_GG_Drive.png"
+                alt="Démonstration matérielle sur carte FPGA Basys 3"
+                style="width: 100%; border-radius: 8px; display: block"
+              />
+              <span
+                style="
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  background: rgba(15, 23, 42, 0.85);
+                  color: #ffffff;
+                  padding: 12px 22px;
+                  border-radius: 999px;
+                  font-weight: 600;
+                  font-size: 0.95rem;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+                  white-space: nowrap;
+                "
+              >
+                ▶ Voir la vidéo (Google Drive)
+              </span>
+            </a>
+            <figcaption>
+              Vidéo 12 : Démonstration complète du jeu sur carte Basys 3 (cliquez
+              pour ouvrir sur Google Drive).
+            </figcaption>
+          </figure>
+
+          <!-- LƯỚI 2 Ô DÁN ẢNH CHỤP MẠCH THỰC TẾ -->
+          <div class="grid-2">
+            <figure>
+              <img
+                src="/assets/TP_Elec/Carte_Basys_ACC_ENC.jpg"
+                alt="Montage matériel Basys 3"
+              />
+              <figcaption>
+                Montage matériel : Carte Basys 3 avec encodeur rotatif et
+                accéléromètre.
+              </figcaption>
+            </figure>
+            <figure>
+              <img
+                src="/assets/TP_Elec/Partie_Ecran_TV.png"
+                alt="Affichage VGA sur écran TV"
+              />
+              <figcaption>
+                Partie en cours sur écran TV (pas de compteurs de points).
+              </figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- SECTION 5 : NAVIGATION DE PIED DE PAGE -->
+        <footer class="bottom-nav">
+          <a href="../index.html">← Retour à l'accueil</a>
+          <a href="https://github.com/huykienphap-source/portfolio.git" target="_blank" rel="noopener"
+            >Consulter le code source sur GitHub ↗</a
+          >
+        </footer>
+      </div>
+    </main>
+
+    <!-- Đường dẫn trỏ đúng vào file project_detail.js của bạn -->
+    <script src="../js/project_detail.js"></script>
+    <script>
+      document.querySelectorAll("video").forEach((video) => {
+        video.addEventListener("ended", () => {
+          video.load();
+        });
+      });
+    </script>
+  </body>
+</html>
